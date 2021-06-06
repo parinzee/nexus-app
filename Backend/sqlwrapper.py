@@ -78,4 +78,43 @@ def listItems(itemType):
         pass
 
     events = cur.fetchall()
+    db.commit()
+    db.close()
     return events
+
+def deleteItem(index, itemType):
+    db = sqlite3.connect('main.db')
+    cur = db.cursor()
+
+    if itemType == "events":
+        cur.execute('''CREATE TABLE IF NOT EXISTS events(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute("DELETE FROM events WHERE id=?", index)
+
+    elif itemType == "activities":
+        cur.execute('''CREATE TABLE IF NOT EXISTS activities(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute("DELETE FROM activities WHERE id=?", index)
+
+    elif itemType == "competitions":
+        cur.execute('''CREATE TABLE IF NOT EXISTS competitions(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute("DELETE FROM competitions WHERE id=?", index)
+    
+    else:
+        pass
+
+    db.commit()
+    db.close()
