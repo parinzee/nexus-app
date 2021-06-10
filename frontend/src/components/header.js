@@ -1,3 +1,4 @@
+import "../assets/";
 const header = () => {
     return (
         <div className="header">
