@@ -11,7 +11,7 @@ body {
 
 .App {
     .header {
-        padding-top: 2em;
+        padding-top: 6em;
         margin: 0 auto;
 
         #header-logo {
@@ -42,8 +42,9 @@ body {
             }
             #text-lower {
                 margin: 0;
-                letter-spacing: 0.2em;
-                font-size: 4em;
+                letter-spacing: 0.1em;
+                font-size: 4.25em;
+                transform: scale(1, 0.8);
             }
         }
     }
