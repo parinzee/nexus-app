@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Now;
+  src: url("./assets/fonts/NowAlt-Light.otf") format("opentype");
+}
+
 body {
   background-color: #191919;
   color: white;
@@ -44,19 +49,26 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   text-align: left;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
 }
 
 .App .header #header-text #text-upper {
+  font-family: Now;
   margin: 0;
   margin-top: 0.7em;
-  font-size: 1em;
+  padding: 0;
+  font-size: 1.1em;
 }
 
 .App .header #header-text #text-lower {
   margin: 0;
+  padding: 0;
   letter-spacing: 0.1em;
-  font-size: 4.25em;
-  -webkit-transform: scale(1, 0.8);
-          transform: scale(1, 0.8);
+  font-size: 4.1em;
+  -webkit-transform: scale(1, 0.75);
+          transform: scale(1, 0.75);
 }
 /*# sourceMappingURL=index.css.map */
