@@ -1,10 +1,60 @@
 body {
-    background-color: rgb(25, 25, 25);
-    color: white;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  background-color: #191919;
+  color: white;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+.App .header {
+  padding-top: 2em;
+  margin: 0 auto;
+}
+
+.App .header #header-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-right: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+.App .header #header-logo img {
+  max-width: 104px;
+  max-height: 104px;
+}
+
+.App .header #header-text {
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+}
+
+.App .header #header-text #text-upper {
+  margin: 0;
+  margin-top: 0.7em;
+  font-size: 1em;
+}
+
+.App .header #header-text #text-lower {
+  margin: 0;
+  letter-spacing: 0.2em;
+  font-size: 4em;
+}
+/*# sourceMappingURL=index.css.map */
