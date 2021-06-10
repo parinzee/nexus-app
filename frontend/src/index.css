@@ -78,6 +78,10 @@ body {
   display: flex;
 }
 
+.App .menu #1.menu-select-1 {
+  background-color: #fccf0f;
+}
+
 .App .menu .menu-select-1 {
   margin: 0;
   padding: 0;

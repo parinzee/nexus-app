@@ -1,6 +1,6 @@
 const MenuSelect1 = ({ id, image, text }) => {
     return (
-        <div className="menu-select-1" id={id}>
+        <div id={id} className="menu-select-1">
             <img src={image} alt="" />
             <p>{text}</p>
         </div>
