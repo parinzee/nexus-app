@@ -1,9 +1,11 @@
 import Header from "./components/Header";
+import Menu from "./components/Menu";
+
 function App() {
     return (
         <div className="App">
             <Header />
-            <div className="menu"></div>
+            <Menu />
         </div>
     );
 }

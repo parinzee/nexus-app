@@ -71,4 +71,18 @@ body {
   -webkit-transform: scale(1, 0.75);
           transform: scale(1, 0.75);
 }
+
+.App .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.App .menu .menu-select-1 {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 /*# sourceMappingURL=index.css.map */
