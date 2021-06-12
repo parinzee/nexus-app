@@ -65,7 +65,6 @@ body {
         }
     }
     .menu {
-        padding-top: 2em;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -73,12 +72,33 @@ body {
         align-content: center;
 
         #links {
+            margin-top: 30px;
             display: flex;
             max-width: clamp(100px, 85%, 625px);
             max-height: 400px;
             flex-direction: row;
             background-color: #fccf04;
             border-radius: 16px;
+            font-size: clamp(10px, 12vw, 85px);
+        }
+
+        #events {
+            margin-top: 30px;
+            display: flex;
+            max-width: clamp(100px, 85%, 625px);
+            max-height: 400px;
+            flex-direction: row-reverse;
+            background-color: #ff5758;
+            border-radius: 16px;
+            font-size: clamp(10px, 6.5vw, 55px);
+
+            .menu-text {
+                padding-left: 20px;
+            }
+
+            .menu-image {
+                width: clamp(160px, 100%, 1000px);
+            }
         }
 
         .menu-image {
@@ -86,7 +106,6 @@ body {
         }
 
         .menu-text {
-            font-size: clamp(10px, 12vw, 85px);
             font-family: "Open Sans", sans-serif;
             align-self: center;
         }
