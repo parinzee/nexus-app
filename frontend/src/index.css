@@ -132,12 +132,9 @@ body {
   padding-left: 20px;
 }
 
-.App .menu #events .menu-image {
-  width: clamp(160px, 100%, 1000px);
-}
-
 .App .menu .menu-image {
   width: clamp(160px, 50%, 277px);
+  max-height: 156px;
 }
 
 .App .menu .menu-text {

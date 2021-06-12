@@ -95,14 +95,11 @@ body {
             .menu-text {
                 padding-left: 20px;
             }
-
-            .menu-image {
-                width: clamp(160px, 100%, 1000px);
-            }
         }
 
         .menu-image {
             width: clamp(160px, 50%, 277px);
+            max-height: 156px;
         }
 
         .menu-text {
