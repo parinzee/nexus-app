@@ -1,6 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
 @font-face {
   font-family: Now;
   src: url("./assets/fonts/NowAlt-Light.otf") format("opentype");
+}
+
+p {
+  padding: 0;
+  margin: 0;
 }
 
 body {
@@ -13,7 +19,7 @@ body {
 }
 
 .App .header {
-  padding-top: 6em;
+  padding-top: clamp(30px, 10vh, 50px);
   margin: 0 auto;
 }
 
@@ -73,20 +79,44 @@ body {
 }
 
 .App .menu {
+  padding-top: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
-.App .menu #1.menu-select-1 {
-  background-color: #fccf0f;
-}
-
-.App .menu .menu-select-1 {
-  margin: 0;
-  padding: 0;
+.App .menu #links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  max-width: clamp(100px, 85%, 625px);
+  max-height: 400px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #fccf04;
+  border-radius: 1em;
+}
+
+.App .menu .menu-image {
+  width: clamp(160px, 50%, 277px);
+}
+
+.App .menu .menu-text {
+  font-size: clamp(10px, 12vw, 85px);
+  font-family: "Open Sans", sans-serif;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 /*# sourceMappingURL=index.css.map */

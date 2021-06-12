@@ -1,6 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
 @font-face {
     font-family: Now;
     src: url("./assets/fonts/NowAlt-Light.otf") format("opentype");
+}
+
+p {
+    padding: 0;
+    margin: 0;
 }
 
 body {
@@ -16,7 +22,7 @@ body {
 
 .App {
     .header {
-        padding-top: 6em;
+        padding-top: clamp(30px, 10vh, 50px);
         margin: 0 auto;
 
         #header-logo {
@@ -59,14 +65,30 @@ body {
         }
     }
     .menu {
+        padding-top: 2em;
         display: flex;
-        #1.menu-select-1 {
-            background-color: #fccf0f;
-        }
-        .menu-select-1 {
-            margin: 0;
-            padding: 0;
+        margin-right: 0;
+        justify-content: center;
+        text-align: center;
+        flex-direction: row;
+
+        #links {
             display: flex;
+            max-width: clamp(100px, 85%, 625px);
+            max-height: 400px;
+            flex-direction: row;
+            background-color: #fccf04;
+            border-radius: 1em;
+        }
+
+        .menu-image {
+            width: clamp(160px, 50%, 277px);
+        }
+
+        .menu-text {
+            font-size: clamp(10px, 12vw, 85px);
+            font-family: "Open Sans", sans-serif;
+            align-self: center;
         }
     }
 }
