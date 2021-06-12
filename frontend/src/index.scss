@@ -67,10 +67,10 @@ body {
     .menu {
         padding-top: 2em;
         display: flex;
-        margin-right: 0;
+        flex-direction: column;
         justify-content: center;
-        text-align: center;
-        flex-direction: row;
+        align-items: center;
+        align-content: center;
 
         #links {
             display: flex;
@@ -78,7 +78,7 @@ body {
             max-height: 400px;
             flex-direction: row;
             background-color: #fccf04;
-            border-radius: 1em;
+            border-radius: 16px;
         }
 
         .menu-image {
