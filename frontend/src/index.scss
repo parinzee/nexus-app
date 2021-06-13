@@ -71,35 +71,49 @@ body {
         align-items: center;
         align-content: center;
 
+        #activities {
+            background-color: #5071f6;
+        }
+
         #links {
+            background-color: #fccf04;
+        }
+
+        #links,
+        #activities {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 625px);
+            max-width: clamp(100px, 85%, 535px);
             max-height: 400px;
             flex-direction: row;
-            background-color: #fccf04;
             border-radius: 16px;
             font-size: clamp(10px, 12vw, 85px);
+
+            .menu-text {
+                font-size: clamp(10px, 6vw, 50px);
+            }
         }
 
         #events {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 625px);
+            max-width: clamp(100px, 85%, 535px);
             max-height: 400px;
             flex-direction: row-reverse;
             background-color: #ff5758;
             border-radius: 16px;
-            font-size: clamp(10px, 6.5vw, 55px);
 
             .menu-text {
-                padding-left: 20px;
+                padding-left: 30px;
+                font-size: clamp(10px, 6vw, 50px);
             }
         }
 
         .menu-image {
+            display: block;
             width: clamp(160px, 50%, 277px);
             max-height: 156px;
+            min-width: 220px;
         }
 
         .menu-text {
