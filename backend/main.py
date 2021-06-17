@@ -2,20 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from os import environ
 from sqlwrapper import insertItem, listItems, deleteItem
-from pydantic import ValidationError, validator, BaseModel
 
 app = FastAPI()
-
-class Item(BaseModel):
-    eventTitle: str
-    eventDesc: str
-    itemType: str
-
-    @validator("itemType")
-    def validType(cls, v):
-        if v != "activities" and v != "events" and v != "competitions":
-            raise ValidationError("It must be activities, events, or competitions")
-        return v
 
 @app.get("/")
 async def listItem():
@@ -26,10 +14,8 @@ async def listItem():
     return items
 
 @app.post("/insertItem/")
-async def insert(item: Item):
-    item = dict(item)
-    eventName, eventDate, itemType = item.values()
-    insertItem(eventName, eventDate, itemType)
+async def insert(eventName: str, eventDesc: str, itemType:str):
+    insertItem(eventName, eventDesc, itemType)
     return "Success"
 
 
