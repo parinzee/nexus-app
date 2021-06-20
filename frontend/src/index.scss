@@ -96,7 +96,7 @@ body {
         #competitions {
             background-color: #ff9151;
             .menu-text {
-                margin-left: 20px;
+                margin-left: 10px;
                 font-size: clamp(10px, 5vw, 35px);
             }
         }
@@ -124,7 +124,6 @@ body {
 
         .menu-image {
             display: block;
-            // width: clamp(160px, 50%, 277px);
             width: auto;
             height: auto;
             max-height: 120px;

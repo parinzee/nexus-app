@@ -126,7 +126,7 @@ body {
 }
 
 .App .menu #competitions .menu-text {
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: clamp(10px, 5vw, 35px);
 }
 
