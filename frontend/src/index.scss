@@ -22,7 +22,7 @@ body {
 
 .App {
     .header {
-        padding-top: clamp(30px, 10vh, 50px);
+        padding-top: clamp(30px, 9vh, 45px);
         margin: 0 auto;
 
         #header-logo {
@@ -74,7 +74,7 @@ body {
         #activities {
             background-color: #5071f6;
             .menu-text {
-                font-size: clamp(10px, 6vw, 35px);
+                font-size: clamp(10px, 6vw, 40px);
             }
         }
 
@@ -93,29 +93,37 @@ body {
             }
         }
 
+        #competitions {
+            background-color: #ff9151;
+            .menu-text {
+                margin-left: 10px;
+                font-size: clamp(10px, 5vw, 35px);
+            }
+        }
+
         #links,
         #activities {
-            margin-top: 30px;
+            margin-top: 25px;
             display: flex;
-            max-width: clamp(100px, 85%, 364px);
-            max-height: 100px;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
             flex-direction: row;
             border-radius: 16px;
             font-size: clamp(10px, 12vw, 85px);
         }
 
-        #events {
-            margin-top: 30px;
+        #events,
+        #competitions {
+            margin-top: 25px;
             display: flex;
-            max-width: clamp(100px, 85%, 364px);
-            max-height: 400px;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
             flex-direction: row-reverse;
             border-radius: 16px;
         }
 
         .menu-image {
             display: block;
-            // width: clamp(160px, 50%, 277px);
             width: auto;
             height: auto;
             max-height: 120px;

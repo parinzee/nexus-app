@@ -4,6 +4,7 @@ import MenuSelector from "./MenuSelector";
 import sleepingMan from "../assets/sleepingMan.gif";
 import typingMan from "../assets/typingMan.gif";
 import AGuy from "../assets/A+Guy.gif";
+import teacher from "../assets/teacher.gif";
 
 const Menu = () => {
     return (
@@ -18,6 +19,11 @@ const Menu = () => {
                 id="activities"
                 image={AGuy}
                 text="UPCOMING ACTIVITIES"
+            />
+            <MenuSelector
+                id="competitions"
+                image={teacher}
+                text="QUARTERLY COMPETITIONS"
             />
         </div>
     );
