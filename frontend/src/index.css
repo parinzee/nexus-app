@@ -100,8 +100,25 @@ body {
   background-color: #5071f6;
 }
 
+.App .menu #activities .menu-text {
+  font-size: clamp(10px, 6vw, 35px);
+}
+
 .App .menu #links {
   background-color: #fccf04;
+}
+
+.App .menu #links .menu-text {
+  font-size: clamp(10px, 8vw, 50px);
+}
+
+.App .menu #events {
+  background-color: #ff5758;
+}
+
+.App .menu #events .menu-text {
+  padding-left: 30px;
+  font-size: clamp(10px, 6vw, 40px);
 }
 
 .App .menu #links,
@@ -110,8 +127,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: clamp(100px, 85%, 535px);
-  max-height: 400px;
+  max-width: clamp(100px, 85%, 364px);
+  max-height: 100px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -120,36 +137,26 @@ body {
   font-size: clamp(10px, 12vw, 85px);
 }
 
-.App .menu #links .menu-text,
-.App .menu #activities .menu-text {
-  font-size: clamp(10px, 6vw, 50px);
-}
-
 .App .menu #events {
   margin-top: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: clamp(100px, 85%, 535px);
+  max-width: clamp(100px, 85%, 364px);
   max-height: 400px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
-  background-color: #ff5758;
   border-radius: 16px;
-}
-
-.App .menu #events .menu-text {
-  padding-left: 30px;
-  font-size: clamp(10px, 6vw, 50px);
 }
 
 .App .menu .menu-image {
   display: block;
-  width: clamp(160px, 50%, 277px);
-  max-height: 156px;
-  min-width: 220px;
+  width: auto;
+  height: auto;
+  max-height: 120px;
+  max-width: clamp(160px, 50%, 277px);
 }
 
 .App .menu .menu-text {

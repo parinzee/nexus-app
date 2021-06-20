@@ -73,47 +73,53 @@ body {
 
         #activities {
             background-color: #5071f6;
+            .menu-text {
+                font-size: clamp(10px, 6vw, 35px);
+            }
         }
 
         #links {
             background-color: #fccf04;
+            .menu-text {
+                font-size: clamp(10px, 8vw, 50px);
+            }
+        }
+
+        #events {
+            background-color: #ff5758;
+            .menu-text {
+                padding-left: 30px;
+                font-size: clamp(10px, 6vw, 40px);
+            }
         }
 
         #links,
         #activities {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 535px);
-            max-height: 400px;
+            max-width: clamp(100px, 85%, 364px);
+            max-height: 100px;
             flex-direction: row;
             border-radius: 16px;
             font-size: clamp(10px, 12vw, 85px);
-
-            .menu-text {
-                font-size: clamp(10px, 6vw, 50px);
-            }
         }
 
         #events {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 535px);
+            max-width: clamp(100px, 85%, 364px);
             max-height: 400px;
             flex-direction: row-reverse;
-            background-color: #ff5758;
             border-radius: 16px;
-
-            .menu-text {
-                padding-left: 30px;
-                font-size: clamp(10px, 6vw, 50px);
-            }
         }
 
         .menu-image {
             display: block;
-            width: clamp(160px, 50%, 277px);
-            max-height: 156px;
-            min-width: 220px;
+            // width: clamp(160px, 50%, 277px);
+            width: auto;
+            height: auto;
+            max-height: 120px;
+            max-width: clamp(160px, 50%, 277px);
         }
 
         .menu-text {
