@@ -74,7 +74,7 @@ body {
         #activities {
             background-color: #5071f6;
             .menu-text {
-                font-size: clamp(10px, 6vw, 35px);
+                font-size: clamp(10px, 6vw, 40px);
             }
         }
 
@@ -97,8 +97,8 @@ body {
         #activities {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 364px);
-            max-height: 100px;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
             flex-direction: row;
             border-radius: 16px;
             font-size: clamp(10px, 12vw, 85px);
@@ -107,8 +107,8 @@ body {
         #events {
             margin-top: 30px;
             display: flex;
-            max-width: clamp(100px, 85%, 364px);
-            max-height: 400px;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
             flex-direction: row-reverse;
             border-radius: 16px;
         }

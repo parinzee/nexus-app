@@ -101,7 +101,7 @@ body {
 }
 
 .App .menu #activities .menu-text {
-  font-size: clamp(10px, 6vw, 35px);
+  font-size: clamp(10px, 6vw, 40px);
 }
 
 .App .menu #links {
@@ -127,8 +127,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: clamp(100px, 85%, 364px);
-  max-height: 100px;
+  width: clamp(100px, 80%, 500px);
+  height: clamp(100px, 80%, 200px);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -142,8 +142,8 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: clamp(100px, 85%, 364px);
-  max-height: 400px;
+  width: clamp(100px, 80%, 500px);
+  height: clamp(100px, 80%, 200px);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
