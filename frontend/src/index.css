@@ -19,7 +19,7 @@ body {
 }
 
 .App .header {
-  padding-top: clamp(30px, 10vh, 50px);
+  padding-top: clamp(30px, 9vh, 45px);
   margin: 0 auto;
 }
 
@@ -121,9 +121,18 @@ body {
   font-size: clamp(10px, 6vw, 40px);
 }
 
+.App .menu #competitions {
+  background-color: #ff9151;
+}
+
+.App .menu #competitions .menu-text {
+  margin-left: 20px;
+  font-size: clamp(10px, 5vw, 35px);
+}
+
 .App .menu #links,
 .App .menu #activities {
-  margin-top: 30px;
+  margin-top: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -137,8 +146,9 @@ body {
   font-size: clamp(10px, 12vw, 85px);
 }
 
-.App .menu #events {
-  margin-top: 30px;
+.App .menu #events,
+.App .menu #competitions {
+  margin-top: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
