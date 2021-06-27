@@ -57,6 +57,27 @@ export default function Main() {
                 fontSize="25"
                 imageLeft={true}
             />
+            <MenuSelector
+                imagePath={require("../../assets/typingMan.gif")}
+                text={`UPCOMING ${"\n"}EVENTS`}
+                backgroundColor="#ff5758"
+                fontSize="22"
+                imageLeft={false}
+            />
+            <MenuSelector
+                imagePath={require("../../assets/AGuy.gif")}
+                text={`UPCOMING ${"\n"}ACTIVITIES`}
+                backgroundColor="#5071f6"
+                fontSize="22"
+                imageLeft={true}
+            />
+            <MenuSelector
+                imagePath={require("../../assets/teacher.gif")}
+                text={`QUARTERLY${"\n"}COMPETITIONS`}
+                backgroundColor="#ff9151"
+                fontSize="18"
+                imageLeft={false}
+            />
         </Container>
     );
 }
