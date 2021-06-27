@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import AppLoading from "expo-app-loading";
-import { useFonts } from "expo-font";
+import { useFonts, OpenSans_800ExtraBold} from "@expo-google-fonts/open-sans";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main"
@@ -15,6 +15,7 @@ Text.defaultProps.allowFontScaling = false;
 export default function App() {
     let [fontsLoaded] = useFonts({
         Now: require("./assets/fonts/NowAlt-Light.otf"),
+        OpenSans_800ExtraBold,
     });
 
     if (!fontsLoaded) {

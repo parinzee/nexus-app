@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
+import Menu from "./Menu"
 
 export default function Main() {
     const Container = styled.View`
@@ -12,6 +13,8 @@ export default function Main() {
     return (
         <Container>
             <Header />
+            <Menu />
+
         </Container>
     );
 }

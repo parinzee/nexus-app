@@ -2,51 +2,39 @@ import React from "react";
 import styled from "styled-components/native";
 import { scale } from "react-native-size-matters";
 
-function MenuSelector({ imagePath, text, backgroundColor, fontSize, style, margin }) {
+function MenuSelector({
+    imagePath,
+    text,
+    backgroundColor,
+    fontSize,
+    imageLeft,
+    margin,
+}) {
     const MenuImage = styled.Image`
-        width: auto;
-        height: auto;
-        max-height: ${scale(115)}px;
-        max-width: ${scale(155)}px;
+        height: ${scale(85)}px;
+        width: ${scale(155)}px;
     `;
-    if (style == 1) {
-        const Container = styled.View`
-            background-color: ${backgroundColor};
-            margin-top: ${scale(20)}px;
-            display: flex;
-            width: ${scale(295)}px;
-            height: ${scale(85)}px;
-            flex-direction: row;
-            border-radius: 16px;
-            font-size: ${scale(fontSize)}px;
-        `;
+    const Container = styled.View`
+        background-color: ${backgroundColor};
+        margin-top: ${scale(20)}px;
+        display: flex;
+        width: ${scale(295)}px;
+        height: ${scale(85)}px;
+        flex-direction: ${imageLeft ? "row" : "row-reverse"};
+        border-radius: 16px;
+    `;
 
-        const MenuText = styled.Text`
-            font-family: "Open Sans", sans-serif;
-            align-self: center;
-        `;
-    } else {
-        const Container = styled.View`
-            background-color: ${backgroundColor};
-            margin-top: ${scale(20)}px;
-            display: flex;
-            width: ${scale(295)}px;
-            height: ${scale(85)}px;
-            flex-direction: row-reverse;
-            border-radius: 16px;
-            font-size: ${scale(fontSize)}px;
-        `;
-
-        const MenuText = styled.Text`
-            font-family: "Open Sans", sans-serif;
-            align-self: center;
-            margin: ${margin};
-        `;
-    }
+    const MenuText = styled.Text`
+        font-family: "OpenSans_800ExtraBold";
+        color: white;
+        align-self: center;
+        ${margin && `margin: ${margin};`}
+        font-size: ${scale(parseInt(fontSize))}px;
+    `;
 
     return (
         <Container>
-            <MenuImage source={require(imagePath)} />
+            <MenuImage source={imagePath} />
             <MenuText>{text}</MenuText>
         </Container>
     );
@@ -60,5 +48,15 @@ export default function Main() {
         align-items: center;
         align-content: center;
     `;
-    return <Container></Container>;
+    return (
+        <Container>
+            <MenuSelector
+                imagePath={require("../../assets/sleepingMan.gif")}
+                text="LINKS"
+                backgroundColor="#fccf04"
+                fontSize="25"
+                imageLeft={true}
+            />
+        </Container>
+    );
 }
