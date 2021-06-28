@@ -3,7 +3,6 @@
     "name": "Nexus",
     "slug": "Nexus",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "backgroundColor": "#191919"

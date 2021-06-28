@@ -6,12 +6,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main";
 import Loader from "./components/Loader";
-import Links from "./components/Pages/links/Links"
+import Links from "./components/Pages/links/Links";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import styled from "styled-components/native";
-import { enableScreens } from 'react-native-screens';
+import { enableScreens } from "react-native-screens";
 enableScreens();
 
 const Stack = createStackNavigator();
@@ -71,22 +71,38 @@ export default function App() {
             <Container>
                 <NavigationContainer>
                     <Stack.Navigator
-                        screenOptions={{ headerShown: false }}
                         initialRouteName="Loading"
                         detachInactiveScreens={true}
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: "rgb(25,25,25)",
+                                elevation: 0,
+                                shadowOpacity: 0,
+                                borderBottomWidth: 0,
+                            },
+                            headerTitleStyle: {
+                                color: "rgb(25,25,25)"
+                            }
+                        }}
                     >
                         <Stack.Screen
                             name="Home"
                             component={Main}
                             options={{
                                 cardStyleInterpolator: forFade,
+                                headerShown: false,
                             }}
                         />
                         <Stack.Screen
                             name="Links"
                             component={Links}
+                            options={{ headerShown: true }}
                         />
-                        <Stack.Screen name="Loading" component={Loader} />
+                        <Stack.Screen
+                            name="Loading"
+                            component={Loader}
+                            options={{ headerShown: false }}
+                        />
                     </Stack.Navigator>
                     <StatusBar style="light" />
                 </NavigationContainer>

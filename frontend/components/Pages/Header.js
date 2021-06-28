@@ -6,7 +6,7 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
     const Container = styled.View`
         margin: 0 auto;
         align-items: center;
-        margin-top: ${verticalScale(40)}px;
+        margin-top: ${verticalScale(1)}px;
         display: flex;
         width: ${scale(295)}px;
         height: ${scale(85)}px;
@@ -22,7 +22,7 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        ${margin && `margin: ${margin};`}
+        ${margin && `margin-left: ${margin};`}
         font-size: ${scale(parseInt(fontSize))}px;
     `;
 
