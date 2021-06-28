@@ -35,18 +35,11 @@ export default function App() {
 
     const fetchImages = () => {
         const images = [
+            require("./assets/intro.gif"),
             require("./assets/sleepingMan.gif"),
             require("./assets/typingMan.gif"),
             require("./assets/AGuy.gif"),
             require("./assets/teacher.gif"),
-            require("./assets/intro.gif"),
-            require("./assets/glowingBlob.gif"),
-            require("./assets/web.png"),
-            require("./assets/100.png"),
-            require("./assets/instagram.png"),
-            require("./assets/tiktok.png"),
-            require("./assets/line.png"),
-            require("./assets/covid.png"),
         ];
 
         const cacheImages = images.map((image) => {
