@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 function MenuSelector({
     imagePath,
@@ -42,6 +43,8 @@ function MenuSelector({
 }
 
 export default function Main() {
+    const navigation = useNavigation();
+
     const Container = styled.View`
         display: flex;
         flex-direction: column;
@@ -51,7 +54,7 @@ export default function Main() {
     `;
     return (
         <Container>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Links")}> 
                 <MenuSelector
                     imagePath={require("../../assets/sleepingMan.gif")}
                     text="LINKS"

@@ -4,7 +4,7 @@ import Header from "./Header";
 import Menu from "./Menu"
 import { Asset } from "expo-asset";
 
-export default function Main() {
+export default function Main({navigation}) {
 
     const fetchImages = () => {
         const images = [
@@ -35,7 +35,7 @@ export default function Main() {
     return (
         <Container>
             <Header />
-            <Menu />
+            <Menu /> 
         </Container>
     );
 }

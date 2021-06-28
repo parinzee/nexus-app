@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main";
 import Loader from "./components/Loader";
+import Links from "./components/Pages/links/Links"
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -80,6 +81,10 @@ export default function App() {
                             options={{
                                 cardStyleInterpolator: forFade,
                             }}
+                        />
+                        <Stack.Screen
+                            name="Links"
+                            component={Links}
                         />
                         <Stack.Screen name="Loading" component={Loader} />
                     </Stack.Navigator>
