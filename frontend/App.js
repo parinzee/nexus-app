@@ -10,6 +10,8 @@ import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import styled from "styled-components/native";
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
 const Stack = createStackNavigator();
 
@@ -17,9 +19,10 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 const forFade = ({ current }) => ({
     cardStyle: {
-      opacity: current.progress,
+        opacity: current.progress,
     },
-  }); 
+});
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -30,8 +33,8 @@ export default function App() {
 
     const Container = styled.View`
         flex: 1;
-        background-color: rgb(25,25,25) ;
-    `
+        background-color: rgb(25, 25, 25);
+    `;
 
     const fetchImages = () => {
         const images = [
@@ -65,22 +68,24 @@ export default function App() {
     } else {
         return (
             <Container>
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{ headerShown: false }}
-                    initialRouteName="Loading"
-                >
-                    <Stack.Screen name="Home" component={Main}
-                        options={{
-                            cardStyleInterpolator: forFade,
-                        }} />
-                    <Stack.Screen
-                        name="Loading"
-                        component={Loader}
-                    />
-                </Stack.Navigator>
-                <StatusBar style="light" />
-            </NavigationContainer></Container>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{ headerShown: false }}
+                        initialRouteName="Loading"
+                        detachInactiveScreens={true}
+                    >
+                        <Stack.Screen
+                            name="Home"
+                            component={Main}
+                            options={{
+                                cardStyleInterpolator: forFade,
+                            }}
+                        />
+                        <Stack.Screen name="Loading" component={Loader} />
+                    </Stack.Navigator>
+                    <StatusBar style="light" />
+                </NavigationContainer>
+            </Container>
         );
     }
 }
