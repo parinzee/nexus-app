@@ -5,24 +5,33 @@ import { useFonts, OpenSans_800ExtraBold } from "@expo-google-fonts/open-sans";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main";
-import Loader from "./components/Loader"
+import Loader from "./components/Loader";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
+import styled from "styled-components/native";
 
 const Stack = createStackNavigator();
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
-
+const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  }); 
 export default function App() {
-
     const [loading, setLoading] = useState(true);
 
     let [fontsLoaded] = useFonts({
         Now: require("./assets/fonts/NowAlt-Light.otf"),
         OpenSans_800ExtraBold,
     });
+
+    const Container = styled.View`
+        flex: 1;
+        background-color: rgb(25,25,25) ;
+    `
 
     const fetchImages = () => {
         const images = [
@@ -44,25 +53,41 @@ export default function App() {
             return Asset.fromModule(image).downloadAsync();
         });
 
-        return Promise.all(cacheImages)
+        return Promise.all(cacheImages);
     };
 
     const preload = async () => {
-        const imageAssets = fetchImages()
-        await Promise.all([imageAssets])
-    }
+        const imageAssets = fetchImages();
+        await Promise.all([imageAssets]);
+    };
 
-    if (loading) {
-        return <AppLoading startAsync={preload} onFinish={() => setLoading(false)} onError={error => console.log(error)}/>;
+    if (loading || !fontsLoaded) {
+        return (
+            <AppLoading
+                startAsync={preload}
+                onFinish={() => setLoading(false)}
+                onError={(error) => console.log(error)}
+            />
+        );
     } else {
         return (
+            <Container>
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Loading">
-                    <Stack.Screen name="Home" component={Main} />
-                    <Stack.Screen name="Loading" component={Loader} />
+                <Stack.Navigator
+                    screenOptions={{ headerShown: false }}
+                    initialRouteName="Loading"
+                >
+                    <Stack.Screen name="Home" component={Main}
+                        options={{
+                            cardStyleInterpolator: forFade,
+                        }} />
+                    <Stack.Screen
+                        name="Loading"
+                        component={Loader}
+                    />
                 </Stack.Navigator>
                 <StatusBar style="light" />
-            </NavigationContainer>
+            </NavigationContainer></Container>
         );
     }
 }
