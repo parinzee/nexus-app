@@ -33,7 +33,7 @@ const entries = [
     },
     {
         id: "6",
-        text: "COVID UPDATE",
+        text: "COVID UPDATES",
         imagePath: require("../../../assets/covid.png")
     }
 ]
