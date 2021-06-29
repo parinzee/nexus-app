@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
 import { scale } from 'react-native-size-matters';
+import * as Device from 'expo-device';
+
 
 const Header = () => {
+    const isAndroid = Device.osName === "Android" ? true : false
     const Container = styled.View`
         margin: 0 auto;
         align-items: center;
@@ -40,7 +43,7 @@ const Header = () => {
         margin-top: ${scale(3)}px;
         padding: 0;
         letter-spacing: 7px;
-        font-size: ${scale(65)}px;
+        ${isAndroid ? `font-size: ${scale(55)}px;` : `font-size: ${scale(65)}px;`}
         transform: scale(1, 0.75);
     `;
 
