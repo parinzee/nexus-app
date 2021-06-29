@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import Header from "../Header";
 import {scale, verticalScale} from "react-native-size-matters"
+import { Dimensions } from "react-native";
 
 const entries = [
     {
@@ -46,8 +47,11 @@ const LinkEntry = ({ text, imagePath }) => {
         border-radius: 20px;
         width: ${scale(295)}px;
         height: ${scale(50)}px;
-        margin-top: 20px;
+        margin-top: ${verticalScale(22)}px;
         padding: 5px;
+        box-shadow: 0px 0px 10px #fccf04;
+        margin-right: 20px;
+        margin-left: 20px;
     `
     const ListIcon = styled.Image`
         width: 20%; 
@@ -72,6 +76,8 @@ const LinkEntry = ({ text, imagePath }) => {
 
 
 export default function Links() {
+    const windowWidth = Dimensions.get("window").width;
+    const windowHeight = Dimensions.get("window").height;
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
@@ -84,6 +90,8 @@ export default function Links() {
         align-items: center;
         align-content: center;
         margin-top: ${verticalScale(10)}px;
+        width: ${windowWidth}px;
+        height: ${windowHeight}px;
     `
 
     const renderEntry = ({ item }) => (
