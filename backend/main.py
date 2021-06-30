@@ -18,6 +18,18 @@ async def listItem():
     
     return items
 
+@app.get("/activities/")
+async def listActivities():
+    return listItems("activities")
+
+@app.get("/competitions/")
+async def listCompetitions():
+    return listItems("competitions")
+
+@app.get("/events/")
+async def listEvents():
+    return listItems("events")
+
 @app.post("/insertItem/")
 async def insert(eventName: str, eventDesc: str, itemType:str):
     now = datetime.now()
