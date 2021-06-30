@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import Header from "../Header";
 import { scale, verticalScale } from "react-native-size-matters";

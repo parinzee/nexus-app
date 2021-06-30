@@ -63,7 +63,7 @@ export default function Main() {
                     imageLeft={true}
                 />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Events")}>
                 <MenuSelector
                     imagePath={require("../../assets/typingMan.gif")}
                     text={`UPCOMING ${"\n"}EVENTS`}
