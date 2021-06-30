@@ -16,13 +16,13 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
     const Icon = styled.Image`
         height: ${scale(85)}px;
         width: ${scale(155)}px;
+        ${margin && `margin-right: -${margin}px;`}
     `
 
     const MenuText = styled.Text`
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        ${margin && `margin-left: ${margin};`}
         font-size: ${scale(parseInt(fontSize))}px;
     `;
 

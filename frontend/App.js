@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main";
 import Loader from "./components/Loader";
 import Links from "./components/Pages/links/Links";
+import Events from "./components/Pages/events/Events"
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -96,6 +97,11 @@ export default function App() {
                         <Stack.Screen
                             name="Links"
                             component={Links}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Events"
+                            component={Events}
                             options={{ headerShown: true }}
                         />
                         <Stack.Screen
