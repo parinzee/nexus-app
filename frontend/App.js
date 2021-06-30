@@ -26,25 +26,6 @@ const forFade = ({ current }) => ({
     },
 });
 
-const storeDate = async (value) => {
-    try {
-        await AsyncStorage.setItem("@lastUpdated", value);
-    } catch (e) {
-        console.log(e);
-    }
-};
-
-const getDate = async () => {
-    try {
-        const value = await AsyncStorage.getItem("@lastUpdated");
-        if (value !== null) {
-            return value;
-        }
-    } catch (e) {
-        console.log(e);
-    }
-};
-
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -57,21 +38,6 @@ export default function App() {
         flex: 1;
         background-color: rgb(25, 25, 25);
     `;
-
-    const checkUpdated = () => {
-        const date = fetch("http://nexussc.herokuapp.com/lastEdited")
-            .then((response) => response.json())
-            .catch((error) => {
-                const updatedContext = React.createContext(false);
-                console.log(error);
-            });
-        const localDate = getDate();
-        if (date === localDate) {
-            const UpdatedContext = React.createContext(true);
-        } else {
-            // SET UpdatedContext to true and fetch all the new values down, then overwrite values in asyncstorage
-        }
-    };
 
     const fetchImages = () => {
         const images = [
