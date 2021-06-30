@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
+@font-face {
+    font-family: Now;
+    src: url("./assets/fonts/NowAlt-Light.otf") format("opentype");
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+    .header {
+        padding-top: clamp(30px, 9vh, 45px);
+        margin: 0 auto;
+
+        #header-logo {
+            display: flex;
+            flex-direction: row;
+            margin-right: 0;
+            justify-content: center;
+            text-align: center;
+            flex-direction: row;
+
+            img {
+                max-width: 104px;
+                max-height: 104px;
+            }
+        }
+
+        #header-text {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            flex-wrap: wrap;
+            align-content: flex-end;
+
+            #text-upper {
+                font-family: Now;
+                margin: 0;
+                margin-top: 0.7em;
+                padding: 0;
+                font-size: 1.1em;
+            }
+            #text-lower {
+                margin: 0;
+                padding: 0;
+                letter-spacing: 0.1em;
+                font-size: 4.1em;
+                transform: scale(1, 0.75);
+            }
+        }
+    }
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        #activities {
+            background-color: #5071f6;
+            .menu-text {
+                font-size: clamp(10px, 6vw, 40px);
+            }
+        }
+
+        #links {
+            background-color: #fccf04;
+            .menu-text {
+                font-size: clamp(10px, 8vw, 50px);
+            }
+        }
+
+        #events {
+            background-color: #ff5758;
+            .menu-text {
+                padding-left: 30px;
+                font-size: clamp(10px, 6vw, 40px);
+            }
+        }
+
+        #competitions {
+            background-color: #ff9151;
+            .menu-text {
+                margin-left: 10px;
+                font-size: clamp(10px, 5vw, 35px);
+            }
+        }
+
+        #links,
+        #activities {
+            margin-top: 25px;
+            display: flex;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
+            flex-direction: row;
+            border-radius: 16px;
+            font-size: clamp(10px, 12vw, 85px);
+        }
+
+        #events,
+        #competitions {
+            margin-top: 25px;
+            display: flex;
+            width: clamp(100px, 80%, 500px);
+            height: clamp(100px, 80%, 200px);
+            flex-direction: row-reverse;
+            border-radius: 16px;
+        }
+
+        .menu-image {
+            display: block;
+            width: auto;
+            height: auto;
+            @media only screen and (max-width: 470px) {
+                max-height: 90px;
+            }
+            @media only screen and (min-width: 471px) {
+                max-height: 120px;
+            }
+            max-width: clamp(160px, 50%, 277px);
+        }
+
+        .menu-text {
+            font-family: "Open Sans", sans-serif;
+            align-self: center;
+        }
+    }
+}

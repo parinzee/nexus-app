@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
+@font-face {
+  font-family: Now;
+  src: url("./assets/fonts/NowAlt-Light.otf") format("opentype");
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #191919;
+  color: white;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App .header {
+  padding-top: clamp(30px, 9vh, 45px);
+  margin: 0 auto;
+}
+
+.App .header #header-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-right: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+.App .header #header-logo img {
+  max-width: 104px;
+  max-height: 104px;
+}
+
+.App .header #header-text {
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+}
+
+.App .header #header-text #text-upper {
+  font-family: Now;
+  margin: 0;
+  margin-top: 0.7em;
+  padding: 0;
+  font-size: 1.1em;
+}
+
+.App .header #header-text #text-lower {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.1em;
+  font-size: 4.1em;
+  -webkit-transform: scale(1, 0.75);
+          transform: scale(1, 0.75);
+}
+
+.App .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.App .menu #activities {
+  background-color: #5071f6;
+}
+
+.App .menu #activities .menu-text {
+  font-size: clamp(10px, 6vw, 40px);
+}
+
+.App .menu #links {
+  background-color: #fccf04;
+}
+
+.App .menu #links .menu-text {
+  font-size: clamp(10px, 8vw, 50px);
+}
+
+.App .menu #events {
+  background-color: #ff5758;
+}
+
+.App .menu #events .menu-text {
+  padding-left: 30px;
+  font-size: clamp(10px, 6vw, 40px);
+}
+
+.App .menu #competitions {
+  background-color: #ff9151;
+}
+
+.App .menu #competitions .menu-text {
+  margin-left: 10px;
+  font-size: clamp(10px, 5vw, 35px);
+}
+
+.App .menu #links,
+.App .menu #activities {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: clamp(100px, 80%, 500px);
+  height: clamp(100px, 80%, 200px);
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-radius: 16px;
+  font-size: clamp(10px, 12vw, 85px);
+}
+
+.App .menu #events,
+.App .menu #competitions {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: clamp(100px, 80%, 500px);
+  height: clamp(100px, 80%, 200px);
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  border-radius: 16px;
+}
+
+.App .menu .menu-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: clamp(160px, 50%, 277px);
+}
+
+@media only screen and (max-width: 470px) {
+  .App .menu .menu-image {
+    max-height: 90px;
+  }
+}
+
+@media only screen and (min-width: 471px) {
+  .App .menu .menu-image {
+    max-height: 120px;
+  }
+}
+
+.App .menu .menu-text {
+  font-family: "Open Sans", sans-serif;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+/*# sourceMappingURL=index.css.map */
