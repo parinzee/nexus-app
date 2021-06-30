@@ -1,10 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu"
 import { Asset } from "expo-asset";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios"
 
 export default function Main({navigation}) {
+    const [updated, setUpdated] = useState(false)
+
+    const getUpdated = async () => {
+        const localUpdated = await AsyncStorage.getItem("@localUpdated")
+        const lastEdited = await axios.get("https://nexussc.herokuapp.com/lastEdited").then(res => res.data)
+        if (lastEdited != localUpdated) {
+            setUpdated(false) 
+            await AsyncStorage.setItem("@localUpdated", lastEdited)
+            console.log("i'm here")
+        } else {
+            setUpdated(true)
+            console.log("Not there")
+        }
+    }
 
     const fetchImages = () => {
         const images = [
@@ -24,7 +40,7 @@ export default function Main({navigation}) {
         return Promise.all(cacheImages);
     };
 
-    useEffect(() => fetchImages)
+    useEffect(() => {fetchImages(); getUpdated()})
 
     const Container = styled.View`
         flex: 1;

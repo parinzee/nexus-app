@@ -12,6 +12,7 @@ import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import styled from "styled-components/native";
+import axios from "axios"
 import { enableScreens } from "react-native-screens";
 enableScreens();
 
