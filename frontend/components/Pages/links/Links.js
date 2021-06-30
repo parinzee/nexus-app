@@ -1,46 +1,57 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import Header from "../Header";
-import {scale, verticalScale} from "react-native-size-matters"
+import { scale, verticalScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
+import * as Linking from "expo-linking"
 
 const entries = [
     {
         id: "1",
         text: "NEXUS WEBSITE",
-        imagePath: require("../../../assets/web.png")
+        imagePath: require("../../../assets/web.png"),
+        link: "https://www.nexusbcis.com",
     },
     {
         id: "2",
         text: "HOUSE TEAM",
-        imagePath: require("../../../assets/100.png")
+        imagePath: require("../../../assets/100.png"),
+        link: "https://nexushta.onuniverse.com",
     },
     {
         id: "3",
         text: "INSTAGRAM",
-        imagePath: require("../../../assets/instagram.png")
+        imagePath: require("../../../assets/instagram.png"),
+        link: "https://instagram.com/nexussc",
     },
     {
         id: "4",
         text: "TIK TOK",
-        imagePath: require("../../../assets/tiktok.png")
+        imagePath: require("../../../assets/tiktok.png"),
+        link: "https://vt.tiktok.com/ZGJhG1cB8/",
     },
     {
         id: "5",
         text: "LINE",
-        imagePath: require("../../../assets/line.png")
+        imagePath: require("../../../assets/line.png"),
+        link: "https://lin.ee/UZEqeTH",
     },
     {
         id: "6",
         text: "COVID UPDATES",
-        imagePath: require("../../../assets/covid.png")
+        imagePath: require("../../../assets/covid.png"),
+        link: "https://covid19.who.int",
+    },
+];
+
+const LinkEntry = ({ text, imagePath, link }) => {
+    
+    const handlePress = () => {
+        Linking.openURL(link)
     }
-]
 
-
-const LinkEntry = ({ text, imagePath }) => {
-    const Container = styled.View`
+    const Container = styled.TouchableOpacity`
         display: flex;
         flex-direction: row;
         background-color: #fccf04;
@@ -52,11 +63,11 @@ const LinkEntry = ({ text, imagePath }) => {
         box-shadow: 0px 0px 10px #fccf04;
         margin-right: 20px;
         margin-left: 20px;
-    `
+    `;
     const ListIcon = styled.Image`
-        width: 20%; 
+        width: 20%;
         height: auto;
-    `
+    `;
 
     const ListText = styled.Text`
         color: white;
@@ -64,16 +75,15 @@ const LinkEntry = ({ text, imagePath }) => {
         font-family: "OpenSans_800ExtraBold";
         align-self: center;
         margin-left: 10px;
-    `
+    `;
 
-    return(
-        <Container>
-            <ListIcon source={imagePath}/>
-            <ListText>{text}</ListText>
-        </Container>
-    )
+    return (
+            <Container onPress={handlePress}>
+                <ListIcon source={imagePath} />
+                <ListText>{text}</ListText>
+            </Container>
+    );
 };
-
 
 export default function Links() {
     const windowWidth = Dimensions.get("window").width;
@@ -92,11 +102,15 @@ export default function Links() {
         margin-top: ${verticalScale(10)}px;
         width: ${windowWidth}px;
         height: ${windowHeight}px;
-    `
+    `;
 
     const renderEntry = ({ item }) => (
-        <LinkEntry text={item.text} imagePath={item.imagePath}/>
-    )
+        <LinkEntry
+            text={item.text}
+            imagePath={item.imagePath}
+            link={item.link}
+        />
+    );
 
     return (
         <Container>
@@ -111,7 +125,7 @@ export default function Links() {
                 <FlatList
                     data={entries}
                     renderItem={renderEntry}
-                    keyExtractor={entry => entry.id}
+                    keyExtractor={(entry) => entry.id}
                     scrollEnabled={false}
                 />
             </ListContainer>
