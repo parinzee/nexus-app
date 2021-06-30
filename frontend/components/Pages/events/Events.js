@@ -7,6 +7,8 @@ export default function Events() {
         flex: 1;
         background-color: rgb(25, 25, 25);
     `;
+
+
     return (
         <Container>
             <Header
@@ -16,6 +18,7 @@ export default function Events() {
                 imageLeft={false}
                 margin="20"
             />
+            
         </Container>
     );
 }

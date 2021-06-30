@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu"
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Asset } from "expo-asset";
 
 export default function Main({navigation}) {
