@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 
 function MenuSelector({
     imagePath,
@@ -38,31 +36,14 @@ function MenuSelector({
 
     return (
         <Container>
-            <MenuImage source={imagePath} />
+            <MenuImage defaultSource={imagePath} source={imagePath} />
             <MenuText>{text}</MenuText>
         </Container>
     );
 }
 
 export default function Main() {
-    const [updatedState, setUpdatedState] = useState(false);
     const navigation = useNavigation();
-
-    const getUpdated = async () => {
-        const localUpdated = await AsyncStorage.getItem("@localUpdated");
-        const lastEdited = await axios
-            .get("https://nexussc.herokuapp.com/lastEdited")
-            .then((res) => res.data)
-            .catch(() => setUpdatedState(false));
-        if (lastEdited != localUpdated) {
-            setUpdatedState(true);
-            await AsyncStorage.setItem("@localUpdated", lastEdited);
-        } else {
-            setUpdatedState(true);
-        }
-    };
-
-    useEffect(() => {getUpdated()});
     const Container = styled.View`
         display: flex;
         flex-direction: column;

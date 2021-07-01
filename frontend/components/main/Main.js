@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu"
@@ -22,7 +22,6 @@ export default function Main() {
 
         return Promise.all(cacheImages);
     };
-
     const preload = async () => {
         const imageAssets = fetchImages();
         await Promise.all([imageAssets]);

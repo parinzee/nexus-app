@@ -4,7 +4,7 @@ import Header from "../Header";
 import Content from "../Content"
 import axios from "axios"
 
-export default function Events() {
+export default function Events({}) {
     const [events, setEvents] = useState([])
 
     const getEvents = () => {
@@ -12,7 +12,7 @@ export default function Events() {
         
     }
 
-    useEffect(() => getEvents())
+    useEffect(() => {getEvents()})
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
