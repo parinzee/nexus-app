@@ -1,27 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu"
 import { Asset } from "expo-asset";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from "axios"
 
-export default function Main({navigation}) {
-    const [updated, setUpdated] = useState(false)
-
-    const getUpdated = async () => {
-        const localUpdated = await AsyncStorage.getItem("@localUpdated")
-        const lastEdited = await axios.get("https://nexussc.herokuapp.com/lastEdited").then(res => res.data)
-        if (lastEdited != localUpdated) {
-            setUpdated(false) 
-            await AsyncStorage.setItem("@localUpdated", lastEdited)
-            console.log("i'm here")
-        } else {
-            setUpdated(true)
-            console.log("Not there")
-        }
-    }
-
+export default function Main() {
     const fetchImages = () => {
         const images = [
             require("../../assets/glowingBlob.gif"),
@@ -40,7 +23,12 @@ export default function Main({navigation}) {
         return Promise.all(cacheImages);
     };
 
-    useEffect(() => {fetchImages(); getUpdated()})
+    const preload = async () => {
+        const imageAssets = fetchImages();
+        await Promise.all([imageAssets]);
+    };
+
+    useEffect(() => {preload()})
 
     const Container = styled.View`
         flex: 1;
