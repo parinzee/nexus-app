@@ -15,6 +15,7 @@ function MenuSelector({
     const MenuImage = styled.Image`
         height: ${scale(85)}px;
         width: ${scale(155)}px;
+        ${margin && `margin-left: -${margin}px;`}
     `;
     const Container = styled.View`
         background-color: ${backgroundColor};
@@ -30,7 +31,6 @@ function MenuSelector({
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        ${margin && `margin: ${margin};`}
         font-size: ${scale(parseInt(fontSize))}px;
     `;
 
@@ -65,16 +65,16 @@ export default function Main() {
             <TouchableOpacity onPress={() => navigation.navigate("Events")}>
                 <MenuSelector
                     imagePath={require("../../assets/typingMan.gif")}
-                    text={`UPCOMING ${"\n"}EVENTS`}
+                    text={`SCHOOL${"\n"}EVENTS`}
                     backgroundColor="#ff5758"
-                    fontSize="22"
+                    fontSize="25"
                     imageLeft={false}
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Activities")}>
                 <MenuSelector
                     imagePath={require("../../assets/AGuy.gif")}
-                    text={`UPCOMING ${"\n"}ACTIVITIES`}
+                    text={`UPCOMING${"\n"}SC EVENTS`}
                     backgroundColor="#5071f6"
                     fontSize="22"
                     imageLeft={true}
@@ -83,10 +83,11 @@ export default function Main() {
             <TouchableOpacity onPress={() => navigation.navigate("Competitions")}>
                 <MenuSelector
                     imagePath={require("../../assets/teacher.gif")}
-                    text={`QUARTERLY${"\n"}COMPETITIONS`}
+                    text={`TEAM COLOR${"\n"}SCORES`}
                     backgroundColor="#ff9151"
-                    fontSize="18"
+                    fontSize="20"
                     imageLeft={false}
+                    margin="10"
                 />
             </TouchableOpacity>
         </Container>

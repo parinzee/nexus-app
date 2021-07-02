@@ -13,12 +13,13 @@ export default function Events({}) {
         <Container>
             <Header
                 imagePath={require("../../../assets/typingMan.gif")}
-                text={`UPCOMING${"\n"}EVENTS`}
-                fontSize="28"
+                text={`SCHOOL${"\n"}EVENTS`}
+                fontSize="30"
                 imageLeft={false}
-                margin="27"
+                margin="0"
+                alignRight={false}
             />
-            <Content uri="http://nexussc.herokuapp.com/events/"  mainColor="#ff5758"/>
+            <Content uri="http://nexussc.herokuapp.com/announcements/"  mainColor="#ff5758"/>
         </Container>
     );
 }

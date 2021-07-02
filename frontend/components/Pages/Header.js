@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components/native"
 import { scale, verticalScale } from 'react-native-size-matters';
 
-export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
+export default function Header({imagePath, text, fontSize, imageLeft, margin, alignRight}) {
     const Container = styled.View`
         margin: 0 auto;
         align-items: center;
@@ -24,6 +24,7 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
         color: white;
         align-self: center;
         font-size: ${scale(parseInt(fontSize))}px;
+        ${alignRight ? `text-align: right`: ""}
     `;
 
     return (

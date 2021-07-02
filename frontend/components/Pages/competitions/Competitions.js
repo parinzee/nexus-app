@@ -13,12 +13,12 @@ export default function Competitions({}) {
         <Container>
             <Header
                 imagePath={require("../../../assets/AGuy.gif")}
-                text={`UPCOMING${"\n"}ACTIVITIES`}
-                fontSize="28"
+                text={`TEAM COLOR${"\n"}SCORES`}
+                fontSize="25"
                 imageLeft={true}
-                margin="20"
+                margin="22"
             />
-            <Content uri="http://nexussc.herokuapp.com/competitions/"  mainColor="#ff9151"/>
+            <Content uri="http://nexussc.herokuapp.com/scores/"  mainColor="#ff9151"/>
         </Container>
     );
 }

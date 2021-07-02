@@ -13,12 +13,12 @@ export default function Activities({}) {
         <Container>
             <Header
                 imagePath={require("../../../assets/AGuy.gif")}
-                text={`UPCOMING${"\n"}ACTIVITIES`}
+                text={`UPCOMING${"\n"}SC EVENTS`}
                 fontSize="28"
                 imageLeft={false}
                 margin="28"
             />
-            <Content uri="http://nexussc.herokuapp.com/activities/"  mainColor="#5071f6"/>
+            <Content uri="http://nexussc.herokuapp.com/events/"  mainColor="#5071f6"/>
         </Container>
     );
 }
