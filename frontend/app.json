@@ -2,14 +2,16 @@
   "expo": {
     "name": "Nexus",
     "slug": "Nexus",
-    "description": "This is official app from the Nexus student council. This app was made for the checking news and updates from the student council.",
+    "description": "This is official app from the BCIS student council. This app was made for checking news and updates from the student council.",
     "privacy": "public",
     "version": "1.0.0",
     "icon": "./assets/icon.png",
     "backgroundColor": "#191919",
     "primaryColor": "#191919",
     "splash": {
-      "backgroundColor": "#191919"
+      "image": "./assets/adaptive-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#231f20"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

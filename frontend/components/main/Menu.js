@@ -19,7 +19,7 @@ function MenuSelector({
     `;
     const Container = styled.View`
         background-color: ${backgroundColor};
-        margin-top: ${verticalScale(27)}px;
+        margin-top: ${verticalScale(20)}px;
         display: flex;
         width: ${scale(295)}px;
         height: ${scale(85)}px;

@@ -47,7 +47,6 @@ export default function Credits() {
             <InfoTextContainer><FrontText>Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Version</FrontText><BackText>1.0.0</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 2 2021</BackText></InfoTextContainer>
-
         </Container>
     );
 }

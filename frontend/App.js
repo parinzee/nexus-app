@@ -49,6 +49,7 @@ export default function App() {
             require("./assets/typingMan.gif"),
             require("./assets/AGuy.gif"),
             require("./assets/teacher.gif"),
+            require("./assets/nexus-logo.png")
         ];
 
         const cacheImages = images.map((image) => {
