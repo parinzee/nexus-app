@@ -63,7 +63,6 @@ export default function BottomContent({ uri, mainColor }) {
         const colors =["RED", "BLUE", "YELLOW", "GREEN"];
         const realColors =["red", "#0066ff", "#e6e600", "#33cc33"];
         dataArray = dataArray.map((value, index) => {return {key: index, name: colors[index], score: value, color: realColors[index]}})
-        console.log(dataArray)
         setItems(dataArray)
         setRefresh(false);
     };
