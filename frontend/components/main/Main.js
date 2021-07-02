@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
-import Menu from "./Menu"
+import Menu from "./Menu";
 import { Asset } from "expo-asset";
+import { TouchableOpacity } from "react-native";
 
-export default function Main() {
+export default function Main({navigation}) {
+    const [click, setClick] = useState(0);
     const fetchImages = () => {
         const images = [
             require("../../assets/glowingBlob.gif"),
@@ -27,7 +29,18 @@ export default function Main() {
         await Promise.all([imageAssets]);
     };
 
-    useEffect(() => {preload()})
+    useEffect(() => {
+        preload();
+    });
+
+    const handlePress = async () => {
+        console.log(click)
+        setClick(click + 1);
+        if (click >= 2) {
+            navigation.navigate("Credits")
+            setClick(0)
+        }
+    }
 
     const Container = styled.View`
         flex: 1;
@@ -37,8 +50,10 @@ export default function Main() {
     `;
     return (
         <Container>
-            <Header />
-            <Menu /> 
+            <TouchableOpacity activeOpacity="1" onPress={() => handlePress()}>
+                <Header />
+            </TouchableOpacity>
+            <Menu />
         </Container>
     );
 }

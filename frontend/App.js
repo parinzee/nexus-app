@@ -10,6 +10,7 @@ import Links from "./components/Pages/links/Links";
 import Events from "./components/Pages/events/Events";
 import Activities from "./components/Pages/activities/Activities"
 import Competitions from "./components/Pages/competitions/Competitions"
+import Credits from "./components/Pages/credits/Credits"
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -115,6 +116,11 @@ export default function App() {
                         <Stack.Screen
                             name="Competitions"
                             component={Competitions}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Credits"
+                            component={Credits}
                             options={{ headerShown: true }}
                         />
                         <Stack.Screen
