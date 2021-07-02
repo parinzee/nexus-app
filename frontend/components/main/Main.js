@@ -34,7 +34,6 @@ export default function Main({navigation}) {
     });
 
     const handlePress = async () => {
-        console.log(click)
         setClick(click + 1);
         if (click >= 2) {
             navigation.navigate("Credits")
