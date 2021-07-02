@@ -57,6 +57,7 @@ def listItems(itemType):
 
     elif itemType == "scores":
         cur.execute('''CREATE TABLE IF NOT EXISTS scores(
+            id integer PRIMARY KEY,
             red text NOT NULL,
             blue text NOT NULL,
             yellow text NOT NULL,
@@ -84,7 +85,10 @@ def insertScore(red, blue, yellow, green):
         green text NOT NULL);
     ''')
 
-    cur.execute("DELETE FROM scores WHERE id=1")
+    try:
+        cur.execute("DELETE FROM scores WHERE id=1")
+    except:
+        pass
 
     cur.execute('''
         INSERT INTO scores(red, blue, yellow, green) VALUES(?, ?, ?, ?);
