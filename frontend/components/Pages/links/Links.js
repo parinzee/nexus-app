@@ -60,7 +60,6 @@ const LinkEntry = ({ text, imagePath, link }) => {
         height: ${scale(50)}px;
         margin-top: ${verticalScale(22)}px;
         padding: 5px;
-        box-shadow: 0px 0px 10px #fccf04;
         margin-right: 20px;
         margin-left: 20px;
     `;
@@ -70,7 +69,7 @@ const LinkEntry = ({ text, imagePath, link }) => {
     `;
 
     const ListText = styled.Text`
-        color: white;
+        color: black;
         font-size: ${scale(20)}px;
         font-family: "OpenSans_800ExtraBold";
         align-self: center;

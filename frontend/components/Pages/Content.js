@@ -14,7 +14,6 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
         height: ${scale(100)}px;
         margin-top: ${verticalScale(22)}px;
         padding: 5px;
-        box-shadow: 0px 0px 10px ${mainColor};
         margin-right: 20px;
         margin-left: 20px;
         padding-right: 10px;
