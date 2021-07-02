@@ -4,7 +4,18 @@ def insertItem(eventTitle, eventDesc, itemType):
     db = sqlite3.connect('main.db')
     cur = db.cursor()
 
-    if itemType == "events":
+    if itemType == "announcements":
+        cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute('''
+            INSERT INTO announcements(eventTitle, eventDesc) VALUES(?, ?);
+            ''', (eventTitle, eventDesc))
+
+    elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
             id integer PRIMARY KEY,
             eventTitle text NOT NULL,
@@ -14,28 +25,7 @@ def insertItem(eventTitle, eventDesc, itemType):
         cur.execute('''
             INSERT INTO events(eventTitle, eventDesc) VALUES(?, ?);
             ''', (eventTitle, eventDesc))
-
-    elif itemType == "activities":
-        cur.execute('''CREATE TABLE IF NOT EXISTS activities(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
-        ''')
-
-        cur.execute('''
-            INSERT INTO activities(eventTitle, eventDesc) VALUES(?, ?);
-            ''', (eventTitle, eventDesc))
     
-    elif itemType == "competitions":
-        cur.execute('''CREATE TABLE IF NOT EXISTS competitions(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
-        ''')
-
-        cur.execute('''
-            INSERT INTO competitions(eventTitle, eventDesc) VALUES(?, ?);
-            ''', (eventTitle, eventDesc))
     else:
         pass
 
@@ -47,7 +37,16 @@ def listItems(itemType):
     db = sqlite3.connect('main.db')
     cur = db.cursor()
 
-    if itemType == "events":
+    if itemType == "announcements":
+        cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute("SELECT * FROM announcements")
+
+    elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
             id integer PRIMARY KEY,
             eventTitle text NOT NULL,
@@ -56,37 +55,58 @@ def listItems(itemType):
 
         cur.execute("SELECT * FROM events")
 
-    elif itemType == "activities":
-        cur.execute('''CREATE TABLE IF NOT EXISTS activities(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
+    elif itemType == "scores":
+        cur.execute('''CREATE TABLE IF NOT EXISTS scores(
+            red text NOT NULL,
+            blue text NOT NULL,
+            yellow text NOT NULL,
+            green text NOT NULL);
         ''')
 
-        cur.execute("SELECT * FROM activities")
-
-    elif itemType == "competitions":
-        cur.execute('''CREATE TABLE IF NOT EXISTS competitions(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
-        ''')
-
-        cur.execute("SELECT * FROM competitions")
+        cur.execute("SELECT * FROM scores")
     
     else:
         pass
 
-    events = cur.fetchall()
+    announcements = cur.fetchall()
     db.commit()
     db.close()
-    return events
+    return announcements
+
+def insertScore(red, blue, yellow, green):
+    db = sqlite3.connect('main.db')
+    cur = db.cursor()
+    cur.execute('''CREATE TABLE IF NOT EXISTS scores(
+        id integer PRIMARY KEY,
+        red text NOT NULL,
+        blue text NOT NULL,
+        yellow text NOT NULL,
+        green text NOT NULL);
+    ''')
+
+    cur.execute("DELETE FROM scores WHERE id=1")
+
+    cur.execute('''
+        INSERT INTO scores(red, blue, yellow, green) VALUES(?, ?, ?, ?);
+        ''', (red, blue, yellow, green))
+
+    db.commit()
+    db.close()
 
 def deleteItem(index, itemType):
     db = sqlite3.connect('main.db')
     cur = db.cursor()
 
-    if itemType == "events":
+    if itemType == "announcements":
+        cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
+            id integer PRIMARY KEY,
+            eventTitle text NOT NULL,
+            eventDesc text NOT NULL);
+        ''')
+
+        cur.execute("DELETE FROM announcements WHERE id=?", index)
+
+    elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
             id integer PRIMARY KEY,
             eventTitle text NOT NULL,
@@ -94,25 +114,6 @@ def deleteItem(index, itemType):
         ''')
 
         cur.execute("DELETE FROM events WHERE id=?", index)
-
-    elif itemType == "activities":
-        cur.execute('''CREATE TABLE IF NOT EXISTS activities(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
-        ''')
-
-        cur.execute("DELETE FROM activities WHERE id=?", index)
-
-    elif itemType == "competitions":
-        cur.execute('''CREATE TABLE IF NOT EXISTS competitions(
-            id integer PRIMARY KEY,
-            eventTitle text NOT NULL,
-            eventDesc text NOT NULL);
-        ''')
-
-        cur.execute("DELETE FROM competitions WHERE id=?", index)
-    
     else:
         pass
 

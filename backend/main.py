@@ -1,50 +1,43 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlwrapper import insertItem, listItems, deleteItem
-from filewrapper import read, write
-from datetime import datetime
+from sqlwrapper import insertItem, insertScore, listItems, deleteItem
 
 app = FastAPI()
-
-@app.get("/lastEdited")
-async def getTime():
-    return read()
 
 @app.get("/")
 async def listItem():
     items = dict()
-    for i in ["activities", "competitions", "events"]:
+    for i in ["events", "scores", "announcements"]:
         items[i] = listItems(i)
     
     return items
 
-@app.get("/activities/")
-async def listActivities():
-    return listItems("activities")
-
-@app.get("/competitions/")
-async def listCompetitions():
-    return listItems("competitions")
-
 @app.get("/events/")
-async def listEvents():
+async def listevents():
     return listItems("events")
+
+@app.get("/scores/")
+async def listscores():
+    return listItems("scores")
+
+@app.get("/announcements/")
+async def listannouncements():
+    return listItems("announcements")
 
 @app.post("/insertItem/")
 async def insert(eventName: str, eventDesc: str, itemType:str):
-    now = datetime.now()
-    dateTime = now.strftime("%d/%m/%Y %H:%M:%S")
     insertItem(eventName, eventDesc, itemType)
-    write(dateTime)
+    return "Success"
+
+@app.post("/insertScore/")
+async def insertscore(red: str, blue: str, yellow:str, green:str):
+    insertScore(red, blue, yellow, green)
     return "Success"
 
 
 @app.post("/deleteItem/")
 async def delete(id: int, itemType: str):
-    now = datetime.now()
-    dateTime = now.strftime("%d/%m/%Y %H:%M:%S")
     deleteItem(str(id), itemType)
-    write(dateTime)
     return "Success"
 
 if __name__ == "__main__":
