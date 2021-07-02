@@ -1,34 +1,36 @@
 import styled from "styled-components/native";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { FlatList, ActivityIndicator } from "react-native";
+import axios from "axios";
+import { scale, verticalScale } from "react-native-size-matters";
 
-const Item = ({ eventName, eventDesc }) => {
+const Item = ({ eventName, eventDesc, mainColor }) => {
     const Container = styled.View`
         display: flex;
-        flex-direction: row;
-        background-color: #fccf04;
+        flex-direction: column;
+        background-color: ${mainColor};
         border-radius: 20px;
         width: ${scale(295)}px;
         height: ${scale(100)}px;
         margin-top: ${verticalScale(22)}px;
         padding: 5px;
-        box-shadow: 0px 0px 10px #fccf04;
+        box-shadow: 0px 0px 10px ${mainColor};
         margin-right: 20px;
         margin-left: 20px;
+        padding-right: 10px;
     `;
 
     const TitleText = styled.Text`
         color: white;
-        font-size: ${scale(20)}px;
+        font-size: ${scale(27)}px;
         font-family: "OpenSans_800ExtraBold";
-        align-self: center;
         margin-left: 10px;
     `;
 
     const SubtitleText = styled.Text`
         color: white;
-        font-size: ${scale(12)}px;
+        font-size: ${scale(15)}px;
         font-family: "OpenSans_800ExtraBold";
-        align-self: center;
         margin-left: 10px;
     `;
     return (
@@ -39,7 +41,21 @@ const Item = ({ eventName, eventDesc }) => {
     );
 };
 
-export default function BottomContent({ content }) {
+export default function BottomContent({ uri, mainColor }) {
+    const [items, setItems] = useState([]);
+    const [refresh, setRefresh] = useState(true);
+
+    const getEvents = async () => {
+        const data = await axios.get(uri).then((response) => {
+            return response.data;
+        });
+        setItems(data.sort((a, b) => b[0] - a[0]));
+        setRefresh(false);
+    };
+    useEffect(() => {
+        getEvents();
+    }, [refresh]);
+
     const ListContainer = styled.View`
         display: flex;
         flex-direction: column;
@@ -47,9 +63,26 @@ export default function BottomContent({ content }) {
         align-items: center;
         align-content: center;
         margin-top: ${verticalScale(10)}px;
-        width: ${windowWidth}px;
-        height: ${windowHeight}px;
+        flex: 1;
     `;
 
-    return <ListContainer></ListContainer>;
+    return (
+        <ListContainer>
+            {refresh === false ? (
+                <FlatList
+                    data={items}
+                    renderItem={({item}) => (
+                        <Item
+                            eventName={item[1]}
+                            eventDesc={item[2]}
+                            mainColor={mainColor}
+                        />
+                    )}
+                    keyExtractor={(entry) => entry[0].toString()}
+                />
+            ) : (
+                <ActivityIndicator size="large" color={mainColor} />
+            )}
+        </ListContainer>
+    );
 }

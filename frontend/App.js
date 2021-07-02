@@ -8,11 +8,12 @@ import Main from "./components/main/Main";
 import Loader from "./components/Loader";
 import Links from "./components/Pages/links/Links";
 import Events from "./components/Pages/events/Events";
+import Activities from "./components/Pages/activities/Activities"
+import Competitions from "./components/Pages/competitions/Competitions"
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import styled from "styled-components/native";
-import axios from "axios"
 import { enableScreens } from "react-native-screens";
 enableScreens();
 
@@ -104,6 +105,16 @@ export default function App() {
                         <Stack.Screen
                             name="Events"
                             component={Events}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Activities"
+                            component={Activities}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Competitions"
+                            component={Competitions}
                             options={{ headerShown: true }}
                         />
                         <Stack.Screen

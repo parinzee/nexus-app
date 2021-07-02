@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import Header from "../Header";
 import Content from "../Content";
 
-export default function Events({}) {
+export default function Activities({}) {
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
@@ -12,13 +12,13 @@ export default function Events({}) {
     return (
         <Container>
             <Header
-                imagePath={require("../../../assets/typingMan.gif")}
-                text={`UPCOMING${"\n"}EVENTS`}
+                imagePath={require("../../../assets/AGuy.gif")}
+                text={`UPCOMING${"\n"}ACTIVITIES`}
                 fontSize="28"
                 imageLeft={false}
-                margin="27"
+                margin="28"
             />
-            <Content uri="http://nexussc.herokuapp.com/events/"  mainColor="#ff5758"/>
+            <Content uri="http://nexussc.herokuapp.com/activities/"  mainColor="#5071f6"/>
         </Container>
     );
 }

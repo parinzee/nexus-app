@@ -71,7 +71,7 @@ export default function Main() {
                     imageLeft={false}
                 />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Activities")}>
                 <MenuSelector
                     imagePath={require("../../assets/AGuy.gif")}
                     text={`UPCOMING ${"\n"}ACTIVITIES`}
@@ -80,7 +80,7 @@ export default function Main() {
                     imageLeft={true}
                 />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Competitions")}>
                 <MenuSelector
                     imagePath={require("../../assets/teacher.gif")}
                     text={`QUARTERLY${"\n"}COMPETITIONS`}

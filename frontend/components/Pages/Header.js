@@ -16,7 +16,7 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin}) {
     const Icon = styled.Image`
         height: ${scale(85)}px;
         width: ${scale(155)}px;
-        ${margin && `margin-right: -${margin}px;`}
+        ${imageLeft ? margin && `margin-left: -${margin}px;` : margin && `margin-right: -${margin}px;`}
     `
 
     const MenuText = styled.Text`
