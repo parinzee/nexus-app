@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import Header from "../Header";
-import Content from "../Content";
+import Content from "./Content";
 
 export default function Competitions({}) {
     const Container = styled.View`
