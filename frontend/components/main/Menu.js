@@ -3,6 +3,34 @@ import styled from "styled-components/native";
 import { scale, verticalScale } from "react-native-size-matters";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import * as Linking from "expo-linking"
+
+function PrivacyPolicy({}) {
+    const Container = styled.View`
+        background-color: #3a6351;
+        margin-top: ${verticalScale(23)}px;
+        display: flex;
+        flex-direction: row;
+        width: ${scale(100)}px;
+        height: ${scale(20)}px;
+        border-radius: 16px;
+        justify-content: center;
+    `;
+
+    const MenuText = styled.Text`
+        font-family: "OpenSans_800ExtraBold";
+        color: white;
+        align-self: center;
+        font-size: ${scale(10)}px;
+        align-self: center;
+    `;
+
+    return (
+        <Container>
+            <MenuText>Privacy Policy</MenuText>
+        </Container>
+    );
+}
 
 function MenuSelector({
     imagePath,
@@ -43,6 +71,9 @@ function MenuSelector({
 }
 
 export default function Main() {
+    const handlePrivacyPolicy = () => {
+        Linking.openURL("https://github.com/Parinz/nexus-app/blob/main/frontend/PRIVACYPOLICY.md")
+    }
     const navigation = useNavigation();
     const Container = styled.View`
         display: flex;
@@ -80,7 +111,9 @@ export default function Main() {
                     imageLeft={true}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Competitions")}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Competitions")}
+            >
                 <MenuSelector
                     imagePath={require("../../assets/teacher.gif")}
                     text={`TEAM COLOR${"\n"}SCORES`}
@@ -89,6 +122,9 @@ export default function Main() {
                     imageLeft={false}
                     margin="10"
                 />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePrivacyPolicy()}>
+                <PrivacyPolicy />
             </TouchableOpacity>
         </Container>
     );
