@@ -43,8 +43,8 @@ export default function Credits() {
         <Container>
             <Title>Information</Title>
             <InfoTextContainer><FrontText>Copyright</FrontText><BackText>© NEXUS Student Council 2021-22</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Developer</FrontText><BackText>Parinthapat Pengpun</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>App Developer</FrontText><BackText>Parinthapat Pengpun</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Graphic Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Version</FrontText><BackText>1.0.0</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Created</FrontText><BackText>June 20 2021</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 15 2021</BackText></InfoTextContainer>
