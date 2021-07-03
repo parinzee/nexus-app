@@ -46,7 +46,8 @@ export default function Credits() {
             <InfoTextContainer><FrontText>Developer</FrontText><BackText>Parinthapat Pengpun</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Version</FrontText><BackText>1.0.0</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 2 2021</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Created</FrontText><BackText>June 20 2021</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 15 2021</BackText></InfoTextContainer>
         </Container>
     );
 }

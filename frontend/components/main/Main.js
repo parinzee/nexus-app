@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -6,7 +6,6 @@ import { Asset } from "expo-asset";
 import { TouchableOpacity } from "react-native";
 
 export default function Main({navigation}) {
-    const [click, setClick] = useState(0);
     const fetchImages = () => {
         const images = [
             require("../../assets/glowingBlob.gif"),
@@ -34,11 +33,7 @@ export default function Main({navigation}) {
     });
 
     const handlePress = async () => {
-        setClick(click + 1);
-        if (click >= 1) {
-            navigation.navigate("Credits")
-            setClick(0)
-        }
+        navigation.navigate("Credits")
     }
 
     const Container = styled.View`
