@@ -108,7 +108,7 @@ def deleteItem(index, itemType):
             eventDesc text NOT NULL);
         ''')
 
-        cur.execute("DELETE FROM announcements WHERE id=?", index)
+        cur.execute("DELETE FROM announcements WHERE id=?", [index])
 
     elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
@@ -117,7 +117,7 @@ def deleteItem(index, itemType):
             eventDesc text NOT NULL);
         ''')
 
-        cur.execute("DELETE FROM events WHERE id=?", index)
+        cur.execute("DELETE FROM events WHERE id=?", [index])
     else:
         pass
 
