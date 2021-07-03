@@ -13,7 +13,7 @@ export default function Events({}) {
         <Container>
             <Header
                 imagePath={require("../../../assets/typingMan.gif")}
-                text={`SCHOOL${"\n"}EVENTS`}
+                text={`NEWS`}
                 fontSize="30"
                 imageLeft={false}
                 margin="0"

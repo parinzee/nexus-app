@@ -21,15 +21,16 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 
     const TitleText = styled.Text`
         color: white;
-        font-size: ${moderateScale(27)}px;
+        font-size: ${moderateScale(19)}px;
         font-family: "OpenSans_800ExtraBold";
         margin-left: 10px;
+        margin-bottom: 3px;
     `;
 
     const SubtitleText = styled.Text`
         color: white;
-        font-size: ${moderateScale(15)}px;
-        font-family: "OpenSans_800ExtraBold";
+        font-size: ${moderateScale(16)}px;
+        font-family: "OpenSans_300Light";
         margin-left: 10px;
     `;
     return (

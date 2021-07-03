@@ -39,11 +39,15 @@ function MenuSelector({
     fontSize,
     imageLeft,
     margin,
+    marginLeftPlus,
+    marginRightPlus,
 }) {
     const MenuImage = styled.Image`
         height: ${moderateScale(85)}px;
         width: ${moderateScale(155)}px;
         ${margin && `margin-left: -${margin}px;`}
+        ${marginLeftPlus && `margin-left: ${marginLeftPlus}px`}
+        ${marginRightPlus && `margin-right: ${marginRightPlus}px`}
     `;
     const Container = styled.View`
         background-color: ${backgroundColor};
@@ -92,21 +96,23 @@ export default function Main() {
                     backgroundColor="#fccf04"
                     fontSize="25"
                     imageLeft={true}
+                    marginRightPlus="25"
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Events")}>
                 <MenuSelector
                     imagePath={require("../../assets/typingMan.gif")}
-                    text={`SCHOOL${"\n"}EVENTS`}
+                    text={`NEWS`}
                     backgroundColor="#ff5758"
                     fontSize="25"
                     imageLeft={false}
+                    marginLeftPlus="25"
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Activities")}>
                 <MenuSelector
                     imagePath={require("../../assets/AGuy.gif")}
-                    text={`UPCOMING${"\n"}SC EVENTS`}
+                    text={`UPCOMING${"\n"}EVENTS`}
                     backgroundColor="#5071f6"
                     fontSize="22"
                     imageLeft={true}

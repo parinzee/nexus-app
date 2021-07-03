@@ -13,7 +13,7 @@ export default function Activities({}) {
         <Container>
             <Header
                 imagePath={require("../../../assets/AGuy.gif")}
-                text={`UPCOMING${"\n"}SC EVENTS`}
+                text={`UPCOMING${"\n"}EVENTS`}
                 fontSize="28"
                 imageLeft={false}
                 margin="28"
