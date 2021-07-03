@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { scale } from 'react-native-size-matters';
+import { verticalScale, moderateScale } from 'react-native-size-matters';
 import * as Device from 'expo-device';
 
 
@@ -12,14 +12,14 @@ const Header = () => {
     `;
 
     const HeaderContainer = styled.View`
-        margin-top: 40px;
+        margin-top: ${verticalScale(33)}px;
         display: flex;
         flex-direction: row;
     `;
 
     const Logo = styled.Image`
-        max-width: ${scale(100)}px;
-        max-height: ${scale(100)}px;
+        max-width: ${moderateScale(100)}px;
+        max-height: ${moderateScale(100)}px;
     `;
 
     const HeaderText = styled.View`
@@ -34,16 +34,16 @@ const Header = () => {
     const TextUpper = styled.Text`
         color: white;
         font-family: Now;
-        padding-top: ${scale(10)}px;
-        font-size: ${scale(16)}px;
+        padding-top: ${moderateScale(10)}px;
+        font-size: ${moderateScale(16)}px;
     `;
 
     const TextLower = styled.Text`
         color: white;
-        margin-top: ${scale(3)}px;
+        margin-top: ${moderateScale(3)}px;
         padding: 0;
         letter-spacing: 7px;
-        ${isAndroid ? `font-size: ${scale(55)}px;` : `font-size: ${scale(65)}px;`}
+        ${isAndroid ? `font-size: ${moderateScale(55)}px;` : `font-size: ${moderateScale(65)}px;`}
         transform: scale(1, 0.75);
     `;
 

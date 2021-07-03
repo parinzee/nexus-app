@@ -35,7 +35,7 @@ export default function Main({navigation}) {
 
     const handlePress = async () => {
         setClick(click + 1);
-        if (click >= 2) {
+        if (click >= 1) {
             navigation.navigate("Credits")
             setClick(0)
         }
