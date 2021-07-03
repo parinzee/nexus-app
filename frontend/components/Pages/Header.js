@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components/native"
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 export default function Header({imagePath, text, fontSize, imageLeft, margin, alignRight}) {
     const Container = styled.View`
@@ -8,14 +8,14 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin, al
         align-items: center;
         margin-top: ${verticalScale(1)}px;
         display: flex;
-        width: ${scale(295)}px;
-        height: ${scale(85)}px;
+        width: ${moderateScale(295)}px;
+        height: ${moderateScale(85)}px;
         flex-direction: ${imageLeft ? "row" : "row-reverse"};
     `
 
     const Icon = styled.Image`
-        height: ${scale(85)}px;
-        width: ${scale(155)}px;
+        height: ${moderateScale(85)}px;
+        width: ${moderateScale(155)}px;
         ${imageLeft ? margin && `margin-left: -${margin}px;` : margin && `margin-right: -${margin}px;`}
     `
 
@@ -23,7 +23,7 @@ export default function Header({imagePath, text, fontSize, imageLeft, margin, al
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        font-size: ${scale(parseInt(fontSize))}px;
+        font-size: ${moderateScale(parseInt(fontSize))}px;
         ${alignRight ? `text-align: right`: ""}
     `;
 

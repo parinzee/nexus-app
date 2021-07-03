@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Linking from "expo-linking"
@@ -8,11 +8,11 @@ import * as Linking from "expo-linking"
 function PrivacyPolicy({}) {
     const Container = styled.View`
         background-color: #3a6351;
-        margin-top: ${verticalScale(23)}px;
+        margin-top: ${verticalScale(15)}px;
         display: flex;
         flex-direction: row;
-        width: ${scale(100)}px;
-        height: ${scale(20)}px;
+        width: ${moderateScale(100)}px;
+        height: ${moderateScale(20)}px;
         border-radius: 16px;
         justify-content: center;
     `;
@@ -21,7 +21,7 @@ function PrivacyPolicy({}) {
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        font-size: ${scale(10)}px;
+        font-size: ${moderateScale(10)}px;
         align-self: center;
     `;
 
@@ -41,16 +41,16 @@ function MenuSelector({
     margin,
 }) {
     const MenuImage = styled.Image`
-        height: ${scale(85)}px;
-        width: ${scale(155)}px;
+        height: ${moderateScale(85)}px;
+        width: ${moderateScale(155)}px;
         ${margin && `margin-left: -${margin}px;`}
     `;
     const Container = styled.View`
         background-color: ${backgroundColor};
         margin-top: ${verticalScale(20)}px;
         display: flex;
-        width: ${scale(295)}px;
-        height: ${scale(85)}px;
+        width: ${moderateScale(295)}px;
+        height: ${moderateScale(85)}px;
         flex-direction: ${imageLeft ? "row" : "row-reverse"};
         border-radius: 16px;
     `;
@@ -59,7 +59,7 @@ function MenuSelector({
         font-family: "OpenSans_800ExtraBold";
         color: white;
         align-self: center;
-        font-size: ${scale(parseInt(fontSize))}px;
+        font-size: ${moderateScale(parseInt(fontSize))}px;
     `;
 
     return (
@@ -81,6 +81,7 @@ export default function Main() {
         justify-content: center;
         align-items: center;
         align-content: center;
+        margin-top: -10px;
     `;
     return (
         <Container>

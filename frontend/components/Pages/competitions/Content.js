@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { LinearGradient } from 'expo-linear-gradient';
-import { scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ name, score, mainColor}) => {
     const Container = styled(LinearGradient).attrs({
@@ -14,8 +14,8 @@ const Item = ({ name, score, mainColor}) => {
         display: flex;
         flex-direction: row;
         border-radius: 20px;
-        width: ${scale(295)}px;
-        height: ${scale(50)}px;
+        width: ${moderateScale(295)}px;
+        height: ${moderateScale(50)}px;
         margin-top: ${verticalScale(50)}px;
         padding: 5px;
         margin-right: 20px;
@@ -27,7 +27,7 @@ const Item = ({ name, score, mainColor}) => {
 
     const TitleText = styled.Text`
         color: white;
-        font-size: ${scale(22)}px;
+        font-size: ${moderateScale(22)}px;
         font-family: "OpenSans_800ExtraBold";
         margin-left: 10px;
         align-self: center;
@@ -35,7 +35,7 @@ const Item = ({ name, score, mainColor}) => {
 
     const SubtitleText = styled.Text`
         color: white;
-        font-size: ${scale(20)}px;
+        font-size: ${moderateScale(20)}px;
         font-family: "OpenSans_800ExtraBold";
         margin-left: 10px;
         align-self: center;
