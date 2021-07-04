@@ -14,7 +14,7 @@ const Header = () => {
     const HeaderContainer = styled.View`
         display: flex;
         flex-direction: row;
-        margin-top: 15%;
+        margin-top: 14%;
     `;
 
     const Logo = styled.Image`
