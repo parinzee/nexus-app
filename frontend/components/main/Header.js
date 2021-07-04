@@ -12,9 +12,9 @@ const Header = () => {
     `;
 
     const HeaderContainer = styled.View`
-        margin-top: ${verticalScale(35)}px;
         display: flex;
         flex-direction: row;
+        margin-top: 15%;
     `;
 
     const Logo = styled.Image`

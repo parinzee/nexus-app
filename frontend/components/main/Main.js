@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {ScrollView} from "react-native"
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -39,15 +40,14 @@ export default function Main({navigation}) {
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
-        color: white;
-        margin: 0;
     `;
     return (
         <Container>
             <TouchableOpacity activeOpacity="1" onPress={() => handlePress()}>
                 <Header />
             </TouchableOpacity>
-            <Menu />
+            <ScrollView>
+            <Menu /></ScrollView>
         </Container>
     );
 }
