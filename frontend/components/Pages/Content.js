@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
 import { FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
-import { scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ eventName, eventDesc, mainColor }) => {
     const Container = styled.View`
@@ -10,8 +10,8 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
         flex-direction: column;
         background-color: ${mainColor};
         border-radius: 20px;
-        width: ${scale(295)}px;
-        height: ${scale(100)}px;
+        width: ${moderateScale(295)}px;
+        height: ${moderateScale(100)}px;
         margin-top: ${verticalScale(22)}px;
         padding: 5px;
         margin-right: 20px;
@@ -21,15 +21,16 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 
     const TitleText = styled.Text`
         color: white;
-        font-size: ${scale(27)}px;
+        font-size: ${moderateScale(19)}px;
         font-family: "OpenSans_800ExtraBold";
         margin-left: 10px;
+        margin-bottom: 3px;
     `;
 
     const SubtitleText = styled.Text`
         color: white;
-        font-size: ${scale(15)}px;
-        font-family: "OpenSans_800ExtraBold";
+        font-size: ${moderateScale(16)}px;
+        font-family: "OpenSans_300Light";
         margin-left: 10px;
     `;
     return (

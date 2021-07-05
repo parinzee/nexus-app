@@ -12,7 +12,7 @@ export default function Competitions({}) {
     return (
         <Container>
             <Header
-                imagePath={require("../../../assets/AGuy.gif")}
+                imagePath={require("../../../assets/teacher.gif")}
                 text={`TEAM COLOR${"\n"}SCORES`}
                 fontSize="25"
                 imageLeft={true}

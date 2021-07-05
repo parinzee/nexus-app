@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { verticalScale, scale } from "react-native-size-matters";
+import { verticalScale, moderateScale } from "react-native-size-matters";
 
 export default function Credits() {
     const Container = styled.View`
@@ -12,7 +12,7 @@ export default function Credits() {
     const Title = styled.Text`
         color: white;
         font-family: System;
-        font-size: ${scale(20)}px;
+        font-size: ${moderateScale(20)}px;
         margin-top: ${verticalScale(15)}px;
         margin-bottom: ${verticalScale(10)}px;
         margin-left: 20px 
@@ -31,22 +31,23 @@ export default function Credits() {
     const FrontText = styled.Text`
         color: grey;
         font-family: System;
-        font-size: ${scale(13)}px; 
+        font-size: ${moderateScale(13)}px; 
     `
 
     const BackText = styled.Text`
         color: white;
         font-family: System;
-        font-size: ${scale(13)}px; 
+        font-size: ${moderateScale(13)}px; 
     `
     return (
         <Container>
             <Title>Information</Title>
             <InfoTextContainer><FrontText>Copyright</FrontText><BackText>© NEXUS Student Council 2021-22</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Developer</FrontText><BackText>Parinthapat Pengpun</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>App Developer</FrontText><BackText>Parinthapat Pengpun</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Graphic Designer</FrontText><BackText>Titus Chinsomboon</BackText></InfoTextContainer>
             <InfoTextContainer><FrontText>Version</FrontText><BackText>1.0.0</BackText></InfoTextContainer>
-            <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 2 2021</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Created</FrontText><BackText>June 20 2021</BackText></InfoTextContainer>
+            <InfoTextContainer><FrontText>Last Updated</FrontText><BackText>July 15 2021</BackText></InfoTextContainer>
         </Container>
     );
 }
