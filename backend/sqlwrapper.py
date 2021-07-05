@@ -9,7 +9,7 @@ def insertItem(eventTitle, eventDesc, itemType):
 
     if itemType == "announcements":
         cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
@@ -20,7 +20,7 @@ def insertItem(eventTitle, eventDesc, itemType):
 
     elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
@@ -43,7 +43,7 @@ def listItems(itemType):
 
     if itemType == "announcements":
         cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
@@ -52,7 +52,7 @@ def listItems(itemType):
 
     elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
@@ -61,7 +61,7 @@ def listItems(itemType):
 
     elif itemType == "scores":
         cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             red text NOT NULL,
             blue text NOT NULL,
             yellow text NOT NULL,
@@ -83,7 +83,7 @@ def insertScore(red, blue, yellow, green):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-        id integer PRIMARY KEY,
+        id integer SERIAL PRIMARY KEY,
         red text NOT NULL,
         blue text NOT NULL,
         yellow text NOT NULL,
@@ -109,7 +109,7 @@ def deleteItem(index, itemType):
 
     if itemType == "announcements":
         cur.execute('''CREATE TABLE IF NOT EXISTS announcements(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
@@ -118,7 +118,7 @@ def deleteItem(index, itemType):
 
     elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
-            id integer PRIMARY KEY,
+            id integer SERIAL PRIMARY KEY,
             eventTitle text NOT NULL,
             eventDesc text NOT NULL);
         ''')
