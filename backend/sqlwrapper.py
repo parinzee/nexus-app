@@ -1,7 +1,10 @@
-import sqlite3
+import os
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
 
 def insertItem(eventTitle, eventDesc, itemType):
-    db = sqlite3.connect('main.db')
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
     if itemType == "announcements":
@@ -34,7 +37,7 @@ def insertItem(eventTitle, eventDesc, itemType):
     db.close()
 
 def listItems(itemType):
-    db = sqlite3.connect('main.db')
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
     if itemType == "announcements":
@@ -75,7 +78,7 @@ def listItems(itemType):
     return announcements
 
 def insertScore(red, blue, yellow, green):
-    db = sqlite3.connect('main.db')
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS scores(
         id integer PRIMARY KEY,
@@ -98,7 +101,7 @@ def insertScore(red, blue, yellow, green):
     db.close()
 
 def deleteItem(index, itemType):
-    db = sqlite3.connect('main.db')
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
     if itemType == "announcements":

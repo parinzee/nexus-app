@@ -6,11 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 async def listItem():
-    items = dict()
-    for i in ["events", "scores", "announcements"]:
-        items[i] = listItems(i)
-    
-    return items
+    return True 
 
 @app.get("/events/")
 async def listevents():
