@@ -15,7 +15,7 @@ def insertItem(eventTitle, eventDesc, itemType):
         ''')
 
         cur.execute('''
-            INSERT INTO announcements(eventTitle, eventDesc) VALUES(?, ?);
+            INSERT INTO announcements(eventTitle, eventDesc) VALUES(%s, %s);
             ''', (eventTitle, eventDesc))
 
     elif itemType == "events":
@@ -26,7 +26,7 @@ def insertItem(eventTitle, eventDesc, itemType):
         ''')
 
         cur.execute('''
-            INSERT INTO events(eventTitle, eventDesc) VALUES(?, ?);
+            INSERT INTO events(eventTitle, eventDesc) VALUES(%s, %s);
             ''', (eventTitle, eventDesc))
     
     else:
@@ -34,6 +34,7 @@ def insertItem(eventTitle, eventDesc, itemType):
 
 
     db.commit()
+    cur.close()
     db.close()
 
 def listItems(itemType):
@@ -74,6 +75,7 @@ def listItems(itemType):
 
     announcements = cur.fetchall()
     db.commit()
+    cur.close()
     db.close()
     return announcements
 
@@ -94,10 +96,11 @@ def insertScore(red, blue, yellow, green):
         pass
 
     cur.execute('''
-        INSERT INTO scores(red, blue, yellow, green) VALUES(?, ?, ?, ?);
+        INSERT INTO scores(red, blue, yellow, green) VALUES(%s, %s, %s, %s);
         ''', (red, blue, yellow, green))
 
     db.commit()
+    cur.close()
     db.close()
 
 def deleteItem(index, itemType):
@@ -111,7 +114,7 @@ def deleteItem(index, itemType):
             eventDesc text NOT NULL);
         ''')
 
-        cur.execute("DELETE FROM announcements WHERE id=?", [index])
+        cur.execute("DELETE FROM announcements WHERE id=%s", [index])
 
     elif itemType == "events":
         cur.execute('''CREATE TABLE IF NOT EXISTS events(
@@ -120,9 +123,10 @@ def deleteItem(index, itemType):
             eventDesc text NOT NULL);
         ''')
 
-        cur.execute("DELETE FROM events WHERE id=?", [index])
+        cur.execute("DELETE FROM events WHERE id=%s", [index])
     else:
         pass
 
     db.commit()
+    cur.close()
     db.close()
