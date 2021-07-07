@@ -5,7 +5,7 @@ import axios from "axios";
 import { LinearGradient } from 'expo-linear-gradient';
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const Item = ({ name, score, mainColor}) => {
+const Item = ({ name, score, mainColor }) => {
     const Container = styled(LinearGradient).attrs({
         colors: [mainColor, "#404040"],
         start: { x: 0, y: 0 },
@@ -56,18 +56,18 @@ export default function BottomContent({ uri, mainColor }) {
     const getEvents = async () => {
         const data = await axios.get(uri).then((response) => {
             return response.data;
-        }).catch(() => {return false});
+        }).catch(() => { return false });
         if (data === false) {
             setError(true)
             setRefresh(false)
         } else {
             let dataArray = [];
             for (let i = 1; i < 5; i++) {
-                    dataArray.push(data[0][i]) 
+                dataArray.push(data[0][i])
             }
-            const colors =["RED", "BLUE", "YELLOW", "GREEN"];
-            const realColors =["red", "#0066ff", "#e6e600", "#33cc33"];
-            dataArray = dataArray.map((value, index) => {return {key: index, name: colors[index], score: value, color: realColors[index]}})
+            const colors = ["RED", "BLUE", "YELLOW", "GREEN"];
+            const realColors = ["red", "#0066ff", "#e6e600", "#33cc33"];
+            dataArray = dataArray.map((value, index) => { return { key: index, name: colors[index], score: value, color: realColors[index] } })
             setItems(dataArray)
             setRefresh(false);
         }
@@ -123,8 +123,8 @@ export default function BottomContent({ uri, mainColor }) {
 
     return (
         <ListContainer>
-            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => {setError(false)}} >
-                <ModalContainer onPress={() => {setError(false)}}>
+            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => { setError(false) }} >
+                <ModalContainer onPress={() => { setError(false) }}>
                     <InnerContainer>
                         <ModalTitle>Error</ModalTitle>
                         <ModalText>Please check your internet connection.</ModalText>
@@ -134,14 +134,14 @@ export default function BottomContent({ uri, mainColor }) {
             {refresh === false ? (
                 <FlatList
                     data={items}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                         <Item
                             name={item.name}
                             score={item.score}
                             mainColor={item.color}
                         />
                     )}
-                    keyExtractor={(items, index) => {return index}}
+                    keyExtractor={(items, index) => { return index }}
                 />
             ) : (
                 <ActivityIndicator size="large" color={mainColor} />

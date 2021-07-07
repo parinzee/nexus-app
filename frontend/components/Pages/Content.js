@@ -49,7 +49,7 @@ export default function BottomContent({ uri, mainColor }) {
     const getEvents = async () => {
         const data = await axios.get(uri).then((response) => {
             return response.data;
-        }).catch(() => {return false});
+        }).catch(() => { return false });
         if (data === false) {
             setError(true)
             setRefresh(false)
@@ -107,8 +107,8 @@ export default function BottomContent({ uri, mainColor }) {
     `
     return (
         <ListContainer>
-            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => {setError(false)}} >
-                <ModalContainer onPress={() => {setError(false)}}>
+            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => { setError(false) }} >
+                <ModalContainer onPress={() => { setError(false) }}>
                     <InnerContainer>
                         <ModalTitle>Error</ModalTitle>
                         <ModalText>Please check your internet connection.</ModalText>
@@ -118,7 +118,7 @@ export default function BottomContent({ uri, mainColor }) {
             {refresh === false ? (
                 <FlatList
                     data={items}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                         <Item
                             eventName={item[1]}
                             eventDesc={item[2]}
