@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator } from "react-native";
+import { Modal, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
@@ -44,13 +44,19 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 export default function BottomContent({ uri, mainColor }) {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(true);
+    const [error, setError] = useState(false);
 
     const getEvents = async () => {
         const data = await axios.get(uri).then((response) => {
             return response.data;
-        });
-        setItems(data.sort((a, b) => b[0] - a[0]));
-        setRefresh(false);
+        }).catch(() => {return false});
+        if (data === false) {
+            setError(true)
+            setRefresh(false)
+        } else {
+            setItems(data.sort((a, b) => b[0] - a[0]));
+            setRefresh(false);
+        }
     };
     useEffect(() => {
         getEvents();
@@ -66,8 +72,49 @@ export default function BottomContent({ uri, mainColor }) {
         flex: 1;
     `;
 
+    const ModalContainer = styled.TouchableOpacity`
+        flex: 1;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const InnerContainer = styled.View`
+        background-color: rgb(25,25,25);
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-color: white;
+        border-radius: 25px;
+        width: 30%;
+        height: 17%;
+        padding: 10px;
+    `
+
+    const ModalTitle = styled.Text`
+        color: white;
+        font-family: System;
+        text-align: center;
+        font-size: ${moderateScale(25)}px;
+        margin-bottom: 10px
+    `
+
+    const ModalText = styled.Text`
+        text-align: center;
+        color: white;
+        font-family: System;
+        font-size: ${moderateScale(13)}px;
+    `
     return (
         <ListContainer>
+            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => {setError(false)}} >
+                <ModalContainer onPress={() => {setError(false)}}>
+                    <InnerContainer>
+                        <ModalTitle>Error</ModalTitle>
+                        <ModalText>Please check your internet connection.</ModalText>
+                    </InnerContainer>
+                </ModalContainer>
+            </Modal>
             {refresh === false ? (
                 <FlatList
                     data={items}
