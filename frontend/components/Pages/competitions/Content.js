@@ -141,7 +141,7 @@ export default function BottomContent({ uri, mainColor }) {
                             mainColor={item.color}
                         />
                     )}
-                    keyExtractor={(items, index) => { return index }}
+                    keyExtractor={(items, index) => { return index.toString() }}
                 />
             ) : (
                 <ActivityIndicator size="large" color={mainColor} />
