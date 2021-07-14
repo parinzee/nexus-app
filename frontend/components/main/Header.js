@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { verticalScale, moderateScale } from 'react-native-size-matters';
-import * as Device from 'expo-device';
-
+import { verticalScale, moderateScale } from "react-native-size-matters";
+import * as Device from "expo-device";
 
 const Header = () => {
-    const isAndroid = Device.osName === "Android" ? true : false
+    const isAndroid = Device.osName === "Android" ? true : false;
     const Container = styled.View`
         margin: 0 auto;
         align-items: center;
@@ -14,7 +13,6 @@ const Header = () => {
     const HeaderContainer = styled.View`
         display: flex;
         flex-direction: row;
-        margin-top: 14%;
     `;
 
     const Logo = styled.Image`
@@ -24,7 +22,6 @@ const Header = () => {
 
     const HeaderText = styled.View`
         padding: 0;
-        margin: 0;
         display: flex;
         flex-direction: column;
         text-align: left;
@@ -34,17 +31,21 @@ const Header = () => {
     const TextUpper = styled.Text`
         color: white;
         font-family: Now;
-        padding-top: ${moderateScale(10)}px;
+        padding-left: 3px;
+        padding-top: ${moderateScale(16)}px;
         font-size: ${moderateScale(16)}px;
     `;
 
     const TextLower = styled.Text`
         color: white;
-        margin-top: ${moderateScale(3)}px;
+        margin-top: ${moderateScale(4)}px;
         padding: 0;
         letter-spacing: 7px;
-        ${isAndroid ? `font-size: ${moderateScale(55)}px;` : `font-size: ${moderateScale(65)}px;`}
-        transform: scale(1, 0.75);
+        ${isAndroid
+            ? `font-size: ${moderateScale(55)}px;`
+            : `font-size: ${moderateScale(90)}px;`}
+        font-family: Momcake;
+        transform: scale(1, 0.9);
     `;
 
     return (
