@@ -3,12 +3,12 @@ import styled from "styled-components/native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import * as Linking from "expo-linking"
+import * as Linking from "expo-linking";
 
 function PrivacyPolicy({}) {
     const Container = styled.View`
         background-color: #3a6351;
-        margin-top: ${verticalScale(15)}px;
+        margin-top: ${verticalScale(12)}px;
         display: flex;
         flex-direction: row;
         width: ${moderateScale(100)}px;
@@ -76,8 +76,10 @@ function MenuSelector({
 
 export default function Main() {
     const handlePrivacyPolicy = () => {
-        Linking.openURL("https://github.com/Parinz/nexus-app/blob/main/frontend/PRIVACYPOLICY.md")
-    }
+        Linking.openURL(
+            "https://github.com/Parinz/nexus-app/blob/main/frontend/PRIVACYPOLICY.md"
+        );
+    };
     const navigation = useNavigation();
     const Container = styled.View`
         display: flex;
@@ -85,7 +87,7 @@ export default function Main() {
         justify-content: center;
         align-items: center;
         align-content: center;
-        margin-top: -10px;
+        margin-top: -8px;
     `;
     return (
         <Container>

@@ -5,7 +5,7 @@ import Header from "./Header";
 import Menu from "./Menu";
 import { Asset } from "expo-asset";
 import { TouchableOpacity } from "react-native";
-import { verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
     const fetchImages = () => {
@@ -45,6 +45,15 @@ export default function Main({ navigation }) {
         justify-content: center;
         align-content: center;
     `;
+
+    const BCISTEXT = styled.Text`
+        padding-top: ${verticalScale(7)}px;
+        font-family: Now;
+        font-size: ${moderateScale(10)}px;
+        color: grey;
+        text-align: center;
+    `;
+
     const AnotherContainer = styled.View``;
     return (
         <Container>
@@ -58,6 +67,7 @@ export default function Main({ navigation }) {
                 <ScrollView>
                     <Menu />
                 </ScrollView>
+                <BCISTEXT>BCIS Student Council 2021-22</BCISTEXT>
             </AnotherContainer>
         </Container>
     );

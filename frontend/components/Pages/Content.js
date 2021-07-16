@@ -12,7 +12,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
         border-radius: 20px;
         width: ${moderateScale(295)}px;
         height: ${moderateScale(100)}px;
-        margin-top: ${verticalScale(22)}px;
+        margin-top: ${verticalScale(30)}px;
         padding: 5px;
         margin-right: 20px;
         margin-left: 20px;
@@ -47,12 +47,17 @@ export default function BottomContent({ uri, mainColor }) {
     const [error, setError] = useState(false);
 
     const getEvents = async () => {
-        const data = await axios.get(uri).then((response) => {
-            return response.data;
-        }).catch(() => { return false });
+        const data = await axios
+            .get(uri)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(() => {
+                return false;
+            });
         if (data === false) {
-            setError(true)
-            setRefresh(false)
+            setError(true);
+            setRefresh(false);
         } else {
             setItems(data.sort((a, b) => b[0] - a[0]));
             setRefresh(false);
@@ -77,10 +82,10 @@ export default function BottomContent({ uri, mainColor }) {
         align-content: center;
         justify-content: center;
         align-items: center;
-    `
+    `;
 
     const InnerContainer = styled.View`
-        background-color: rgb(25,25,25);
+        background-color: rgb(25, 25, 25);
         display: flex;
         flex-direction: column;
         border-width: 1px;
@@ -89,29 +94,42 @@ export default function BottomContent({ uri, mainColor }) {
         width: 30%;
         height: 17%;
         padding: 10px;
-    `
+    `;
 
     const ModalTitle = styled.Text`
         color: white;
         font-family: System;
         text-align: center;
         font-size: ${moderateScale(25)}px;
-        margin-bottom: 10px
-    `
+        margin-bottom: 10px;
+    `;
 
     const ModalText = styled.Text`
         text-align: center;
         color: white;
         font-family: System;
         font-size: ${moderateScale(13)}px;
-    `
+    `;
     return (
         <ListContainer>
-            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => { setError(false) }} >
-                <ModalContainer onPress={() => { setError(false) }}>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={error}
+                onRequestClose={() => {
+                    setError(false);
+                }}
+            >
+                <ModalContainer
+                    onPress={() => {
+                        setError(false);
+                    }}
+                >
                     <InnerContainer>
                         <ModalTitle>Error</ModalTitle>
-                        <ModalText>Please check your internet connection.</ModalText>
+                        <ModalText>
+                            Please check your internet connection.
+                        </ModalText>
                     </InnerContainer>
                 </ModalContainer>
             </Modal>
