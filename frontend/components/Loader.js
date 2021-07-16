@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { CommonActions } from "@react-navigation/native";
 

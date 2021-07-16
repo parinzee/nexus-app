@@ -1,16 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import AppLoading from "expo-app-loading";
-import { useFonts, OpenSans_800ExtraBold, OpenSans_300Light} from "@expo-google-fonts/open-sans";
+import {
+    useFonts,
+    OpenSans_800ExtraBold,
+    OpenSans_300Light,
+} from "@expo-google-fonts/open-sans";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/main/Main";
 import Loader from "./components/Loader";
 import Links from "./components/Pages/links/Links";
 import Events from "./components/Pages/events/Events";
-import Activities from "./components/Pages/activities/Activities"
-import Competitions from "./components/Pages/competitions/Competitions"
-import Credits from "./components/Pages/credits/Credits"
+import Activities from "./components/Pages/activities/Activities";
+import Competitions from "./components/Pages/competitions/Competitions";
+import Credits from "./components/Pages/credits/Credits";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -34,8 +38,9 @@ export default function App() {
 
     let [fontsLoaded] = useFonts({
         Now: require("./assets/fonts/NowAlt-Light.otf"),
+        Momcake: require("./assets/fonts/Momcake.otf"),
         OpenSans_800ExtraBold,
-        OpenSans_300Light
+        OpenSans_300Light,
     });
 
     const Container = styled.View`
@@ -50,7 +55,7 @@ export default function App() {
             require("./assets/typingMan.gif"),
             require("./assets/AGuy.gif"),
             require("./assets/teacher.gif"),
-            require("./assets/nexus-logo.png")
+            require("./assets/nexus-logo.png"),
         ];
 
         const cacheImages = images.map((image) => {

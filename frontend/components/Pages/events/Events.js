@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import Header from "../Header";
 import Content from "../Content";
 
-export default function Events({}) {
+export default function Events({ }) {
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
@@ -19,7 +19,7 @@ export default function Events({}) {
                 margin="0"
                 alignRight={false}
             />
-            <Content uri="http://nexussc.herokuapp.com/announcements/"  mainColor="#ff5758"/>
+            <Content uri="http://nexussc.herokuapp.com/announcements/" mainColor="#ff5758" />
         </Container>
     );
 }

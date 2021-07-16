@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import {ScrollView} from "react-native"
+import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import Header from "./Header";
 import Menu from "./Menu";
 import { Asset } from "expo-asset";
 import { TouchableOpacity } from "react-native";
+import { verticalScale } from "react-native-size-matters";
 
-export default function Main({navigation}) {
+export default function Main({ navigation }) {
     const fetchImages = () => {
         const images = [
             require("../../assets/glowingBlob.gif"),
@@ -34,20 +35,30 @@ export default function Main({navigation}) {
     });
 
     const handlePress = async () => {
-        navigation.navigate("Credits")
-    }
+        navigation.navigate("Credits");
+    };
 
     const Container = styled.View`
         flex: 1;
         background-color: rgb(25, 25, 25);
+        display: flex;
+        justify-content: center;
+        align-content: center;
     `;
+    const AnotherContainer = styled.View``;
     return (
         <Container>
-            <TouchableOpacity activeOpacity="1" onPress={() => handlePress()}>
-                <Header />
-            </TouchableOpacity>
-            <ScrollView>
-            <Menu /></ScrollView>
+            <AnotherContainer>
+                <TouchableOpacity
+                    activeOpacity="1"
+                    onPress={() => handlePress()}
+                >
+                    <Header />
+                </TouchableOpacity>
+                <ScrollView>
+                    <Menu />
+                </ScrollView>
+            </AnotherContainer>
         </Container>
     );
 }

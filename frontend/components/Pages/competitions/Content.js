@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
-import { FlatList, ActivityIndicator } from "react-native";
+import { Modal, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { LinearGradient } from 'expo-linear-gradient';
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const Item = ({ name, score, mainColor}) => {
+const Item = ({ name, score, mainColor }) => {
     const Container = styled(LinearGradient).attrs({
         colors: [mainColor, "#404040"],
         start: { x: 0, y: 0 },
@@ -51,24 +51,65 @@ const Item = ({ name, score, mainColor}) => {
 export default function BottomContent({ uri, mainColor }) {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(true);
+    const [error, setError] = useState(false);
 
     const getEvents = async () => {
         const data = await axios.get(uri).then((response) => {
             return response.data;
-        });
-        let dataArray = [];
-        for (let i = 1; i < 5; i++) {
-                dataArray.push(data[0][i]) 
+        }).catch(() => { return false });
+        if (data === false) {
+            setError(true)
+            setRefresh(false)
+        } else {
+            let dataArray = [];
+            for (let i = 1; i < 5; i++) {
+                dataArray.push(data[0][i])
+            }
+            const colors = ["RED", "BLUE", "YELLOW", "GREEN"];
+            const realColors = ["red", "#0066ff", "#e6e600", "#33cc33"];
+            dataArray = dataArray.map((value, index) => { return { key: index, name: colors[index], score: value, color: realColors[index] } })
+            setItems(dataArray)
+            setRefresh(false);
         }
-        const colors =["RED", "BLUE", "YELLOW", "GREEN"];
-        const realColors =["red", "#0066ff", "#e6e600", "#33cc33"];
-        dataArray = dataArray.map((value, index) => {return {key: index, name: colors[index], score: value, color: realColors[index]}})
-        setItems(dataArray)
-        setRefresh(false);
     };
     useEffect(() => {
         getEvents();
     }, [refresh]);
+
+
+    const ModalContainer = styled.TouchableOpacity`
+        flex: 1;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const InnerContainer = styled.View`
+        background-color: rgb(25,25,25);
+        display: flex;
+        flex-direction: column;
+        border-width: 1px;
+        border-color: white;
+        border-radius: 25px;
+        width: 30%;
+        height: 17%;
+        padding: 10px;
+    `
+
+    const ModalTitle = styled.Text`
+        color: white;
+        font-family: System;
+        text-align: center;
+        font-size: ${moderateScale(25)}px;
+        margin-bottom: 10px
+    `
+
+    const ModalText = styled.Text`
+        text-align: center;
+        color: white;
+        font-family: System;
+        font-size: ${moderateScale(13)}px;
+    `
 
     const ListContainer = styled.View`
         display: flex;
@@ -82,16 +123,25 @@ export default function BottomContent({ uri, mainColor }) {
 
     return (
         <ListContainer>
+            <Modal animationType="fade" transparent={true} visible={error} onRequestClose={() => { setError(false) }} >
+                <ModalContainer onPress={() => { setError(false) }}>
+                    <InnerContainer>
+                        <ModalTitle>Error</ModalTitle>
+                        <ModalText>Please check your internet connection.</ModalText>
+                    </InnerContainer>
+                </ModalContainer>
+            </Modal>
             {refresh === false ? (
                 <FlatList
                     data={items}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                         <Item
                             name={item.name}
                             score={item.score}
                             mainColor={item.color}
                         />
                     )}
+                    keyExtractor={(items, index) => { return index.toString() }}
                 />
             ) : (
                 <ActivityIndicator size="large" color={mainColor} />
