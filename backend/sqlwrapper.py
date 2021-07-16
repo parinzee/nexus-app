@@ -61,7 +61,7 @@ def listItems(itemType):
 
     elif itemType == "scores":
         cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-            id SERIAL PRIMARY KEY,
+            id INTEGER PRIMARY KEY,
             red text NOT NULL,
             blue text NOT NULL,
             yellow text NOT NULL,
@@ -82,8 +82,12 @@ def listItems(itemType):
 def insertScore(red, blue, yellow, green):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
+    try:
+        cur.execute("DROP TABLE scores;")
+    except:
+        pass
     cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-        id SERIAL PRIMARY KEY,
+        id INTEGER PRIMARY KEY,
         red text NOT NULL,
         blue text NOT NULL,
         yellow text NOT NULL,
@@ -96,7 +100,7 @@ def insertScore(red, blue, yellow, green):
         pass
 
     cur.execute('''
-        INSERT INTO scores(red, blue, yellow, green) VALUES(%s, %s, %s, %s);
+        INSERT INTO scores(id, red, blue, yellow, green) VALUES(1, %s, %s, %s, %s);
         ''', (red, blue, yellow, green))
 
     db.commit()
