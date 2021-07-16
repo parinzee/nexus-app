@@ -42,7 +42,7 @@ const Header = () => {
         padding: 0;
         letter-spacing: 7px;
         ${isAndroid
-            ? `font-size: ${moderateScale(55)}px;`
+            ? `font-size: ${moderateScale(80)}px;`
             : `font-size: ${moderateScale(90)}px;`}
         font-family: Momcake;
         transform: scale(1, 0.9);

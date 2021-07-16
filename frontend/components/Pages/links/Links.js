@@ -124,7 +124,6 @@ export default function Links() {
                     data={entries}
                     renderItem={renderEntry}
                     keyExtractor={(entry) => entry.id}
-                    scrollEnabled={false}
                 />
             </ListContainer>
         </Container>

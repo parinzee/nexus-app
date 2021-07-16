@@ -13,7 +13,7 @@ export default function Header({
     const Container = styled.View`
         margin: 0 auto;
         align-items: center;
-        margin-top: ${verticalScale(15)}px;
+        margin-top: ${verticalScale(10)}px;
         display: flex;
         width: ${moderateScale(295)}px;
         height: ${moderateScale(85)}px;
