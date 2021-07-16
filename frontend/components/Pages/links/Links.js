@@ -4,19 +4,19 @@ import styled from "styled-components/native";
 import Header from "../Header";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
-import * as Linking from "expo-linking"
+import * as Linking from "expo-linking";
 
 const entries = [
     {
         id: "1",
         text: "NEXUS WEBSITE",
-        imagePath: require("../../../assets/web.png"),
+        imagePath: require("../../../assets/nexus-icon.png"),
         link: "https://www.nexusbcis.com",
     },
     {
         id: "2",
         text: "HOUSE TEAM",
-        imagePath: require("../../../assets/100.png"),
+        imagePath: require("../../../assets/houseTeam.png"),
         link: "https://nexushta.onuniverse.com",
     },
     {
@@ -41,15 +41,14 @@ const entries = [
         id: "6",
         text: "COVID UPDATES",
         imagePath: require("../../../assets/covid.png"),
-        link: "https://covid19.who.int",
+        link: "https://ddc.moph.go.th/viralpneumonia/index.php",
     },
 ];
 
 const LinkEntry = ({ text, imagePath, link }) => {
-    
     const handlePress = () => {
-        Linking.openURL(link)
-    }
+        Linking.openURL(link);
+    };
 
     const Container = styled.TouchableOpacity`
         display: flex;
@@ -77,10 +76,10 @@ const LinkEntry = ({ text, imagePath, link }) => {
     `;
 
     return (
-            <Container onPress={handlePress}>
-                <ListIcon source={imagePath} />
-                <ListText>{text}</ListText>
-            </Container>
+        <Container onPress={handlePress}>
+            <ListIcon source={imagePath} />
+            <ListText>{text}</ListText>
+        </Container>
     );
 };
 

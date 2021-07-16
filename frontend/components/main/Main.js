@@ -11,8 +11,8 @@ export default function Main({ navigation }) {
     const fetchImages = () => {
         const images = [
             require("../../assets/glowingBlob.gif"),
-            require("../../assets/web.png"),
-            require("../../assets/100.png"),
+            require("../../assets/nexus-icon.png"),
+            require("../../assets/houseTeam.png"),
             require("../../assets/instagram.png"),
             require("../../assets/tiktok.png"),
             require("../../assets/line.png"),
