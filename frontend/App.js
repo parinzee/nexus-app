@@ -9,7 +9,7 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-import Main from "./components/main/Main";
+import Main from "./components/Main/Main";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
 import { Text } from "react-native";
@@ -118,13 +118,13 @@ export default function App() {
 						}}
 					/>
 					<Tab.Screen
-						name="Student Help"
+						name="Me"
 						component={TeamColor}
 						options={{
-							tabBarLabel: "Student Tools",
+							tabBarLabel: "Me",
 							tabBarIcon: ({ color, size }) => (
 								<FontAwesome5
-									name="hands-helping"
+									name="user"
 									size={size}
 									color={color}
 								/>
