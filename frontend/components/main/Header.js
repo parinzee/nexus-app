@@ -4,61 +4,43 @@ import { verticalScale, moderateScale } from "react-native-size-matters";
 import * as Device from "expo-device";
 
 const Header = () => {
-    const isAndroid = Device.osName === "Android" ? true : false;
-    const Container = styled.View`
-        margin: 0 auto;
-        align-items: center;
-    `;
+	const isAndroid = Device.osName === "Android" ? true : false;
+	const Container = styled.View`
+		margin-top: ${verticalScale(35)}px;
+		margin-left: ${moderateScale(15)}px;
+		align-items: flex-start;
+	`;
 
-    const HeaderContainer = styled.View`
-        display: flex;
-        flex-direction: row;
-    `;
+	const HeaderContainer = styled.View`
+		display: flex;
+		flex-direction: row;
+	`;
 
-    const Logo = styled.Image`
-        max-width: ${moderateScale(100)}px;
-        max-height: ${moderateScale(100)}px;
-    `;
+	const Logo = styled.Image`
+		max-width: ${moderateScale(50)}px;
+		max-height: ${moderateScale(50)}px;
+	`;
 
-    const HeaderText = styled.View`
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-        align-content: flex-end;
-    `;
+	const TextLower = styled.Text`
+		color: white;
+		align-self: flex-end;
+		letter-spacing: 7px;
+		margin-bottom: -${moderateScale(4)}px;
+		${isAndroid
+			? `font-size: ${moderateScale(50)}px;`
+			: `font-size: ${moderateScale(50)}px;`}
+		font-family: Momcake;
+		transform: scale(1, 0.9);
+	`;
 
-    const TextUpper = styled.Text`
-        color: white;
-        font-family: Now;
-        padding-left: 3px;
-        padding-top: ${moderateScale(16)}px;
-        font-size: ${moderateScale(16)}px;
-    `;
-
-    const TextLower = styled.Text`
-        color: white;
-        margin-top: ${moderateScale(4)}px;
-        padding: 0;
-        letter-spacing: 7px;
-        ${isAndroid
-            ? `font-size: ${moderateScale(80)}px;`
-            : `font-size: ${moderateScale(90)}px;`}
-        font-family: Momcake;
-        transform: scale(1, 0.9);
-    `;
-
-    return (
-        <Container>
-            <HeaderContainer>
-                <Logo source={require("../../assets/nexus-logo.png")} />
-                <HeaderText>
-                    <TextUpper>Elevate BCIS Together.</TextUpper>
-                    <TextLower>EXUS</TextLower>
-                </HeaderText>
-            </HeaderContainer>
-        </Container>
-    );
+	return (
+		<Container>
+			<HeaderContainer>
+				<Logo source={require("../../assets/nexus-logo.png")} />
+				<TextLower>EXUS</TextLower>
+			</HeaderContainer>
+		</Container>
+	);
 };
 
 export default Header;
