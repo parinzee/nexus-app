@@ -1,6 +1,11 @@
 import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
-import { Modal, FlatList, ActivityIndicator } from "react-native";
+import {
+	RefreshControl,
+	Modal,
+	FlatList,
+	ActivityIndicator,
+} from "react-native";
 import axios from "axios";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
@@ -142,10 +147,20 @@ export default function BottomContent({ uri, mainColor }) {
 						/>
 					)}
 					keyExtractor={(entry) => entry[0].toString()}
+					refreshControl={
+						<RefreshControl
+							refreshing={refresh}
+							tintColor={mainColor}
+							colors={[mainColor]}
+							onRefresh={() => {
+								setRefresh(true);
+							}}
+						/>
+					}
 				/>
 			) : (
 				<ActivityIndicator
-					style={{ textAlign: "center", paddingTop: "70%" }}
+					style={{ textAlign: "center" }}
 					size="large"
 					color={mainColor}
 				/>
