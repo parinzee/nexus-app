@@ -117,7 +117,7 @@ export default function App() {
 						name="Student Help"
 						component={TeamColor}
 						options={{
-							tabBarLabel: "Student Help",
+							tabBarLabel: "Student Tools",
 							tabBarIcon: ({ color, size }) => (
 								<FontAwesome5
 									name="hands-helping"
