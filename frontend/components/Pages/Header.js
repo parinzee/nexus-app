@@ -2,44 +2,34 @@ import React from "react";
 import styled from "styled-components/native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-export default function Header({
-    imagePath,
-    text,
-    fontSize,
-    imageLeft,
-    margin,
-    alignRight,
-}) {
-    const Container = styled.View`
-        margin: 0 auto;
-        align-items: center;
-        margin-top: ${verticalScale(10)}px;
-        display: flex;
-        width: ${moderateScale(295)}px;
-        height: ${moderateScale(85)}px;
-        flex-direction: ${imageLeft ? "row" : "row-reverse"};
-    `;
+export default function Header({ text, fontSize }) {
+	const Container = styled.View`
+		margin-top: ${verticalScale(35)}px;
+		margin-horizontal: ${moderateScale(30)}px;
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	`;
 
-    const Icon = styled.Image`
-        height: ${moderateScale(85)}px;
-        width: ${moderateScale(155)}px;
-        ${imageLeft
-            ? margin && `margin-left: -${margin}px;`
-            : margin && `margin-right: -${margin}px;`}
-    `;
+	const MenuText = styled.Text`
+		font-family: "Momcake";
+		color: white;
+		align-self: center;
+		font-size: ${moderateScale(parseInt(fontSize))}px;
+		margin-bottom: -${moderateScale(5)}px;
+		align-self: flex-end;
+	`;
 
-    const MenuText = styled.Text`
-        font-family: "OpenSans_800ExtraBold";
-        color: white;
-        align-self: center;
-        font-size: ${moderateScale(parseInt(fontSize))}px;
-        ${alignRight ? `text-align: right` : ""}
-    `;
+	const Logo = styled.Image`
+		max-width: ${moderateScale(parseInt(fontSize) - 12)}px;
+		max-height: ${moderateScale(parseInt(fontSize) - 12)}px;
+	`;
 
-    return (
-        <Container>
-            <Icon source={imagePath}></Icon>
-            <MenuText>{text}</MenuText>
-        </Container>
-    );
+	return (
+		<Container>
+			<MenuText>{text}</MenuText>
+			<Logo source={require("../../assets/nexus-logo.png")} />
+		</Container>
+	);
 }

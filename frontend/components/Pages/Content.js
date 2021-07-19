@@ -10,12 +10,10 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		flex-direction: column;
 		background-color: ${mainColor};
 		border-radius: 20px;
-		width: ${moderateScale(295)}px;
+		width: ${moderateScale(330)}px;
 		height: ${moderateScale(100)}px;
 		margin-top: ${verticalScale(30)}px;
 		padding: 5px;
-		margin-right: 20px;
-		margin-left: 20px;
 		padding-right: 10px;
 	`;
 
