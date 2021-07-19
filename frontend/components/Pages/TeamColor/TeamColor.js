@@ -21,7 +21,7 @@ export default function Activities({}) {
 
 	return (
 		<Container>
-			<Header text="Team Color" fontSize="40" />
+			<Header text="Team Color" fontSize="45" />
 			<AnotherContainer>
 				<Scores
 					uri="http://nexussc.herokuapp.com/scores/"
