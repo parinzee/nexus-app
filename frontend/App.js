@@ -10,7 +10,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Main from "./components/main/Main";
-import Loader from "./components/Loader";
 import Links from "./components/Pages/links/Links";
 import Events from "./components/Pages/events/Events";
 import Activities from "./components/Pages/activities/Activities";
@@ -80,7 +79,8 @@ export default function App() {
 					detachInactiveScreens={true}
 					tabBarOptions={{ inactiveTintColor: "white" }}
 					appearance={{
-						tabBarBackground: "rgb(30,30,30)",
+						tabBarBackground: "rgb(45,45,45)",
+						floating: true,
 					}}
 				>
 					<Tab.Screen
@@ -98,13 +98,13 @@ export default function App() {
 						}}
 					/>
 					<Tab.Screen
-						name="Links"
+						name="News"
 						component={Links}
 						options={{
-							tabBarLabel: "Links",
+							tabBarLabel: "News",
 							tabBarIcon: ({ color, size }) => (
 								<FontAwesome5
-									name="link"
+									name="newspaper"
 									size={size}
 									color={color}
 								/>
