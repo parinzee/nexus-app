@@ -3,8 +3,6 @@ import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import FirstTimeSignOn from "./Pages/FirstTimeSignOn";
-
 const Stack = createStackNavigator();
 
 export default function Me() {
@@ -30,12 +28,7 @@ export default function Me() {
 					},
 					headerShown: false,
 				}}
-			>
-				<Stack.Screen
-					name="First Time Sign On"
-					component={FirstTimeSignOn}
-				/>
-			</Stack.Navigator>
+			></Stack.Navigator>
 		</Container>
 	);
 }

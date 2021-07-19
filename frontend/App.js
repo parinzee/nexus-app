@@ -9,20 +9,120 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/Main/Main";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
 import Me from "./components/Pages/Me/Me";
-import { Text } from "react-native";
+import Screen1 from "./components/FirstTime/Screen1";
+import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import { enableScreens } from "react-native-screens";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
+const Stack = createStackNavigator();
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
+
+const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
+	const progress = Animated.add(
+		current.progress.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, 1],
+			extrapolate: "clamp",
+		}),
+		next
+			? next.progress.interpolate({
+					inputRange: [0, 1],
+					outputRange: [0, 1],
+					extrapolate: "clamp",
+			  })
+			: 0
+	);
+
+	return {
+		cardStyle: {
+			transform: [
+				{
+					translateX: Animated.multiply(
+						progress.interpolate({
+							inputRange: [0, 1, 2],
+							outputRange: [
+								screen.width, // Focused, but offscreen in the beginning
+								0, // Fully focused
+								screen.width * -0.3, // Fully unfocused
+							],
+							extrapolate: "clamp",
+						}),
+						inverted
+					),
+				},
+			],
+		},
+	};
+};
+
+const MainTab = () => {
+	return (
+		<Tab.Navigator
+			initialRouteName="Home"
+			detachInactiveScreens={true}
+			tabBarOptions={{ inactiveTintColor: "white" }}
+			appearance={{
+				tabBarBackground: "rgb(55,55,55)",
+				floating: true,
+			}}
+		>
+			<Tab.Screen
+				name="Home"
+				component={Main}
+				options={{
+					tabBarLabel: "Home",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="home" size={size} color={color} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="News"
+				component={News}
+				options={{
+					tabBarLabel: "News",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5
+							name="newspaper"
+							size={size}
+							color={color}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Team Color"
+				component={TeamColor}
+				options={{
+					tabBarLabel: "Team Color",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="flag" size={size} color={color} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Me"
+				component={Me}
+				options={{
+					tabBarLabel: "Me",
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="user" size={size} color={color} />
+					),
+				}}
+			/>
+		</Tab.Navigator>
+	);
+};
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
@@ -60,72 +160,26 @@ export default function App() {
 	} else {
 		return (
 			<NavigationContainer>
-				<Tab.Navigator
-					initialRouteName="Home"
+				<Stack.Navigator
 					detachInactiveScreens={true}
-					tabBarOptions={{ inactiveTintColor: "white" }}
-					appearance={{
-						tabBarBackground: "rgb(55,55,55)",
-						floating: true,
+					screenOptions={{
+						headerStyle: {
+							backgroundColor: "rgb(25,25,25)",
+							elevation: 0,
+							shadowOpacity: 0,
+							borderBottomWidth: 0,
+						},
+						headerTitleStyle: {
+							color: "rgb(25,25,25)",
+						},
+						cardStyleInterpolator: forSlide,
+						headerShown: false,
 					}}
 				>
-					<Tab.Screen
-						name="Home"
-						component={Main}
-						options={{
-							tabBarLabel: "Home",
-							tabBarIcon: ({ color, size }) => (
-								<FontAwesome5
-									name="home"
-									size={size}
-									color={color}
-								/>
-							),
-						}}
-					/>
-					<Tab.Screen
-						name="News"
-						component={News}
-						options={{
-							tabBarLabel: "News",
-							tabBarIcon: ({ color, size }) => (
-								<FontAwesome5
-									name="newspaper"
-									size={size}
-									color={color}
-								/>
-							),
-						}}
-					/>
-					<Tab.Screen
-						name="Team Color"
-						component={TeamColor}
-						options={{
-							tabBarLabel: "Team Color",
-							tabBarIcon: ({ color, size }) => (
-								<FontAwesome5
-									name="flag"
-									size={size}
-									color={color}
-								/>
-							),
-						}}
-					/>
-					<Tab.Screen
-						name="Me"
-						component={Me}
-						options={{
-							tabBarLabel: "Me",
-							tabBarIcon: ({ color, size }) => (
-								<FontAwesome5
-									name="user"
-									size={size}
-									color={color}
-								/>
-							),
-						}}
-					/>
-				</Tab.Navigator>
+					<Stack.Screen name="Screen1" component={InitialScreen} />
+					<Stack.Screen name="Screen2" component={Screen2} />
+					<Stack.Screen name="Main" component={MainTab} />
+				</Stack.Navigator>
 				<StatusBar style="light" />
 			</NavigationContainer>
 		);
