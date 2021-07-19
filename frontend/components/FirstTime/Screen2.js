@@ -46,7 +46,7 @@ export default function Screen2(navigation) {
 	return (
 		<Container>
 			<InsideContainer>
-				<Image source={require("../../../../assets/drawing.png")} />
+				<Image source={require("../../assets/drawing.png")} />
 				<HiText>Hey there!</HiText>
 				<Description>
 					Seems like this is your first time using the app! Please
