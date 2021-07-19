@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
+import LottieView from "lottie-react-native";
 
 export default function Screen1({ navigation }) {
 	const Container = styled.View`
