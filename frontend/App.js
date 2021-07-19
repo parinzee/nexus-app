@@ -19,12 +19,6 @@ enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
 
-const forFade = ({ current }) => ({
-	cardStyle: {
-		opacity: current.progress,
-	},
-});
-
 export default function App() {
 	const [loading, setLoading] = useState(true);
 
