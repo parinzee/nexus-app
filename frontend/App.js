@@ -12,6 +12,7 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Main from "./components/Main/Main";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
+import Me from "./components/Pages/Me/Me";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -71,7 +72,7 @@ export default function App() {
 					detachInactiveScreens={true}
 					tabBarOptions={{ inactiveTintColor: "white" }}
 					appearance={{
-						tabBarBackground: "rgb(45,45,45)",
+						tabBarBackground: "rgb(55,55,55)",
 						floating: true,
 					}}
 				>
@@ -119,7 +120,7 @@ export default function App() {
 					/>
 					<Tab.Screen
 						name="Me"
-						component={TeamColor}
+						component={Me}
 						options={{
 							tabBarLabel: "Me",
 							tabBarIcon: ({ color, size }) => (
