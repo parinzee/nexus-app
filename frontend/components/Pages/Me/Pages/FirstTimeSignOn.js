@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import Screen2 from "./Screen2";
+
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	const progress = Animated.add(
 		current.progress.interpolate({
@@ -43,7 +45,7 @@ const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	};
 };
 
-function InitialScreen() {
+function InitialScreen({ navigation }) {
 	const Container = styled.View`
 		flex: 1;
 		background-color: rgb(25, 25, 25);
@@ -77,6 +79,11 @@ function InitialScreen() {
 		color: white;
 		margin-vertical: ${verticalScale(10)}px;
 	`;
+
+	const handlePress = () => {
+		navigation.navigate("Screen2");
+	};
+
 	return (
 		<Container>
 			<InsideContainer>
@@ -86,16 +93,18 @@ function InitialScreen() {
 					Seems like this is your first time using the app! Please
 					allow us to sign you up!
 				</Description>
-				<FontAwesome5
-					name="arrow-circle-right"
-					size={50}
-					color="white"
-					style={{
-						alignSelf: "center",
-						marginBottom: verticalScale(100),
-						marginTop: verticalScale(30),
-					}}
-				/>
+				<TouchableOpacity onPress={handlePress}>
+					<FontAwesome5
+						name="arrow-circle-right"
+						size={50}
+						color="white"
+						style={{
+							alignSelf: "center",
+							marginBottom: verticalScale(100),
+							marginTop: verticalScale(30),
+						}}
+					/>
+				</TouchableOpacity>
 			</InsideContainer>
 		</Container>
 	);
@@ -127,6 +136,7 @@ export default function FirstTimeSignOn() {
 				}}
 			>
 				<Stack.Screen name="Initial Screen" component={InitialScreen} />
+				<Stack.Screen name="Screen2" component={Screen2} />
 			</Stack.Navigator>
 		</Container>
 	);
