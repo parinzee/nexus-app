@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
+import { verticalScale, moderateScale } from "react-native-size-matters";
+import { TouchableOpacity } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Screen2(navigation) {
 	const Container = styled.View`

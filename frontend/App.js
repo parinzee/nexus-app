@@ -35,14 +35,7 @@ export default function App() {
 	});
 
 	const fetchImages = () => {
-		const images = [
-			require("./assets/intro.gif"),
-			require("./assets/sleepingMan.gif"),
-			require("./assets/typingMan.gif"),
-			require("./assets/AGuy.gif"),
-			require("./assets/teacher.gif"),
-			require("./assets/nexus-logo.png"),
-		];
+		const images = [require("./assets/nexus-logo.png")];
 
 		const cacheImages = images.map((image) => {
 			return Asset.fromModule(image).downloadAsync();

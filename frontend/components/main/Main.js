@@ -1,8 +1,6 @@
 import React from "react";
-import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import Header from "./Header";
-import Menu from "./Menu";
 import { TouchableOpacity } from "react-native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
