@@ -12,12 +12,16 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Main from "./components/main/Main";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
+import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
 import { enableScreens } from "react-native-screens";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
+
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
