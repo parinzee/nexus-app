@@ -28,6 +28,7 @@ export default function Me() {
 					headerTitleStyle: {
 						color: "rgb(25,25,25)",
 					},
+					headerShown: false,
 				}}
 			>
 				<Stack.Screen

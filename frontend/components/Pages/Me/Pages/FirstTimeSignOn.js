@@ -133,6 +133,7 @@ export default function FirstTimeSignOn() {
 						color: "rgb(25,25,25)",
 					},
 					cardStyleInterpolator: forSlide,
+					headerShown: false,
 				}}
 			>
 				<Stack.Screen name="Initial Screen" component={InitialScreen} />
