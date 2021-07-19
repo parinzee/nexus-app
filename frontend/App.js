@@ -10,11 +10,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Main from "./components/main/Main";
-import Links from "./components/Pages/links/Links";
-import Events from "./components/Pages/events/Events";
-import Activities from "./components/Pages/activities/Activities";
-import Competitions from "./components/Pages/competitions/Competitions";
-import Credits from "./components/Pages/credits/Credits";
+import News from "./components/Pages/News/News";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -99,7 +95,7 @@ export default function App() {
 					/>
 					<Tab.Screen
 						name="News"
-						component={Links}
+						component={News}
 						options={{
 							tabBarLabel: "News",
 							tabBarIcon: ({ color, size }) => (
