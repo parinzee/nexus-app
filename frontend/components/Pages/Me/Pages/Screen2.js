@@ -40,7 +40,7 @@ export default function Screen2(navigation) {
 	`;
 
 	const handlePress = () => {
-		navigation.navigate("Screen2");
+		navigation.navigate("");
 	};
 
 	return (
