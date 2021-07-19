@@ -146,7 +146,11 @@ export default function BottomContent({ uri, mainColor }) {
 					keyExtractor={(entry) => entry[0].toString()}
 				/>
 			) : (
-				<ActivityIndicator size="large" color={mainColor} />
+				<ActivityIndicator
+					style={{ textAlign: "center", paddingTop: "70%" }}
+					size="large"
+					color={mainColor}
+				/>
 			)}
 		</ListContainer>
 	);
