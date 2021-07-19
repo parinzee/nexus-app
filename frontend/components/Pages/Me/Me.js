@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
-import Header from "../Header";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import FirstTimeSignOn from "./Pages/FirstTimeSignOn";
+
+const Stack = createStackNavigator();
 
 export default function Me() {
 	const Container = styled.View`
@@ -11,7 +16,25 @@ export default function Me() {
 
 	return (
 		<Container>
-			<Header text="About Me" fontSize="50" />
+			<Stack.Navigator
+				detachInactiveScreens={true}
+				screenOptions={{
+					headerStyle: {
+						backgroundColor: "rgb(25,25,25)",
+						elevation: 0,
+						shadowOpacity: 0,
+						borderBottomWidth: 0,
+					},
+					headerTitleStyle: {
+						color: "rgb(25,25,25)",
+					},
+				}}
+			>
+				<Stack.Screen
+					name="First Time Sign On"
+					component={FirstTimeSignOn}
+				/>
+			</Stack.Navigator>
 		</Container>
 	);
 }
