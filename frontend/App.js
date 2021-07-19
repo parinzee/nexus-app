@@ -78,16 +78,9 @@ export default function App() {
 			<NavigationContainer>
 				<Tab.Navigator
 					detachInactiveScreens={true}
-					tabBarOptions={{
-						style: {
-							backgroundColor: "rgb(25,25,25)",
-							elevation: 0,
-							shadowOpacity: 0,
-							borderTopColor: "black",
-							borderTopWidth: 1,
-							paddingTop: 5,
-							marginBottom: 10,
-						},
+					tabBarOptions={{ inactiveTintColor: "white" }}
+					appearance={{
+						tabBarBackground: "rgb(30,30,30)",
 					}}
 				>
 					<Tab.Screen
@@ -98,6 +91,20 @@ export default function App() {
 							tabBarIcon: ({ color, size }) => (
 								<FontAwesome5
 									name="home"
+									size={size}
+									color={color}
+								/>
+							),
+						}}
+					/>
+					<Tab.Screen
+						name="Links"
+						component={Links}
+						options={{
+							tabBarLabel: "Links",
+							tabBarIcon: ({ color, size }) => (
+								<FontAwesome5
+									name="link"
 									size={size}
 									color={color}
 								/>
