@@ -11,6 +11,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Main from "./components/main/Main";
 import News from "./components/Pages/News/News";
+import TeamColor from "./components/Pages/TeamColor/TeamColor";
 import { Text } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -72,6 +73,7 @@ export default function App() {
 		return (
 			<NavigationContainer>
 				<Tab.Navigator
+					initialRouteName="Home"
 					detachInactiveScreens={true}
 					tabBarOptions={{ inactiveTintColor: "white" }}
 					appearance={{
@@ -101,6 +103,34 @@ export default function App() {
 							tabBarIcon: ({ color, size }) => (
 								<FontAwesome5
 									name="newspaper"
+									size={size}
+									color={color}
+								/>
+							),
+						}}
+					/>
+					<Tab.Screen
+						name="Team Color"
+						component={TeamColor}
+						options={{
+							tabBarLabel: "Team Color",
+							tabBarIcon: ({ color, size }) => (
+								<FontAwesome5
+									name="flag"
+									size={size}
+									color={color}
+								/>
+							),
+						}}
+					/>
+					<Tab.Screen
+						name="Student Help"
+						component={TeamColor}
+						options={{
+							tabBarLabel: "Student Help",
+							tabBarIcon: ({ color, size }) => (
+								<FontAwesome5
+									name="hands-helping"
 									size={size}
 									color={color}
 								/>
