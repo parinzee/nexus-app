@@ -110,6 +110,7 @@ export default function Screen2(navigation) {
 	`;
 
 	const PrivacyPolicyContainer = styled.ScrollView`
+		background-color: black;
 		border-color: white;
 		border-radius: 20px;
 		border-style: solid;
