@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
 import Header from "./Header";
-import { TouchableOpacity } from "react-native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
@@ -21,9 +20,7 @@ export default function Main({ navigation }) {
 	const AnotherContainer = styled.View``;
 	return (
 		<OutContainer>
-			<TouchableOpacity activeOpacity="1" onPress={() => handlePress()}>
-				<Header />
-			</TouchableOpacity>
+			<Header />
 			<Container>
 				{/* TODO: Put in the summaries.*/}
 				<AnotherContainer></AnotherContainer>
