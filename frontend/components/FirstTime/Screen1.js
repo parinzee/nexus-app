@@ -24,7 +24,7 @@ export default function Screen1({ navigation }) {
 		font-size: ${moderateScale(40)}px;
 		font-family: Now;
 		color: white;
-		margin-bottom: ${verticalScale(35)}px;
+		margin-bottom: ${verticalScale(10)}px;
 	`;
 
 	const Description = styled.Text`
@@ -37,24 +37,25 @@ export default function Screen1({ navigation }) {
 	`;
 
 	const LogoContainer = styled.View`
-		background-color: rgb(50, 50, 50);
+		padding: -10px;
 		align-self: center;
-		width: ${moderateScale(50) + 20}px;
-		height: ${moderateScale(50) + 20}px;
-		justify-content: center;
+		flex-direction: row;
 	`;
 	const NexusLogo = styled.Image`
 		max-width: ${moderateScale(50)}px;
 		max-height: ${moderateScale(50)}px;
-		margin-left: -${moderateScale(1)}px;
 		align-self: center;
 	`;
 
 	const NexusText = styled.Text`
 		color: white;
-		font-family: Now;
-		text-align: center;
-		font-size: ${moderateScale(15)}px;
+		align-self: flex-end;
+		letter-spacing: 7px;
+		margin-bottom: -${moderateScale(4)}px;
+		margin-left: -${moderateScale(9)}px;
+		font-size: ${moderateScale(50)}px;
+		font-family: Momcake;
+		transform: scale(0.8, 0.9);
 	`;
 	const handlePress = () => {
 		navigation.navigate("Screen2");
@@ -77,12 +78,6 @@ export default function Screen1({ navigation }) {
 				/>
 				<HiText>Hey there!</HiText>
 				<Description>We are the BCIS Student Council</Description>
-				<LogoContainer>
-					<NexusLogo
-						source={require("../../assets/nexus-logo.png")}
-					/>
-					<NexusText>Nexus</NexusText>
-				</LogoContainer>
 				<TouchableOpacity onPress={handlePress}>
 					<FontAwesome5
 						name="arrow-circle-right"
@@ -90,10 +85,16 @@ export default function Screen1({ navigation }) {
 						color="white"
 						style={{
 							alignSelf: "center",
-							marginTop: verticalScale(30),
+							marginBottom: verticalScale(30),
 						}}
 					/>
 				</TouchableOpacity>
+				<LogoContainer>
+					<NexusLogo
+						source={require("../../assets/nexus-logo.png")}
+					/>
+					<NexusText>exus</NexusText>
+				</LogoContainer>
 			</InsideContainer>
 		</Container>
 	);

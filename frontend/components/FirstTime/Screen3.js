@@ -120,15 +120,8 @@ export default function Screen3({ navigation }) {
 
 	const HiText = styled.Text`
 		text-align: center;
-		font-size: ${moderateScale(30)}px;
-		font-family: Now;
-		color: white;
-		margin-bottom: ${verticalScale(20)}px;
-	`;
-
-	const Description = styled.Text`
-		text-align: center;
-		font-size: ${moderateScale(20)}px;
+		font-size: ${moderateScale(25)}px;
+		margin-bottom: -10px;
 		font-family: Now;
 		color: white;
 	`;
