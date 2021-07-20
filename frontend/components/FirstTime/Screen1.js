@@ -19,12 +19,6 @@ export default function Screen1({ navigation }) {
 		align-content: center;
 	`;
 
-	const Image = styled.LottieView`
-		width: ${moderateScale(170)}px;
-		height: ${moderateScale(170)}px;
-		align-self: center;
-	`;
-
 	const HiText = styled.Text`
 		text-align: center;
 		font-size: ${moderateScale(45)}px;
@@ -48,8 +42,14 @@ export default function Screen1({ navigation }) {
 	return (
 		<Container>
 			<InsideContainer>
-				<Image source={require("../../assets/Welcome.json")} autoPlay />
-				;<HiText>Hey there!</HiText>
+				<LottieView
+					source={require("../../assets/Welcome.json")}
+					autoPlay
+					loop={false}
+					speed={0.7}
+					style={{ position: "relative" }}
+				/>
+				<HiText>Hey there!</HiText>
 				<Description>
 					Seems like this is your first time using the app! Please
 					allow us to sign you up!
