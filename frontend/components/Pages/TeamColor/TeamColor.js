@@ -8,7 +8,7 @@ import Content from "../Content";
 export default function Activities({}) {
 	const Container = styled.View`
 		flex: 1;
-		background-color: rgb(25, 25, 25);
+		background-color: rgb(35, 35, 35);
 		justify-content: center;
 		align-content: center;
 	`;

@@ -76,7 +76,7 @@ const MainTab = () => {
 			detachInactiveScreens={true}
 			tabBarOptions={{ inactiveTintColor: "white" }}
 			appearance={{
-				tabBarBackground: "rgb(55,55,55)",
+				tabBarBackground: "rgb(70,70,70)",
 				floating: true,
 			}}
 		>
@@ -151,7 +151,6 @@ export default function App() {
 
 	useEffect(() => {
 		async function checkFirstTime() {
-			AsyncStorage.clear();
 			const value = await AsyncStorage.getItem("@firstTime");
 			setFirstTime(value === null ? true : false);
 		}
@@ -179,13 +178,13 @@ export default function App() {
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {
-							backgroundColor: "rgb(25,25,25)",
+							backgroundColor: "rgb(35,35,35)",
 							elevation: 0,
 							shadowOpacity: 0,
 							borderBottomWidth: 0,
 						},
 						headerTitleStyle: {
-							color: "rgb(25,25,25)",
+							color: "rgb(35,35,35)",
 						},
 						cardStyleInterpolator: forSlide,
 						headerShown: false,

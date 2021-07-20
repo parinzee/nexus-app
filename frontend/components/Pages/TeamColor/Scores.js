@@ -95,7 +95,7 @@ export default function BottomContent({ uri, mainColor }) {
 	`;
 
 	const InnerContainer = styled.View`
-		background-color: rgb(25, 25, 25);
+		background-color: rgb(35, 35, 35);
 		display: flex;
 		flex-direction: column;
 		border-width: 1px;

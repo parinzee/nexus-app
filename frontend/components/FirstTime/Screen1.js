@@ -11,7 +11,7 @@ export default function Screen1({ navigation }) {
 		flex-direction: column;
 		align-content: center;
 		justify-content: center;
-		background-color: rgb(25, 25, 25);
+		background-color: rgb(35, 35, 35);
 	`;
 
 	const InsideContainer = styled.View`

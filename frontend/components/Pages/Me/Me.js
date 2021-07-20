@@ -9,7 +9,7 @@ export default function Me() {
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;
-		background-color: rgb(25, 25, 25);
+		background-color: rgb(35, 35, 35);
 	`;
 
 	return (
@@ -18,13 +18,13 @@ export default function Me() {
 				detachInactiveScreens={true}
 				screenOptions={{
 					headerStyle: {
-						backgroundColor: "rgb(25,25,25)",
+						backgroundColor: "rgb(35,35,35)",
 						elevation: 0,
 						shadowOpacity: 0,
 						borderBottomWidth: 0,
 					},
 					headerTitleStyle: {
-						color: "rgb(25,25,25)",
+						color: "rgb(35,35,35)",
 					},
 					headerShown: false,
 				}}

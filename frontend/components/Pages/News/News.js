@@ -6,7 +6,7 @@ import Content from "../Content";
 export default function Events({}) {
 	const Container = styled.View`
 		flex: 1;
-		background-color: rgb(25, 25, 25);
+		background-color: rgb(35, 35, 35);
 	`;
 
 	return (

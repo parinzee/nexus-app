@@ -13,13 +13,21 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 	const Container = styled.View`
 		display: flex;
 		flex-direction: column;
-		background-color: ${mainColor};
+		background-color: black;
 		border-radius: 20px;
-		width: ${moderateScale(330)}px;
-		height: ${moderateScale(100)}px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
-		padding: 5px;
-		padding-right: 10px;
+	`;
+
+	const TitleContainer = styled.View`
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		height: ${moderateScale(30)}px;
+		border-bottom-color: #ffcf64;
+		border-bottom-width: 1.5px;
+		width: ${moderateScale(320)}px;
+		background-color: rgb(50, 50, 50);
 	`;
 
 	const TitleText = styled.Text`
@@ -28,6 +36,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
 		margin-bottom: 3px;
+		margin-top: 2px;
 	`;
 
 	const SubtitleText = styled.Text`
@@ -35,10 +44,14 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		font-size: ${moderateScale(16)}px;
 		font-family: "OpenSans_300Light";
 		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 2px;
 	`;
 	return (
 		<Container>
-			<TitleText>{eventName}</TitleText>
+			<TitleContainer>
+				<TitleText>{eventName}</TitleText>
+			</TitleContainer>
 			<SubtitleText>{eventDesc}</SubtitleText>
 		</Container>
 	);
