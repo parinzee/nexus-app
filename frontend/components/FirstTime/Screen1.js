@@ -19,7 +19,7 @@ export default function Screen1({ navigation }) {
 		align-content: center;
 	`;
 
-	const Image = styled.Image`
+	const Image = styled.LottieView`
 		width: ${moderateScale(170)}px;
 		height: ${moderateScale(170)}px;
 		align-self: center;
@@ -48,7 +48,8 @@ export default function Screen1({ navigation }) {
 	return (
 		<Container>
 			<InsideContainer>
-				<HiText>Hey there!</HiText>
+				<Image source={require("../../assets/Welcome.json")} autoPlay />
+				;<HiText>Hey there!</HiText>
 				<Description>
 					Seems like this is your first time using the app! Please
 					allow us to sign you up!
