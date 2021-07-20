@@ -6,50 +6,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ListItem } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Header from "../Header";
-import GPA4 from "./GPA4";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 
 const Stack = createStackNavigator();
 
-const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
-	const progress = Animated.add(
-		current.progress.interpolate({
-			inputRange: [0, 1],
-			outputRange: [0, 1],
-			extrapolate: "clamp",
-		}),
-		next
-			? next.progress.interpolate({
-					inputRange: [0, 1],
-					outputRange: [0, 1],
-					extrapolate: "clamp",
-			  })
-			: 0
-	);
-
-	return {
-		cardStyle: {
-			transform: [
-				{
-					translateX: Animated.multiply(
-						progress.interpolate({
-							inputRange: [0, 1, 2],
-							outputRange: [
-								screen.width, // Focused, but offscreen in the beginning
-								0, // Fully focused
-								screen.width * -0.3, // Fully unfocused
-							],
-							extrapolate: "clamp",
-						}),
-						inverted
-					),
-				},
-			],
-		},
-	};
-};
-
-const Tools1 = ({ navigation }) => {
+export default function Tools1({ navigation }) {
 	const [grade, setGrade] = useState(0);
 	const DestinationsHigh = [
 		{
@@ -61,18 +22,7 @@ const Tools1 = ({ navigation }) => {
 					color="white"
 				/>
 			),
-			destination: "GPA4",
-		},
-		{
-			title: "Calclate Grade of One Subject",
-			icon: (
-				<FontAwesome5
-					name="divide"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "GPA1",
+			destination: "Calculate to 4.0",
 		},
 		{
 			title: "My notes",
@@ -125,7 +75,7 @@ const Tools1 = ({ navigation }) => {
 			setGrade(await AsyncStorage.getItem("@grade"));
 		}
 		getGrade();
-	}, [grade]);
+	}, []);
 	return (
 		<Container>
 			<Header text="Tools" fontSize="35" />
@@ -135,7 +85,7 @@ const Tools1 = ({ navigation }) => {
 							({ title, icon, destination }, index) => (
 								<TouchableOpacity
 									onPress={() =>
-										navigation.navigate(destination)
+										navigation.navigate(destination, {})
 									}
 								>
 									<ListItem
@@ -186,37 +136,6 @@ const Tools1 = ({ navigation }) => {
 							)
 					  )}
 			</BottomContainer>
-		</Container>
-	);
-};
-
-export default function Me() {
-	const Container = styled.View`
-		flex: 1;
-		flex-direction: column;
-		background-color: rgb(35, 35, 35);
-	`;
-	return (
-		<Container>
-			<Stack.Navigator
-				detachInactiveScreens={true}
-				screenOptions={{
-					headerStyle: {
-						backgroundColor: "rgb(35,35,35)",
-						elevation: 0,
-						shadowOpacity: 0,
-						borderBottomWidth: 0,
-					},
-					headerTitleStyle: {
-						color: "rgb(35,35,35)",
-					},
-					headerShown: false,
-					cardStyleInterpolator: forSlide,
-				}}
-			>
-				<Stack.Screen name="Tools" component={Tools1} />
-				<Stack.Screen name="Calulate to 4.0" component={GPA4} />
-			</Stack.Navigator>
 		</Container>
 	);
 }

@@ -19,6 +19,7 @@ import Screen1 from "./components/FirstTime/Screen1";
 import Screen2 from "./components/FirstTime/Screen2";
 import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
+import GPA4 from "./components/Pages/Tools/GPA4";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
 import { useState, useEffect } from "react";
@@ -157,7 +158,6 @@ export default function App() {
 
 	useEffect(() => {
 		async function checkFirstTime() {
-			AsyncStorage.clear();
 			const value = await AsyncStorage.getItem("@firstTime");
 			setFirstTime(value === null ? true : false);
 		}
@@ -181,7 +181,7 @@ export default function App() {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator
-					initialRouteName={firstTime ? "Screen1" : "Main"}
+					initialRouteName={firstTime ? "Screen1" : "Home"}
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {
@@ -191,18 +191,43 @@ export default function App() {
 							borderBottomWidth: 0,
 						},
 						headerTitleStyle: {
-							color: "rgb(35,35,35)",
+							color: "white",
 						},
 						cardStyleInterpolator: forSlide,
-						headerShown: false,
-						gestureEnabled: false,
 					}}
 				>
-					<Stack.Screen name="Screen1" component={Screen1} />
-					<Stack.Screen name="Screen2" component={Screen2} />
-					<Stack.Screen name="Screen3" component={Screen3} />
-					<Stack.Screen name="Screen4" component={Screen4} />
-					<Stack.Screen name="Main" component={MainTab} />
+					<Stack.Screen
+						name="Screen1"
+						component={Screen1}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Screen2"
+						component={Screen2}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Screen3"
+						component={Screen3}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Screen4"
+						component={Screen4}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Home"
+						component={MainTab}
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Calculate to 4.0"
+						component={GPA4}
+						options={{
+							headerShown: true,
+						}}
+					/>
 				</Stack.Navigator>
 				<StatusBar style="light" />
 			</NavigationContainer>
