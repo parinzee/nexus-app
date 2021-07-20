@@ -5,7 +5,8 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 export default function Header({ text, fontSize }) {
 	const Container = styled.View`
 		margin-top: ${verticalScale(35)}px;
-		margin-horizontal: ${moderateScale(30)}px;
+		margin-right: ${moderateScale(30)}px;
+		margin-left: ${moderateScale(30)}px;
 		align-items: center;
 		display: flex;
 		flex-direction: row;
