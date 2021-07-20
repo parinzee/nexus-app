@@ -14,7 +14,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/Main/Main";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
-import Me from "./components/Pages/Me/Me";
+import Tools from "./components/Pages/Tools/Tools";
 import Screen1 from "./components/FirstTime/Screen1";
 import Screen2 from "./components/FirstTime/Screen2";
 import Screen3 from "./components/FirstTime/Screen3";
@@ -117,7 +117,7 @@ const MainTab = () => {
 			/>
 			<Tab.Screen
 				name="Tools"
-				component={Me}
+				component={Tools}
 				options={{
 					tabBarLabel: "Tools",
 					tabBarIcon: ({ color, size }) => (
