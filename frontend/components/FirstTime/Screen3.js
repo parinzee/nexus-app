@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	TouchableOpacity,
 	KeyboardAvoidingView,
@@ -6,6 +6,7 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	View,
+	Alert,
 } from "react-native";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
@@ -13,11 +14,19 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { Input } from "react-native-elements";
 import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LogicPart = () => {
+const LogicPart = ({ navigation }) => {
 	const [teamColor, setTeamColor] = useState();
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
+	const [buttonDisabled, setButtonDisabled] = useState(true);
+
+	useEffect(() => {
+		if (name != null && grade != null) {
+			setButtonDisabled(false);
+		}
+	}, [name, grade]);
 
 	const handleGrade = (text) => {
 		if (text[0] === "0") {
@@ -25,6 +34,26 @@ const LogicPart = () => {
 		}
 		text = parseInt(text);
 		setGrade(text);
+	};
+
+	const onSubmit = async () => {
+		if (grade > 12) {
+			Alert.alert(
+				"Invalid Grade",
+				"Invalid grade level, please enter again.",
+				[{ text: "OK" }]
+			);
+			return;
+		} else {
+			const JSONName = JSON.stringify(name);
+			const JSONGrade = JSON.stringify(grade);
+			const JSONTeam = JSON.stringify(teamColor);
+			await AsyncStorage.setItem("@name", JSONName);
+			await AsyncStorage.setItem("@grade", JSONGrade);
+			await AsyncStorage.setItem("@team", JSONTeam);
+
+			navigation.navigate("Screen4");
+		}
 	};
 	return (
 		<View>
@@ -69,11 +98,11 @@ const LogicPart = () => {
 				<Picker.Item label="Green Team" value="green" />
 				<Picker.Item label="Yellow Team" value="yellow" />
 			</Picker>
-			<TouchableOpacity>
+			<TouchableOpacity disabled={buttonDisabled} onPress={onSubmit}>
 				<FontAwesome5
 					name="arrow-circle-right"
 					size={50}
-					color="white"
+					color={buttonDisabled ? "grey" : "white"}
 					style={{
 						alignSelf: "center",
 					}}
@@ -83,7 +112,7 @@ const LogicPart = () => {
 	);
 };
 
-export default function Screen3() {
+export default function Screen3({ navigation }) {
 	const InsideContainer = styled.View`
 		justify-content: center;
 		align-content: center;
@@ -135,7 +164,7 @@ export default function Screen3() {
 						for a few things! (Name, team color, and grade)
 					</Description>
 
-					<LogicPart />
+					<LogicPart navigation={navigation} />
 				</InsideContainer>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>
