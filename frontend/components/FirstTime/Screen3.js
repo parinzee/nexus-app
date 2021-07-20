@@ -18,6 +18,14 @@ const LogicPart = () => {
 	const [teamColor, setTeamColor] = useState();
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
+
+	const handleGrade = (text) => {
+		if (text[0] === "0") {
+			text = text.slice(1);
+		}
+		text = parseInt(text);
+		setGrade(text);
+	};
 	return (
 		<View>
 			<Input
@@ -35,7 +43,7 @@ const LogicPart = () => {
 				onChangeText={(text) => setName(text)}
 			/>
 			<Input
-				placeholder=" Grade (eg: 07)"
+				placeholder=" Grade (eg: 7)"
 				leftIcon={
 					<FontAwesome5 name="address-card" size={24} color="white" />
 				}
@@ -47,7 +55,7 @@ const LogicPart = () => {
 				maxLength={2}
 				inputStyle={{ color: "white" }}
 				keyboardType="numeric"
-				onChangeText={(text) => setGrade(parseInt(text))}
+				onChangeText={(text) => handleGrade(text)}
 			/>
 			<Picker
 				selectedValue={teamColor}
