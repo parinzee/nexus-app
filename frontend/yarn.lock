@@ -3249,6 +3249,11 @@ expo-asset@~8.3.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-checkbox@~1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/expo-checkbox/-/expo-checkbox-1.0.3.tgz#1d7510947814b19fc710fb7fc80a2433d98e3cc3"
+  integrity sha512-7w8H1yt7V1pdnbIAIoV3RvI+Rjzc8nlxy4eKdEtZhYupenLmBY173glAx+/eJcW/vlCqKYHxedQmRTqEUpAQ7A==
+
 expo-constants@~10.1.3:
   version "10.1.3"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-10.1.3.tgz#dfbe30362d27d6f500318eb528621424034b72d5"
