@@ -4,6 +4,7 @@ import Header from "../Header";
 import { LogBox } from "react-native";
 import Scores from "./Scores";
 import Content from "../Content";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export default function Activities({}) {
 	const Container = styled.View`
@@ -27,6 +28,7 @@ export default function Activities({}) {
 					uri="http://nexussc.herokuapp.com/scores/"
 					mainColor="#ff9151"
 				/>
+
 				<Content
 					uri="http://nexussc.herokuapp.com/events/"
 					mainColor="#5071f6"

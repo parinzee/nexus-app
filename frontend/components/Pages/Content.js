@@ -126,6 +126,10 @@ export default function BottomContent({ uri, mainColor }) {
 		font-family: System;
 		font-size: ${moderateScale(13)}px;
 	`;
+
+	const ClearFix = styled.View`
+		height: 100px;
+	`;
 	return (
 		<ListContainer>
 			<Modal
@@ -178,6 +182,7 @@ export default function BottomContent({ uri, mainColor }) {
 					color={mainColor}
 				/>
 			)}
+			<ClearFix />
 		</ListContainer>
 	);
 }
