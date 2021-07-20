@@ -16,6 +16,8 @@ import { Picker } from "@react-native-picker/picker";
 
 const LogicPart = () => {
 	const [teamColor, setTeamColor] = useState();
+	const [name, setName] = useState();
+	const [grade, setGrade] = useState();
 	return (
 		<View>
 			<Input
@@ -30,6 +32,7 @@ const LogicPart = () => {
 				}}
 				inputStyle={{ color: "white" }}
 				maxLength={10}
+				onChangeText={(text) => setName(text)}
 			/>
 			<Input
 				placeholder=" Grade (eg: 07)"
@@ -44,6 +47,7 @@ const LogicPart = () => {
 				maxLength={2}
 				inputStyle={{ color: "white" }}
 				keyboardType="numeric"
+				onChangeText={(text) => setGrade(parseInt(text))}
 			/>
 			<Picker
 				selectedValue={teamColor}
@@ -72,14 +76,6 @@ const LogicPart = () => {
 };
 
 export default function Screen3() {
-	const Container = styled.View`
-		flex: 1;
-		flex-direction: column;
-		align-content: center;
-		justify-content: center;
-		background-color: rgb(25, 25, 25);
-	`;
-
 	const InsideContainer = styled.View`
 		justify-content: center;
 		align-content: center;
@@ -101,34 +97,39 @@ export default function Screen3() {
 	`;
 
 	return (
-		<Container>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === "ios" ? "padding" : "height"}
-			>
-				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-					<InsideContainer>
-						<LottieView
-							source={require("../../assets/ID.json")}
-							autoPlay
-							loop={true}
-							speed={0.7}
-							style={{
-								position: "relative",
-								width: moderateScale(150),
-								height: moderateScale(150),
-								alignSelf: "center",
-							}}
-						/>
-						<HiText>Almost Done!</HiText>
-						<Description>
-							To personalize your experience, we would like to ask
-							you for a few things! (Name, team color, and grade)
-						</Description>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={{
+				flex: 1,
+				flexDirection: "column",
+				alignContent: "center",
+				justifyContent: "center",
+				backgroundColor: "rgb(25,25,25)",
+			}}
+		>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<InsideContainer>
+					<LottieView
+						source={require("../../assets/ID.json")}
+						autoPlay
+						loop={true}
+						speed={0.7}
+						style={{
+							position: "relative",
+							width: moderateScale(150),
+							height: moderateScale(150),
+							alignSelf: "center",
+						}}
+					/>
+					<HiText>Almost Done!</HiText>
+					<Description>
+						To personalize your experience, we would like to ask you
+						for a few things! (Name, team color, and grade)
+					</Description>
 
-						<LogicPart />
-					</InsideContainer>
-				</TouchableWithoutFeedback>
-			</KeyboardAvoidingView>
-		</Container>
+					<LogicPart />
+				</InsideContainer>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 }
