@@ -26,11 +26,12 @@ const Header = () => {
 		align-self: flex-end;
 		letter-spacing: 7px;
 		margin-bottom: -${moderateScale(4)}px;
+		margin-left: -${moderateScale(9)}px;
 		${isAndroid
 			? `font-size: ${moderateScale(50)}px;`
 			: `font-size: ${moderateScale(50)}px;`}
 		font-family: Momcake;
-		transform: scale(1, 0.9);
+		transform: scale(0.8, 0.9);
 	`;
 
 	return (

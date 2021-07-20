@@ -21,21 +21,41 @@ export default function Screen1({ navigation }) {
 
 	const HiText = styled.Text`
 		text-align: center;
-		font-size: ${moderateScale(45)}px;
+		font-size: ${moderateScale(40)}px;
 		font-family: Now;
 		color: white;
-		margin-bottom: ${verticalScale(40)}px;
+		margin-bottom: ${verticalScale(35)}px;
 	`;
 
 	const Description = styled.Text`
 		text-align: center;
-		font-size: ${moderateScale(20)}px;
+		font-size: ${moderateScale(15)}px;
 		font-family: Now;
-		color: white;
+		color: grey;
 		margin-top: ${verticalScale(10)}px;
 		margin-bottom: ${verticalScale(10)}px;
 	`;
 
+	const LogoContainer = styled.View`
+		background-color: rgb(50, 50, 50);
+		align-self: center;
+		width: ${moderateScale(50) + 20}px;
+		height: ${moderateScale(50) + 20}px;
+		justify-content: center;
+	`;
+	const NexusLogo = styled.Image`
+		max-width: ${moderateScale(50)}px;
+		max-height: ${moderateScale(50)}px;
+		margin-left: -${moderateScale(1)}px;
+		align-self: center;
+	`;
+
+	const NexusText = styled.Text`
+		color: white;
+		font-family: Now;
+		text-align: center;
+		font-size: ${moderateScale(15)}px;
+	`;
 	const handlePress = () => {
 		navigation.navigate("Screen2");
 	};
@@ -56,10 +76,13 @@ export default function Screen1({ navigation }) {
 					}}
 				/>
 				<HiText>Hey there!</HiText>
-				<Description>
-					Seems like this is your first time using the app! Please
-					allow us to sign you up!
-				</Description>
+				<Description>We are the BCIS Student Council</Description>
+				<LogoContainer>
+					<NexusLogo
+						source={require("../../assets/nexus-logo.png")}
+					/>
+					<NexusText>Nexus</NexusText>
+				</LogoContainer>
 				<TouchableOpacity onPress={handlePress}>
 					<FontAwesome5
 						name="arrow-circle-right"

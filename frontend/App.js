@@ -20,8 +20,9 @@ import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { enableScreens } from "react-native-screens";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
@@ -129,6 +130,7 @@ const MainTab = () => {
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
+	const [firstTime, setFirstTime] = useState();
 
 	let [fontsLoaded] = useFonts({
 		Now: require("./assets/fonts/NowAlt-Light.otf"),
@@ -147,6 +149,15 @@ export default function App() {
 		return Promise.all(cacheImages);
 	};
 
+	useEffect(() => {
+		async function checkFirstTime() {
+			AsyncStorage.clear();
+			const value = await AsyncStorage.getItem("@firstTime");
+			setFirstTime(value === null ? true : false);
+		}
+		checkFirstTime();
+	}, []);
+
 	const preload = async () => {
 		const imageAssets = fetchImages();
 		await Promise.all([imageAssets]);
@@ -164,6 +175,7 @@ export default function App() {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator
+					initialRouteName={firstTime ? "Screen1" : "Main"}
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {

@@ -159,10 +159,6 @@ export default function Screen3({ navigation }) {
 						}}
 					/>
 					<HiText>Almost Done!</HiText>
-					<Description>
-						To personalize your experience, we would like to ask you
-						for a few things! (Name, team color, and grade)
-					</Description>
 
 					<LogicPart navigation={navigation} />
 				</InsideContainer>
