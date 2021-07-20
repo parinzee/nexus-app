@@ -19,14 +19,14 @@ export default function Credits() {
 	`;
 
 	const InfoTextContainer = styled.View`
-        flex-direction: row;
-        margin-top: ${verticalScale(20)}px
-        border-bottom-color: grey;
-        border-bottom-width: 0.2px;
-        margin-left: 20px;
-        margin-right: 20px;
-        justify-content: space-between;
-    `;
+		flex-direction: row;
+		margin-top: ${verticalScale(20)}px;
+		border-bottom-color: grey;
+		border-bottom-width: 0.2px;
+		margin-left: 20px;
+		margin-right: 20px;
+		justify-content: space-between;
+	`;
 
 	const FrontText = styled.Text`
 		color: grey;
