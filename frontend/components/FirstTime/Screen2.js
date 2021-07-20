@@ -186,7 +186,8 @@ export default function Screen2({ navigation }) {
 		border-width: 1px;
 		height: ${verticalScale(350)}px;
 		margin-top: ${verticalScale(20)}px;
-		margin-horizontal: ${moderateScale(20)}px;
+		margin-left: ${moderateScale(20)}px;
+		margin-right: ${moderateScale(20)}px;
 		padding: 10px;
 	`;
 

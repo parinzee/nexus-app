@@ -32,7 +32,8 @@ export default function Screen1({ navigation }) {
 		font-size: ${moderateScale(20)}px;
 		font-family: Now;
 		color: white;
-		margin-vertical: ${verticalScale(10)}px;
+		margin-top: ${verticalScale(10)}px;
+		margin-bottom: ${verticalScale(10)}px;
 	`;
 
 	const handlePress = () => {
