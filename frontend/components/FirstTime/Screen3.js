@@ -1,5 +1,11 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import {
+	TouchableOpacity,
+	KeyboardAvoidingView,
+	Platform,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -37,36 +43,58 @@ export default function Screen3() {
 
 	return (
 		<Container>
-			<InsideContainer>
-				<LottieView
-					source={require("../../assets/ID.json")}
-					autoPlay
-					loop={true}
-					speed={0.7}
-					style={{
-						position: "relative",
-						width: moderateScale(200),
-						height: moderateScale(200),
-						alignSelf: "center",
-					}}
-				/>
-				<HiText>Almost Done!</HiText>
-				<Description>
-					To personalize your experience, we would like to ask you for
-					a few things! (Name, team color, and grade)
-				</Description>
-				<TouchableOpacity>
-					<FontAwesome5
-						name="arrow-circle-right"
-						size={50}
-						color="white"
-						style={{
-							alignSelf: "center",
-							marginTop: verticalScale(30),
-						}}
-					/>
-				</TouchableOpacity>
-			</InsideContainer>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<InsideContainer>
+						<LottieView
+							source={require("../../assets/ID.json")}
+							autoPlay
+							loop={true}
+							speed={0.7}
+							style={{
+								position: "relative",
+								width: moderateScale(200),
+								height: moderateScale(200),
+								alignSelf: "center",
+							}}
+						/>
+						<HiText>Almost Done!</HiText>
+						<Description>
+							To personalize your experience, we would like to ask
+							you for a few things! (Name, team color, and grade)
+						</Description>
+
+						<Input
+							placeholder="Name (Nickname)"
+							leftIcon={
+								<FontAwesome5
+									name="address-book"
+									size={24}
+									color="white"
+								/>
+							}
+							inputContainerStyle={{
+								marginTop: verticalScale(20),
+								marginLeft: moderateScale(20),
+								marginRight: moderateScale(20),
+							}}
+						/>
+						<TouchableOpacity>
+							<FontAwesome5
+								name="arrow-circle-right"
+								size={50}
+								color="white"
+								style={{
+									alignSelf: "center",
+									marginTop: verticalScale(30),
+								}}
+							/>
+						</TouchableOpacity>
+					</InsideContainer>
+				</TouchableWithoutFeedback>
+			</KeyboardAvoidingView>
 		</Container>
 	);
 }
