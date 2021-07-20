@@ -86,6 +86,7 @@ export default function Screen1({ navigation }) {
 						style={{
 							alignSelf: "center",
 							marginBottom: verticalScale(30),
+							marginTop: verticalScale(30),
 						}}
 					/>
 				</TouchableOpacity>

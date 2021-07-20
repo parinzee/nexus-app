@@ -157,6 +157,7 @@ export default function App() {
 
 	useEffect(() => {
 		async function checkFirstTime() {
+			AsyncStorage.clear();
 			const value = await AsyncStorage.getItem("@firstTime");
 			setFirstTime(value === null ? true : false);
 		}

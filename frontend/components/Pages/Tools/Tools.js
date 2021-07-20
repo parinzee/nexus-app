@@ -53,7 +53,7 @@ const Tools1 = ({ navigation }) => {
 	const [grade, setGrade] = useState(0);
 	const DestinationsHigh = [
 		{
-			title: "Calculate Subject Grades to 4.0",
+			title: "Calculate Grades to 4.0",
 			icon: (
 				<FontAwesome5
 					name="calculator"
@@ -88,7 +88,7 @@ const Tools1 = ({ navigation }) => {
 	];
 	const Destinations = [
 		{
-			title: "Calculate Subject Grades to 4.0",
+			title: "Calculate Grades to 100",
 			icon: (
 				<FontAwesome5
 					name="calculator"
@@ -96,7 +96,7 @@ const Tools1 = ({ navigation }) => {
 					color="white"
 				/>
 			),
-			destination: "GPA4",
+			destination: "GPA100",
 		},
 		{
 			title: "My notes",
@@ -125,7 +125,7 @@ const Tools1 = ({ navigation }) => {
 			setGrade(await AsyncStorage.getItem("@grade"));
 		}
 		getGrade();
-	}, []);
+	}, [grade]);
 	return (
 		<Container>
 			<Header text="Tools" fontSize="35" />
