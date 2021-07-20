@@ -19,7 +19,7 @@ const BottomPart = ({ navigation }) => {
 	};
 
 	const handlePress = () => {
-		navigation.navigate("");
+		navigation.navigate("Screen3");
 	};
 
 	return (
@@ -54,7 +54,7 @@ const BottomPart = ({ navigation }) => {
 	);
 };
 
-export default function Screen2(navigation) {
+export default function Screen2({ navigation }) {
 	const source = {
 		html: `
 			<p><strong>Privacy Policy</strong></p>
@@ -160,7 +160,7 @@ export default function Screen2(navigation) {
 						baseStyle={{ color: "white" }}
 					/>
 				</PrivacyPolicyContainer>
-				<BottomPart />
+				<BottomPart navigation={navigation} />
 			</InsideContainer>
 		</Container>
 	);
