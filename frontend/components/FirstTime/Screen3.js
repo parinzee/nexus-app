@@ -17,7 +17,7 @@ import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogicPart = ({ navigation }) => {
-	const [teamColor, setTeamColor] = useState();
+	const [teamColor, setTeamColor] = useState("red");
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
 	const [buttonDisabled, setButtonDisabled] = useState(true);

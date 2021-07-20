@@ -17,6 +17,7 @@ import Me from "./components/Pages/Me/Me";
 import Screen1 from "./components/FirstTime/Screen1";
 import Screen2 from "./components/FirstTime/Screen2";
 import Screen3 from "./components/FirstTime/Screen3";
+import Screen4 from "./components/FirstTime/Screen4";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
 import { useState } from "react";
@@ -176,11 +177,13 @@ export default function App() {
 						},
 						cardStyleInterpolator: forSlide,
 						headerShown: false,
+						gestureEnabled: false,
 					}}
 				>
 					<Stack.Screen name="Screen1" component={Screen1} />
 					<Stack.Screen name="Screen2" component={Screen2} />
 					<Stack.Screen name="Screen3" component={Screen3} />
+					<Stack.Screen name="Screen4" component={Screen4} />
 					<Stack.Screen name="Main" component={MainTab} />
 				</Stack.Navigator>
 				<StatusBar style="light" />

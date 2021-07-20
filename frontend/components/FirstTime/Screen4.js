@@ -4,8 +4,9 @@ import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Screen1({ navigation }) {
+export default function Screen4({ navigation }) {
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;
@@ -36,15 +37,16 @@ export default function Screen1({ navigation }) {
 		margin-bottom: ${verticalScale(10)}px;
 	`;
 
-	const handlePress = () => {
-		navigation.navigate("Screen2");
+	const handlePress = async () => {
+		await AsyncStorage.setItem("@firstTime", JSON.stringify(false));
+		navigation.navigate("Main");
 	};
 
 	return (
 		<Container>
 			<InsideContainer>
 				<LottieView
-					source={require("../../assets/Welcome.json")}
+					source={require("../../assets/Finish.json")}
 					autoPlay
 					loop={false}
 					speed={0.7}
@@ -55,11 +57,7 @@ export default function Screen1({ navigation }) {
 						height: moderateScale(300),
 					}}
 				/>
-				<HiText>Hey there!</HiText>
-				<Description>
-					Seems like this is your first time using the app! Please
-					allow us to sign you up!
-				</Description>
+				<HiText>You're Done!</HiText>
 				<TouchableOpacity onPress={handlePress}>
 					<FontAwesome5
 						name="arrow-circle-right"
