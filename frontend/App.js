@@ -5,8 +5,9 @@ import {
 	useFonts,
 	OpenSans_800ExtraBold,
 	OpenSans_300Light,
+	OpenSans_400Regular,
 } from "@expo-google-fonts/open-sans";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -115,12 +116,16 @@ const MainTab = () => {
 				}}
 			/>
 			<Tab.Screen
-				name="Me"
+				name="Tools"
 				component={Me}
 				options={{
-					tabBarLabel: "Me",
+					tabBarLabel: "Tools",
 					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="user" size={size} color={color} />
+						<MaterialCommunityIcons
+							name="lightbulb-on-outline"
+							size={size + 5}
+							color={color}
+						/>
 					),
 				}}
 			/>
@@ -137,6 +142,7 @@ export default function App() {
 		Momcake: require("./assets/fonts/Momcake.otf"),
 		OpenSans_800ExtraBold,
 		OpenSans_300Light,
+		OpenSans_400Regular,
 	});
 
 	const fetchImages = () => {
