@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+			crossorigin="anonymous"
+		/>
+
+		<meta charset="utf-8" />
+		<meta name="description" content="A grade universal grade calculator" />
+		<meta
+			name="keywords"
+			content="Parinthapat Pengpun, Parin, Grade-Calculator, Universal Grade calculator, Grade Cal Bcis, Grade"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script>
+			function Calculate_S(grade) {
+				grade = parseFloat(grade);
+
+				if (grade >= 93) {
+					return 4.0;
+				} else if (grade >= 90) {
+					return 3.7;
+				} else if (grade >= 87) {
+					return 3.3;
+				} else if (grade >= 83) {
+					return 3.0;
+				} else if (grade >= 80) {
+					return 2.7;
+				} else if (grade >= 77) {
+					return 2.3;
+				} else if (grade >= 73) {
+					return 2.0;
+				} else if (grade >= 70) {
+					return 1.7;
+				} else if (grade >= 67) {
+					return 1.3;
+				} else if (grade >= 63) {
+					return 1.0;
+				} else if (grade >= 60) {
+					return 0.7;
+				} else {
+					return 0;
+				}
+			}
+
+			function CalculateGrade() {
+				// Core Subjects Length
+				let core_subs_len = document.getElementsByName("core").length;
+
+				// Array for looping through
+				let core_subs = [];
+
+				for (let i = 0; i < core_subs_len; i++) {
+					if (
+						document.getElementsByName("core")[i].value != undefined
+					) {
+					}
+					core_subs[i] = document.getElementsByName("core")[i].value;
+				}
+
+				//Elective_Subjects Array
+				let elective_subs_len =
+					document.getElementsByName("elective").length;
+				let elective_subs = [];
+
+				for (let i = 0; i < elective_subs_len; i++) {
+					elective_subs[i] =
+						document.getElementsByName("elective")[i].value;
+				}
+
+				let core_sum = 0;
+				let elective_sum = 0;
+
+				// Looping Through Core
+				for (let i = 0; i < 4; i++) {
+					core_sum += Calculate_S(core_subs[i]);
+				}
+
+				for (let i = 0; i < 6; i++) {
+					elective_sum += Calculate_S(elective_subs[i]);
+				}
+
+				let Final_Core = core_sum * 0.5;
+				let Final_Elect = elective_sum * 0.25;
+				let Final = Final_Core + Final_Elect;
+				let Final_Grade = Final / 3.5;
+
+				if (elective_subs[5]) {
+					window.ReactNativeWebView.postMessage(
+						Final_Grade.toFixed(2)
+					);
+				}
+				document.getElementById("result").innerHTML =
+					"<b style='font-size: 40px;'> " +
+					Final_Grade.toFixed(2) +
+					" </b>";
+			}
+		</script>
+
+		<style>
+			body {
+				background: linear-gradient(
+					-45deg,
+					#ee7752,
+					#e73c7e,
+					rgb(224, 28, 208),
+					#23a6d5,
+					#23d5ab
+				);
+				background-size: 600% 600%;
+				animation: gradient 7s ease infinite;
+			}
+
+			@keyframes gradient {
+				0% {
+					background-position: 0% 50%;
+				}
+
+				50% {
+					background-position: 100% 50%;
+				}
+
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+
+			.main_box {
+				opacity: 0.9;
+				padding: 1rem;
+				color: black;
+				border: 2px solid black;
+				border-radius: 30px;
+				display: inline-block;
+				background: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header
+			align="center"
+			style="max-width: 500px; margin-left: auto; margin-right: auto"
+		>
+			<div class="main_box">
+				<br /><br />
+				<i>
+					<h3>Instructions</h3>
+					<h5>
+						<p>
+							Tap/Click each space and input your grades as
+							numbers (No percentage sign). As you finish typing
+							your grade will be in the box
+						</p>
+						<hr />
+					</h5>
+				</i>
+				<br />
+				<button
+					type="button"
+					class="btn btn-danger btn-sm"
+					onclick="window.location.href='/help'"
+				>
+					What are Core/Electives Subjects?
+				</button>
+				<br />
+				<br />
+				<fieldset class="form-group">
+					<form action="/standards" method="POST">
+						<div>
+							<label for="core1"> Core Subject 1: </label>
+							<input
+								onchange="CalculateGrade()"
+								type="text"
+								placeholder="  100"
+								class="u-full-width"
+								name="core"
+							/>
+						</div>
+
+						<div>
+							<label for="core2"> Core Subject 2: </label>
+							<input
+								onchange="CalculateGrade()"
+								type="text"
+								placeholder="  100"
+								class="u-full-width"
+								name="core"
+							/>
+						</div>
+
+						<div>
+							<label for="core3"> Core Subject 3: </label>
+							<input
+								onchange="CalculateGrade()"
+								type="text"
+								placeholder="  100"
+								class="u-full-width"
+								name="core"
+							/>
+						</div>
+
+						<div>
+							<label for="core1"> Core Subject 4: </label>
+							<input
+								onchange="CalculateGrade()"
+								type="text"
+								placeholder="  100"
+								class="u-full-width"
+								name="core"
+							/>
+						</div>
+
+						<hr />
+						<div class="form-group">
+							<div>
+								<label for="elective1">
+									Elective Subject 1:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+
+							<div>
+								<label for="elective2">
+									Elective Subject 2:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+
+							<div>
+								<label for="elective3">
+									Elective Subject 3:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+
+							<div>
+								<label for="elective4">
+									Elective Subject 4:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+
+							<div>
+								<label for="elective5">
+									Elective Subject 5:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+							<div>
+								<label for="elective6">
+									Elective Subject 6:
+								</label>
+								<input
+									onchange="CalculateGrade()"
+									type="text"
+									placeholder="  100"
+									class="u-full-width"
+									name="elective"
+								/>
+							</div>
+						</div>
+					</form>
+				</fieldset>
+
+				<br />
+				<div id="result" class="alert alert-primary" role="alert">
+					<b style="font-size: 20px"> YOUR GRADE WILL BE HERE! </b>
+				</div>
+				<p>Out of 4.0</p>
+				<br /><br />
+				<br />
+			</div>
+		</header>
+
+		<br />
+
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
