@@ -28,7 +28,7 @@ export default function Main({ navigation }) {
 	const AnotherContainer = styled.View``;
 	return (
 		<OutContainer>
-			<Header text={`Hello, ${name}`} fontSize="40" />
+			<Header text={`Hello, ${name}`} fontSize="35" />
 			<Container>
 				{/* TODO: Put in the summaries.*/}
 				<AnotherContainer></AnotherContainer>

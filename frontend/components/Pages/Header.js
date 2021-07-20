@@ -13,7 +13,7 @@ export default function Header({ text, fontSize }) {
 	`;
 
 	const MenuText = styled.Text`
-		font-family: "Momcake";
+		font-family: System;
 		color: white;
 		align-self: center;
 		font-size: ${moderateScale(parseInt(fontSize))}px;
@@ -22,8 +22,8 @@ export default function Header({ text, fontSize }) {
 	`;
 
 	const Logo = styled.Image`
-		max-width: ${moderateScale(parseInt(fontSize) - 12)}px;
-		max-height: ${moderateScale(parseInt(fontSize) - 12)}px;
+		max-width: ${moderateScale(parseInt(fontSize))}px;
+		max-height: ${moderateScale(parseInt(fontSize))}px;
 	`;
 
 	return (

@@ -15,7 +15,7 @@ const Me1 = () => {
 
 	return (
 		<Container>
-			<Header text="Me" fontSize="50" />
+			<Header text="Me" fontSize="35" />
 		</Container>
 	);
 };
