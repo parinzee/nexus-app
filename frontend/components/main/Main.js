@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import Header from "./Header";
+import Header from "../Pages/Header";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
+	const [name, setName] = useState();
 	const OutContainer = styled.View`
 		flex: 1;
 		background-color: rgb(35, 35, 35);
@@ -17,10 +19,16 @@ export default function Main({ navigation }) {
 		align-content: center;
 	`;
 
+	useEffect(() => {
+		async function getName() {
+			setName(JSON.parse(await AsyncStorage.getItem("@name")));
+		}
+		getName();
+	}, []);
 	const AnotherContainer = styled.View``;
 	return (
 		<OutContainer>
-			<Header />
+			<Header text={`Hello, ${name}`} fontSize="40" />
 			<Container>
 				{/* TODO: Put in the summaries.*/}
 				<AnotherContainer></AnotherContainer>
