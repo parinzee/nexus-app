@@ -140,7 +140,7 @@ export default function App() {
 	const [firstTime, setFirstTime] = useState();
 
 	let [fontsLoaded] = useFonts({
-		Now: require("./assets/fonts/NowAlt-Light.otf"),
+		Now: require("./assets/fonts/NowAlt-Medium.otf"),
 		Momcake: require("./assets/fonts/Momcake.otf"),
 		OpenSans_800ExtraBold,
 		OpenSans_300Light,

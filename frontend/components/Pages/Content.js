@@ -24,7 +24,8 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		border-top-left-radius: 20px;
 		border-top-right-radius: 20px;
 		height: ${moderateScale(30)}px;
-		border-bottom-color: #ffcf64;
+		/* border-bottom-color: #ffcf64; */
+		border-bottom-color: ${mainColor};
 		border-bottom-width: 1.5px;
 		width: ${moderateScale(320)}px;
 		background-color: rgb(50, 50, 50);
@@ -42,10 +43,10 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 	const SubtitleText = styled.Text`
 		color: white;
 		font-size: ${moderateScale(16)}px;
-		font-family: "OpenSans_300Light";
+		font-family: "System";
 		margin-left: 10px;
 		margin-right: 10px;
-		margin-top: 2px;
+		margin-top: 10px;
 	`;
 	return (
 		<Container>

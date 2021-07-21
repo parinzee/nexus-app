@@ -12,7 +12,7 @@ export default function Tools({ navigation }) {
 	const [honors, setHonors] = useState(false);
 	const Destinations = [
 		{
-			title: "Calculate Grades to 4.0/4.5",
+			title: "Calculate Grades to 4.00/4.50",
 			icon: (
 				<FontAwesome5
 					name="calculator"
