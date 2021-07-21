@@ -4,8 +4,7 @@ import { WebView } from "react-native-webview";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const handleGPA = async (grade) => {
-	console.log(grade);
-	// await AsyncStorage.setItem("@GPA", JSON.stringify(grade));
+	await AsyncStorage.setItem("@GPA", JSON.stringify(grade));
 };
 const Standards = () => {
 	const HTML = require("../../../assets/Standards.html");
