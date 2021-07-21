@@ -31,7 +31,7 @@ export default function Tools({ navigation }) {
 					color="white"
 				/>
 			),
-			destination: "Todo",
+			destination: "My Notes",
 		},
 	];
 	const Container = styled.View`

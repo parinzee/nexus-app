@@ -20,6 +20,7 @@ import Screen2 from "./components/FirstTime/Screen2";
 import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import GPA4 from "./components/Pages/Tools/GPA4";
+import Todo from "./components/Pages/Tools/Todo";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
 import { useState, useEffect } from "react";
@@ -224,6 +225,13 @@ export default function App() {
 					<Stack.Screen
 						name="Calculate to 4.0"
 						component={GPA4}
+						options={{
+							headerShown: true,
+						}}
+					/>
+					<Stack.Screen
+						name="My Notes"
+						component={Todo}
 						options={{
 							headerShown: true,
 						}}
