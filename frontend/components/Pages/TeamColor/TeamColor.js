@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "../Header";
-import { LogBox } from "react-native";
+import { LogBox, RefreshControl } from "react-native";
 import Scores from "./Scores";
 import Content from "../Content";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+
+function useForceUpdate() {
+	const [value, setValue] = useState(0);
+	return () => setValue((value) => value + 1);
+}
 
 export default function Activities({}) {
+	const [refreshing, setRefreshing] = React.useState(false);
 	const Container = styled.View`
 		flex: 1;
 		background-color: rgb(35, 35, 35);
@@ -16,6 +21,8 @@ export default function Activities({}) {
 
 	const AnotherContainer = styled.ScrollView``;
 
+	const forceUpdate = useForceUpdate();
+
 	useEffect(() => {
 		LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
 	}, []);
@@ -23,7 +30,16 @@ export default function Activities({}) {
 	return (
 		<Container>
 			<Header text="Team Colors" fontSize="35" />
-			<AnotherContainer>
+			<AnotherContainer
+				refreshControl={
+					<RefreshControl
+						tintColor="#5071f6"
+						colors={["#5071f6"]}
+						refreshing={refreshing}
+						onRefresh={forceUpdate}
+					/>
+				}
+			>
 				<Scores
 					uri="http://nexussc.herokuapp.com/scores/"
 					mainColor="#ff9151"
