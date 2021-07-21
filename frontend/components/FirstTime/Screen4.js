@@ -39,7 +39,7 @@ export default function Screen4({ navigation }) {
 
 	const handlePress = async () => {
 		await AsyncStorage.setItem("@firstTime", JSON.stringify(false));
-		navigation.navigate("Main");
+		navigation.navigate("Home");
 	};
 
 	return (

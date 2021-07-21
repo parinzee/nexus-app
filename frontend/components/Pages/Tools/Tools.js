@@ -7,8 +7,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Header from "../Header";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 
-export default function Tools1({ navigation }) {
+export default function Tools({ navigation }) {
 	const [grade, setGrade] = useState(0);
+	const [honors, setHonors] = useState(false);
 	const Destinations = [
 		{
 			title: "Calculate Grades to 4.0",
@@ -45,7 +46,8 @@ export default function Tools1({ navigation }) {
 
 	useEffect(() => {
 		async function getGrade() {
-			setGrade(await AsyncStorage.getItem("@grade"));
+			setGrade(JSON.parse(await AsyncStorage.getItem("@grade")));
+			setHonors(JSON.parse(await AsyncStorage.getItem("@honors")));
 		}
 		getGrade();
 	}, []);
@@ -56,7 +58,7 @@ export default function Tools1({ navigation }) {
 				{Destinations.map(({ title, icon, destination }, index) => (
 					<TouchableOpacity
 						onPress={() =>
-							navigation.navigate(destination, { grade })
+							navigation.navigate(destination, { grade, honors })
 						}
 					>
 						<ListItem

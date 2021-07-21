@@ -8,19 +8,28 @@ import {
 	View,
 	Alert,
 } from "react-native";
-import styled from "styled-components/native";
+import styled, { withTheme } from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import { Input } from "react-native-elements";
-import { Picker } from "@react-native-picker/picker";
+import { Input, CheckBox } from "react-native-elements";
+import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogicPart = ({ navigation }) => {
 	const [teamColor, setTeamColor] = useState("red");
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
+	const [honors, setHonors] = useState(false);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
+
+	const [items, setItems] = useState([
+		{ label: "Red Team", value: "red" },
+		{ label: "Blue Team", value: "blue" },
+		{ label: "Green Team", value: "green" },
+		{ label: "Yellow Team", value: "yellow" },
+	]);
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		if (name != null && grade != null) {
@@ -36,6 +45,9 @@ const LogicPart = ({ navigation }) => {
 		setGrade(text);
 	};
 
+	const handleCheckbox = () => {
+		setHonors(!honors);
+	};
 	const onSubmit = async () => {
 		if (grade > 12) {
 			Alert.alert(
@@ -48,6 +60,8 @@ const LogicPart = ({ navigation }) => {
 			const JSONName = JSON.stringify(name);
 			const JSONGrade = JSON.stringify(grade);
 			const JSONTeam = JSON.stringify(teamColor);
+			const JSONHonors = JSON.stringify(honors);
+			await AsyncStorage.setItem("@honors", JSONHonors);
 			await AsyncStorage.setItem("@name", JSONName);
 			await AsyncStorage.setItem("@grade", JSONGrade);
 			await AsyncStorage.setItem("@team", JSONTeam);
@@ -55,15 +69,21 @@ const LogicPart = ({ navigation }) => {
 			navigation.navigate("Screen4");
 		}
 	};
+
 	return (
 		<View>
 			<Input
-				placeholder="Nickname (eg: John)"
+				label="Nickname"
+				labelStyle={{
+					marginTop: verticalScale(20),
+					marginLeft: moderateScale(20),
+					color: "white",
+				}}
+				placeholder="John"
 				leftIcon={
 					<FontAwesome5 name="address-book" size={24} color="white" />
 				}
 				inputContainerStyle={{
-					marginTop: verticalScale(20),
 					marginLeft: moderateScale(20),
 					marginRight: moderateScale(20),
 				}}
@@ -72,32 +92,58 @@ const LogicPart = ({ navigation }) => {
 				onChangeText={(text) => setName(text)}
 			/>
 			<Input
-				placeholder=" Grade (eg: 7)"
+				label="Grade Level"
+				labelStyle={{
+					marginLeft: moderateScale(20),
+					color: "white",
+				}}
+				placeholder="7"
 				leftIcon={
 					<FontAwesome5 name="address-card" size={24} color="white" />
 				}
 				inputContainerStyle={{
-					marginBottom: verticalScale(-30),
-					marginLeft: moderateScale(20),
 					marginRight: moderateScale(20),
+					marginLeft: moderateScale(20),
 				}}
 				maxLength={2}
 				inputStyle={{ color: "white" }}
 				keyboardType="numeric"
 				onChangeText={(text) => handleGrade(text)}
 			/>
-			<Picker
-				selectedValue={teamColor}
-				onValueChange={(itemValue, itemIndex) =>
-					setTeamColor(itemValue)
-				}
-				itemStyle={{ color: "white" }}
-			>
-				<Picker.Item label="Red Team" value="red" />
-				<Picker.Item label="Blue Team" value="blue" />
-				<Picker.Item label="Green Team" value="green" />
-				<Picker.Item label="Yellow Team" value="yellow" />
-			</Picker>
+			<CheckBox
+				title="Are you in an honors class?"
+				textStyle={{ color: "white" }}
+				checked={honors}
+				containerStyle={{
+					backgroundColor: "#292d3e",
+					alignSelf: "center",
+					width: "85%",
+					marginBottom: verticalScale(20),
+				}}
+				onPress={handleCheckbox}
+			/>
+			<DropDownPicker
+				open={open}
+				value={teamColor}
+				items={items}
+				setOpen={setOpen}
+				setValue={setTeamColor}
+				setItems={setItems}
+				containerStyle={{
+					alignSelf: "center",
+					width: "85%",
+					borderColor: "white",
+					borderWidth: 1,
+					borderRadius: 9,
+					marginBottom: verticalScale(20),
+				}}
+				dropDownContainerStyle={{
+					borderColor: "white",
+					borderWidth: 1,
+				}}
+				dropDownDirection="TOP"
+				theme="DARK"
+			/>
 			<TouchableOpacity disabled={buttonDisabled} onPress={onSubmit}>
 				<FontAwesome5
 					name="arrow-circle-right"

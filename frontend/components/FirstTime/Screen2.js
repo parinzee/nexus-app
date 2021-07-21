@@ -29,7 +29,7 @@ const BottomPart = ({ navigation }) => {
 				checked={checked}
 				onPress={handleCheckbox}
 				containerStyle={{
-					backgroundColor: "black",
+					backgroundColor: "#292d3e",
 					marginLeft: 30,
 					marginRight: 30,
 					marginTop: 10,
@@ -179,7 +179,7 @@ export default function Screen2({ navigation }) {
 	`;
 
 	const PrivacyPolicyContainer = styled.ScrollView`
-		background-color: black;
+		background-color: #292d3e;
 		border-color: white;
 		border-radius: 20px;
 		border-style: solid;
