@@ -9,32 +9,36 @@ import styled from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { moderateScale, verticalScale } from "react-native-size-matters";
-import {
-	KeyboardAvoidingView,
-	Keyboard,
-	TouchableWithoutFeedback,
-} from "react-native";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import BottomSheet, { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { Input } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
-import { Pressable } from "react-native";
+import { FlatList } from "react-native";
+import { render } from "react-dom";
 
-const Task = ({ todo, setCheck, setRemove }) => {
-	const { title, isChecked } = todo;
+const Task = ({ title, isChecked, setCheck, setRemove }) => {
 	const TaskContainer = styled.View`
 		width: 85%;
-		background-color: #20212c;
+		background-color: #17181f;
+		border-radius: 10px;
 		flex-direction: row;
 		justify-content: space-between;
+		align-self: center;
+		height: ${verticalScale(50)}px;
+		margin-top: ${verticalScale(15)}px;
 	`;
 	const TitleText = styled.Text`
 		color: white;
 		font-family: System;
-		font-size: moderateScale(15);
+		font-size: ${moderateScale(15)}px;
+		align-self: center;
+		margin-left: ${moderateScale(5)}px;
 	`;
 
 	const Inner = styled.Pressable`
 		flex-direction: row;
+		align-self: center;
+		margin-left: ${moderateScale(5)}px;
 	`;
 
 	return (
@@ -47,7 +51,12 @@ const Task = ({ todo, setCheck, setRemove }) => {
 				/>
 				<TitleText>{title}</TitleText>
 			</Inner>
-			<MaterialIcons name="delete" size={24} color="#F977A1" />
+			<MaterialIcons
+				name="delete"
+				size={24}
+				color="#F977A1"
+				style={{ alignSelf: "center", marginRight: moderateScale(10) }}
+			/>
 		</TaskContainer>
 	);
 };
@@ -134,6 +143,10 @@ const AddTodos = ({ HandleAddTask }) => {
 export default function Todo() {
 	const [tasks, setTasks] = useState([]);
 
+	const renderItem = ({ item }) => (
+		<Task title={item.title} isChecked={item.isChecked} />
+	);
+
 	useEffect(() => {
 		async function ReadTasks() {
 			const tasksArr = JSON.parse(await AsyncStorage.getItem("@tasks"));
@@ -162,6 +175,7 @@ export default function Todo() {
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 			<Container>
+				<FlatList data={tasks} renderItem={renderItem} />
 				<AddTodos HandleAddTask={HandleAddTask} />
 			</Container>
 		</TouchableWithoutFeedback>
