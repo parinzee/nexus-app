@@ -48,12 +48,23 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		margin-right: 10px;
 		margin-top: 10px;
 	`;
+
+	const DateText = styled.Text`
+		position: absolute;
+		color: grey;
+		font-size: ${moderateScale(14)}px;
+		font-family: "System";
+		bottom: 5px;
+		right: 12px;
+	`;
+
 	return (
 		<Container>
 			<TitleContainer>
 				<TitleText>{eventName}</TitleText>
 			</TitleContainer>
-			<SubtitleText>{eventDesc}</SubtitleText>
+			<SubtitleText>{eventDesc.split("--")[0]}</SubtitleText>
+			<DateText>Posted on {eventDesc.split("--")[1]}</DateText>
 		</Container>
 	);
 };

@@ -13,10 +13,10 @@ const Item = ({ name, score, mainColor }) => {
 	})`
 		display: flex;
 		flex-direction: row;
-		border-radius: 20px;
+		border-radius: 10px;
 		width: ${moderateScale(295)}px;
-		height: ${moderateScale(50)}px;
-		margin-top: ${verticalScale(20)}px;
+		height: ${moderateScale(40)}px;
+		margin-top: ${verticalScale(14)}px;
 		padding: 5px;
 		margin-right: 20px;
 		margin-left: 20px;
@@ -27,7 +27,7 @@ const Item = ({ name, score, mainColor }) => {
 
 	const TitleText = styled.Text`
 		color: white;
-		font-size: ${moderateScale(22)}px;
+		font-size: ${moderateScale(19)}px;
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
 		align-self: center;
@@ -35,11 +35,12 @@ const Item = ({ name, score, mainColor }) => {
 
 	const SubtitleText = styled.Text`
 		color: white;
-		font-size: ${moderateScale(20)}px;
+		font-size: ${moderateScale(17)}px;
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
 		align-self: center;
 	`;
+
 	return (
 		<Container>
 			<TitleText>{name}</TitleText>
@@ -127,7 +128,7 @@ export default function BottomContent({ uri, mainColor }) {
 		justify-content: center;
 		align-items: center;
 		align-content: center;
-		margin-top: ${verticalScale(10)}px;
+		margin-top: ${verticalScale(20)}px;
 	`;
 
 	return (
