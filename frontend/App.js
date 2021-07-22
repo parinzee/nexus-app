@@ -77,12 +77,12 @@ const MainTab = () => {
 	return (
 		<Tab.Navigator
 			initialRouteName="Home"
-			detachInactiveScreens={true}
 			tabBarOptions={{ inactiveTintColor: "white" }}
 			appearance={{
 				tabBarBackground: "rgb(70,70,70)",
 				floating: true,
 			}}
+			lazy={false}
 		>
 			<Tab.Screen
 				name="Home"
@@ -112,7 +112,7 @@ const MainTab = () => {
 				name="Team Color"
 				component={TeamColor}
 				options={{
-					tabBarLabel: "Team Color",
+					tabBarLabel: "Teams",
 					tabBarIcon: ({ color, size }) => (
 						<FontAwesome5 name="flag" size={size} color={color} />
 					),

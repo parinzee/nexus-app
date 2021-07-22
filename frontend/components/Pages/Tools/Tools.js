@@ -55,14 +55,14 @@ export default function Tools({ navigation }) {
 		<Container>
 			<Header text="Tools" fontSize="35" />
 			<BottomContainer>
-				{Destinations.map(({ title, icon, destination }, index) => (
+				{Destinations.map(({ title, icon, destination }) => (
 					<TouchableOpacity
 						onPress={() =>
 							navigation.navigate(destination, { grade, honors })
 						}
+						key={title}
 					>
 						<ListItem
-							key={index}
 							bottomDivider
 							containerStyle={{
 								backgroundColor: "rgb(25,25,25)",
