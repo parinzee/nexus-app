@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "../Pages/Header";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TeamColorWidget } from "./Widgets";
+import { TeamColorWidget, NewsWidget, EventsWidget } from "./Widgets";
 
 export default function Main({ navigation }) {
 	const [name, setName] = useState();
@@ -34,6 +34,8 @@ export default function Main({ navigation }) {
 			<Container>
 				<AnotherContainer>
 					<TeamColorWidget teamColor={color} />
+					<NewsWidget />
+					<EventsWidget />
 				</AnotherContainer>
 			</Container>
 		</OutContainer>

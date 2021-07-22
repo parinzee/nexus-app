@@ -15,6 +15,7 @@ export default function Events({}) {
 			<Content
 				uri="http://nexussc.herokuapp.com/announcements/"
 				mainColor="#ffcf64"
+				type="news"
 			/>
 		</Container>
 	);

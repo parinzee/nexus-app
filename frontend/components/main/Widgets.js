@@ -25,7 +25,7 @@ export const TeamColorWidget = ({ teamColor }) => {
 	})`
 		display: flex;
 		border-radius: 10px;
-		width: ${moderateScale(296)}px;
+		width: ${moderateScale(320)}px;
 		height: ${moderateScale(46)}px;
 		margin-top: ${verticalScale(14)}px;
 		padding: 5px;
@@ -40,7 +40,7 @@ export const TeamColorWidget = ({ teamColor }) => {
 		display: flex;
 		flex-direction: row;
 		border-radius: 10px;
-		width: ${moderateScale(290)}px;
+		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
 		background-color: rgb(25, 25, 25);
 		padding: 5px;
@@ -89,16 +89,16 @@ export const TeamColorWidget = ({ teamColor }) => {
 					color: realColors[index],
 				};
 			});
-			if (teamColor === "red") {
-				setItem(dataArray[0]);
-			} else if (teamColor === "blue") {
-				setItem(dataArray[1]);
-			} else if (teamColor === "yellow") {
-				setItem(dataArray[2]);
-			} else {
-				setItem(dataArray[3]);
-			}
 			if (isMounted === true) {
+				if (teamColor === "red") {
+					setItem(dataArray[0]);
+				} else if (teamColor === "blue") {
+					setItem(dataArray[1]);
+				} else if (teamColor === "yellow") {
+					setItem(dataArray[2]);
+				} else {
+					setItem(dataArray[3]);
+				}
 				setRefresh(false);
 			}
 		}
@@ -107,6 +107,9 @@ export const TeamColorWidget = ({ teamColor }) => {
 	useEffect(() => {
 		let isMounted = true;
 		getEvents(isMounted);
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
 	return (
@@ -117,6 +120,192 @@ export const TeamColorWidget = ({ teamColor }) => {
 						<TitleText>{item.name}</TitleText>
 						<SubtitleText>{item.score} pt</SubtitleText>
 					</InnerContainer>
+				</Container>
+			) : (
+				<View />
+			)}
+		</View>
+	);
+};
+
+export const NewsWidget = () => {
+	const [latestNews, setLatestNews] = useState(null);
+	const [refresh, setRefresh] = useState(true);
+	const getNews = async (isMounted) => {
+		const data = await axios
+			.get("http://nexussc.herokuapp.com/announcements/")
+			.then((response) => {
+				return response.data;
+			})
+			.catch(() => {
+				return false;
+			});
+		if (data != false) {
+			if (isMounted) {
+				setLatestNews(data.sort((a, b) => b[0] - a[0])[0]);
+				setRefresh(false);
+			}
+		}
+	};
+
+	const Container = styled.View`
+		display: flex;
+		flex-direction: column;
+		background-color: black;
+		border-radius: 20px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(110)}px;
+		margin-top: ${verticalScale(30)}px;
+	`;
+
+	const TitleContainer = styled.View`
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		height: ${moderateScale(30)}px;
+		border-bottom-color: #ffcf64;
+		border-bottom-width: 1.5px;
+		width: ${moderateScale(320)}px;
+		background-color: rgb(50, 50, 50);
+	`;
+
+	const TitleText = styled.Text`
+		color: white;
+		font-size: ${moderateScale(19)}px;
+		font-family: "OpenSans_800ExtraBold";
+		margin-left: 10px;
+		margin-bottom: 3px;
+		margin-top: 2px;
+	`;
+
+	const SubtitleText = styled.Text`
+		color: white;
+		font-size: ${moderateScale(16)}px;
+		font-family: "System";
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
+	`;
+
+	const DateText = styled.Text`
+		position: absolute;
+		color: grey;
+		font-size: ${moderateScale(14)}px;
+		font-family: "System";
+		bottom: 5px;
+		right: 12px;
+	`;
+
+	useEffect(() => {
+		let isMounted = true;
+		getNews(isMounted);
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+	return (
+		<View style={{ alignSelf: "center" }}>
+			{refresh === false ? (
+				<Container>
+					<TitleContainer>
+						<TitleText>{latestNews[1]}</TitleText>
+					</TitleContainer>
+					<SubtitleText>{latestNews[2].split("--")[0]}</SubtitleText>
+					<DateText>
+						Posted on {latestNews[2].split("--")[1]}
+					</DateText>
+				</Container>
+			) : (
+				<View />
+			)}
+		</View>
+	);
+};
+
+export const EventsWidget = () => {
+	const [latestNews, setLatestNews] = useState(null);
+	const [refresh, setRefresh] = useState(true);
+	const getNews = async (isMounted) => {
+		const data = await axios
+			.get("http://nexussc.herokuapp.com/events/")
+			.then((response) => {
+				return response.data;
+			})
+			.catch(() => {
+				return false;
+			});
+		if (data != false) {
+			if (isMounted) {
+				setLatestNews(data.sort((a, b) => b[0] - a[0])[0]);
+				setRefresh(false);
+			}
+		}
+	};
+
+	const Container = styled.View`
+		display: flex;
+		flex-direction: column;
+		background-color: black;
+		border-radius: 20px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(110)}px;
+		margin-top: ${verticalScale(30)}px;
+	`;
+
+	const TitleContainer = styled.View`
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		height: ${moderateScale(30)}px;
+		border-bottom-color: #5071f6;
+		border-bottom-width: 1.5px;
+		width: ${moderateScale(320)}px;
+		background-color: rgb(50, 50, 50);
+	`;
+
+	const TitleText = styled.Text`
+		color: white;
+		font-size: ${moderateScale(19)}px;
+		font-family: "OpenSans_800ExtraBold";
+		margin-left: 10px;
+		margin-bottom: 3px;
+		margin-top: 2px;
+	`;
+
+	const SubtitleText = styled.Text`
+		color: white;
+		font-size: ${moderateScale(16)}px;
+		font-family: "System";
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
+	`;
+
+	const DateText = styled.Text`
+		position: absolute;
+		color: grey;
+		font-size: ${moderateScale(14)}px;
+		font-family: "System";
+		bottom: 5px;
+		right: 12px;
+	`;
+
+	useEffect(() => {
+		let isMounted = true;
+		getNews(isMounted);
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+	return (
+		<View style={{ alignSelf: "center" }}>
+			{refresh === false ? (
+				<Container>
+					<TitleContainer>
+						<TitleText>{latestNews[1]}</TitleText>
+					</TitleContainer>
+					<SubtitleText>{latestNews[2].split("--")[0]}</SubtitleText>
+					<DateText>
+						Posted on {latestNews[2].split("--")[1]}
+					</DateText>
 				</Container>
 			) : (
 				<View />

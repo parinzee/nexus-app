@@ -48,6 +48,7 @@ export default function Activities({}) {
 				<Content
 					uri="http://nexussc.herokuapp.com/events/"
 					mainColor="#5071f6"
+					type="activities"
 				/>
 			</AnotherContainer>
 		</Container>

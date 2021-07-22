@@ -69,7 +69,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 	);
 };
 
-export default function BottomContent({ uri, mainColor }) {
+export default function BottomContent({ uri, mainColor, type }) {
 	const [items, setItems] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 	const [error, setError] = useState(false);
