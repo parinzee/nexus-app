@@ -21,6 +21,7 @@ const LogicPart = ({ navigation }) => {
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
 	const [honors, setHonors] = useState(false);
+	const [standards, setStandards] = useState(false);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
 
 	const [items, setItems] = useState([
@@ -45,9 +46,14 @@ const LogicPart = ({ navigation }) => {
 		setGrade(text);
 	};
 
-	const handleCheckbox = () => {
+	const handleStandards = () => {
+		setStandards(!standards);
+	};
+
+	const handleHonors = () => {
 		setHonors(!honors);
 	};
+
 	const onSubmit = async () => {
 		if (grade > 12) {
 			Alert.alert(
@@ -56,6 +62,20 @@ const LogicPart = ({ navigation }) => {
 				[{ text: "OK" }]
 			);
 			return;
+		} else if (standards === honors) {
+			if (standards === true) {
+				Alert.alert(
+					"Invalid Class",
+					"Please select standards OR honors.",
+					[{ text: "OK" }]
+				);
+				return;
+			} else {
+				Alert.alert(
+					"Invalid Class",
+					"Please select either standards or honors."
+				);
+			}
 		} else {
 			const JSONName = JSON.stringify(name);
 			const JSONGrade = JSON.stringify(grade);
@@ -110,18 +130,44 @@ const LogicPart = ({ navigation }) => {
 				keyboardType="numeric"
 				onChangeText={(text) => handleGrade(text)}
 			/>
-			<CheckBox
-				title="Are you in an honors class?"
-				textStyle={{ color: "white" }}
-				checked={honors}
-				containerStyle={{
-					backgroundColor: "#292d3e",
+			<View
+				style={{
 					alignSelf: "center",
-					width: "85%",
 					marginBottom: verticalScale(20),
+					width: "85%",
+					marginLeft: 0,
+					marginRight: 0,
+					justifyContent: "space-between",
+					flexDirection: "row",
 				}}
-				onPress={handleCheckbox}
-			/>
+			>
+				<CheckBox
+					title="Honors"
+					textStyle={{ color: "white" }}
+					checked={honors}
+					containerStyle={{
+						backgroundColor: "#292d3e",
+						alignSelf: "center",
+						width: "40%",
+						marginBottom: verticalScale(20),
+						marginLeft: 0,
+					}}
+					onPress={handleHonors}
+				/>
+				<CheckBox
+					title="Standards"
+					textStyle={{ color: "white" }}
+					checked={standards}
+					containerStyle={{
+						backgroundColor: "#292d3e",
+						alignSelf: "center",
+						width: "40%",
+						marginBottom: verticalScale(20),
+						marginRight: 0,
+					}}
+					onPress={handleStandards}
+				/>
+			</View>
 			<DropDownPicker
 				open={open}
 				value={teamColor}

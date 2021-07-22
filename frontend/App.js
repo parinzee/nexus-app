@@ -26,6 +26,7 @@ import { Asset } from "expo-asset";
 import { useState, useEffect } from "react";
 import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
@@ -148,6 +149,7 @@ export default function App() {
 	});
 
 	const fetchImages = () => {
+		axios.get("https://nexussc.herokuapp.com/");
 		const images = [require("./assets/nexus-logo.png")];
 
 		const cacheImages = images.map((image) => {
