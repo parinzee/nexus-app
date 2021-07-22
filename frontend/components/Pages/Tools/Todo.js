@@ -16,9 +16,9 @@ import {
 	ScrollView,
 	TextInput,
 } from "react-native";
-import { Header } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useHeaderHeight } from "@react-navigation/stack";
+import LottieView from "lottie-react-native";
 
 const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 	const [index, setIndex] = useState(indexProp);
@@ -52,14 +52,14 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 				<MaterialIcons
 					name={isChecked ? "check-box" : "check-box-outline-blank"}
 					size={24}
-					color="#F977A1"
+					color="#ffcf64"
 				/>
 				<TitleText>{title}</TitleText>
 			</Inner>
 			<MaterialIcons
 				name="delete"
 				size={24}
-				color="#F977A1"
+				color="#ffcf64"
 				style={{ alignSelf: "center", marginRight: moderateScale(10) }}
 				onPress={() => setRemove(index)}
 			/>
@@ -68,7 +68,6 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 };
 
 const AddTodos = ({ HandleAddTask }) => {
-	const [todo, setTodo] = useState("");
 	const height = useHeaderHeight();
 
 	const textInputRef = useRef(null);
@@ -77,6 +76,7 @@ const AddTodos = ({ HandleAddTask }) => {
 	const Container = styled.KeyboardAvoidingView`
 		flex-direction: row;
 		margin-bottom: 30px;
+		justify-content: space-between;
 	`;
 
 	return (
@@ -94,7 +94,7 @@ const AddTodos = ({ HandleAddTask }) => {
 					height: verticalScale(40),
 					borderColor: "white",
 					borderWidth: 1,
-					marginLeft: moderateScale(10),
+					marginLeft: moderateScale(15),
 					paddingLeft: moderateScale(5),
 					color: "white",
 				}}
@@ -103,10 +103,10 @@ const AddTodos = ({ HandleAddTask }) => {
 				}}
 			/>
 			<LinearGradient
-				colors={["#CA4AD0", "#FC9187"]}
+				colors={["#ffcf64", "#FC9187"]}
 				style={{
 					borderRadius: 15,
-					marginLeft: 10,
+					marginRight: moderateScale(15),
 					width: "10%",
 					height: verticalScale(40),
 					alignContent: "center",
@@ -118,7 +118,11 @@ const AddTodos = ({ HandleAddTask }) => {
 					size={moderateScale(28)}
 					color="white"
 					style={{ alignSelf: "center" }}
-					onPress={() => HandleAddTask(textInputRef.current.value)}
+					onPress={() => {
+						if (textInputRef.current.value != null) {
+							HandleAddTask(textInputRef.current.value);
+						}
+					}}
 				/>
 			</LinearGradient>
 		</Container>
@@ -133,19 +137,45 @@ function arrayRemove(arr, value) {
 
 const MemoizedTodo = React.memo(AddTodos, (prev, next) => false);
 const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask }) => {
+	const IntroText = styled.Text`
+		font-family: System;
+		font-size: ${moderateScale(25)}px;
+		text-align: center;
+		color: white;
+		margin-left: ${moderateScale(25)}px;
+		margin-right: ${moderateScale(25)}px;
+	`;
 	return (
 		<View onStartShouldSetResponder={() => true}>
-			{tasks.map(({ title, isChecked }, index) => {
-				return (
-					<Task
-						title={title}
-						isChecked={isChecked}
-						indexProp={index}
-						setCheck={HandleCheckTask}
-						setRemove={HandleRemoveTask}
+			{tasks.length != 0 ? (
+				tasks.map(({ title, isChecked }, index) => {
+					return (
+						<Task
+							title={title}
+							isChecked={isChecked}
+							indexProp={index}
+							setCheck={HandleCheckTask}
+							setRemove={HandleRemoveTask}
+						/>
+					);
+				})
+			) : (
+				<View>
+					<LottieView
+						source={require("../../../assets/Todo.json")}
+						autoPlay
+						loop={false}
+						speed={0.4}
+						style={{
+							position: "relative",
+							alignSelf: "center",
+							width: moderateScale(300),
+							height: moderateScale(300),
+						}}
 					/>
-				);
-			})}
+					<IntroText>Add your task below to get started!</IntroText>
+				</View>
+			)}
 		</View>
 	);
 };
@@ -155,9 +185,7 @@ export default function Todo() {
 	useEffect(() => {
 		async function ReadTasks() {
 			const tasksArr = JSON.parse(await AsyncStorage.getItem("@tasks"));
-			if (tasksArr == null) {
-				console.log("No tasks");
-			} else {
+			if (tasksArr != null) {
 				setTasks(tasksArr);
 			}
 		}
