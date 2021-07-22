@@ -7,21 +7,33 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ name, score, mainColor }) => {
 	const Container = styled(LinearGradient).attrs({
-		colors: [mainColor, "#404040"],
+		colors: [mainColor, "grey"],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
 		display: flex;
-		flex-direction: row;
 		border-radius: 10px;
-		width: ${moderateScale(295)}px;
-		height: ${moderateScale(40)}px;
+		width: ${moderateScale(296)}px;
+		height: ${moderateScale(46)}px;
 		margin-top: ${verticalScale(14)}px;
 		padding: 5px;
 		margin-right: 20px;
 		margin-left: 20px;
+		justify-content: center;
+		align-content: center;
+	`;
+
+	const InnerContainer = styled.View`
+		display: flex;
+		flex-direction: row;
+		border-radius: 10px;
+		width: ${moderateScale(290)}px;
+		height: ${moderateScale(40)}px;
+		background-color: rgb(25, 25, 25);
+		padding: 5px;
 		padding-right: 30px;
-		padding-left: 30px;
+		padding-left: 10px;
+		align-self: center;
 		justify-content: space-between;
 	`;
 
@@ -43,8 +55,10 @@ const Item = ({ name, score, mainColor }) => {
 
 	return (
 		<Container>
-			<TitleText>{name}</TitleText>
-			<SubtitleText>{score} pt</SubtitleText>
+			<InnerContainer>
+				<TitleText>{name}</TitleText>
+				<SubtitleText>{score} pt</SubtitleText>
+			</InnerContainer>
 		</Container>
 	);
 };
