@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "../Pages/Header";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+import { TeamColorWidget } from "./Widgets";
 
 export default function Main({ navigation }) {
 	const [name, setName] = useState();
+	const [color, setColor] = useState();
 	const OutContainer = styled.View`
 		flex: 1;
 		background-color: rgb(35, 35, 35);
@@ -20,18 +21,20 @@ export default function Main({ navigation }) {
 	`;
 
 	useEffect(() => {
-		async function getName() {
+		async function getData() {
 			setName(JSON.parse(await AsyncStorage.getItem("@name")));
+			setColor(JSON.parse(await AsyncStorage.getItem("@team")));
 		}
-		getName();
+		getData();
 	}, []);
-	const AnotherContainer = styled.View``;
+	const AnotherContainer = styled.ScrollView``;
 	return (
 		<OutContainer>
 			<Header text={`Hello, ${name}`} fontSize="35" />
 			<Container>
-				{/* TODO: Put in the summaries.*/}
-				<AnotherContainer></AnotherContainer>
+				<AnotherContainer>
+					<TeamColorWidget teamColor={color} />
+				</AnotherContainer>
 			</Container>
 		</OutContainer>
 	);
