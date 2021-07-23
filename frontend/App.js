@@ -79,7 +79,7 @@ const MainTab = () => {
 			initialRouteName="Home"
 			tabBarOptions={{ inactiveTintColor: "white" }}
 			appearance={{
-				tabBarBackground: "rgb(70,70,70)",
+				tabBarBackground: "rgb(50,50,50)",
 				floating: true,
 			}}
 			lazy={false}
@@ -188,7 +188,7 @@ export default function App() {
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {
-							backgroundColor: "rgb(35,35,35)",
+							backgroundColor: "#121212",
 							elevation: 0,
 							shadowOpacity: 0,
 							borderBottomWidth: 0,

@@ -7,7 +7,7 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ name, score, mainColor }) => {
 	const Container = styled(LinearGradient).attrs({
-		colors: [mainColor, "grey"],
+		colors: [mainColor, mainColor],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
@@ -27,9 +27,8 @@ const Item = ({ name, score, mainColor }) => {
 		display: flex;
 		flex-direction: row;
 		border-radius: 10px;
-		width: ${moderateScale(290)}px;
+		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
-		background-color: rgb(25, 25, 25);
 		padding: 5px;
 		padding-right: 30px;
 		padding-left: 10px;
@@ -38,17 +37,19 @@ const Item = ({ name, score, mainColor }) => {
 	`;
 
 	const TitleText = styled.Text`
-		color: white;
+		color: black;
 		font-size: ${moderateScale(19)}px;
-		font-family: "OpenSans_800ExtraBold";
+		font-family: System;
+		font-weight: bold;
 		margin-left: 10px;
 		align-self: center;
 	`;
 
 	const SubtitleText = styled.Text`
-		color: white;
+		color: black;
 		font-size: ${moderateScale(17)}px;
-		font-family: "OpenSans_800ExtraBold";
+		font-family: System;
+		font-weight: bold;
 		margin-left: 10px;
 		align-self: center;
 	`;
@@ -86,7 +87,7 @@ export default function BottomContent({ uri, mainColor }) {
 				dataArray.push(data[0][i]);
 			}
 			const colors = ["RED", "BLUE", "YELLOW", "GREEN"];
-			const realColors = ["red", "#0066ff", "#e6e600", "#33cc33"];
+			const realColors = ["red", "#4d94ff", "#e6e600", "#33cc33"];
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,
