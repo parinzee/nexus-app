@@ -3,9 +3,11 @@ import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { ActivityIndicator } from "react-native";
 
-export const TeamColorWidget = ({ teamColor }) => {
+const TeamColorWidget = ({ teamColor }) => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const realColors = ["red", "#0066ff", "#e6e600", "#33cc33"];
@@ -84,7 +86,7 @@ export const TeamColorWidget = ({ teamColor }) => {
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,
-					name: colors[index],
+					name: `${colors[index]}  TEAM`,
 					score: value,
 					color: realColors[index],
 				};
@@ -128,7 +130,7 @@ export const TeamColorWidget = ({ teamColor }) => {
 	);
 };
 
-export const NewsWidget = () => {
+const NewsWidget = () => {
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -221,7 +223,7 @@ export const NewsWidget = () => {
 	);
 };
 
-export const EventsWidget = () => {
+const EventsWidget = () => {
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -313,3 +315,45 @@ export const EventsWidget = () => {
 		</View>
 	);
 };
+
+export default function WidgetsDashboard({ navigation }) {
+	const [color, setColor] = useState();
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		let isMounted = true;
+		async function getColor(isMounted) {
+			if (isMounted) {
+				setColor(JSON.parse(await AsyncStorage.getItem("@team")));
+				await axios.get("https://nexussc.herokuapp.com");
+				setLoading(false);
+			}
+		}
+		getColor(isMounted);
+		return () => {
+			isMounted = false;
+		};
+	});
+
+	const AnotherContainer = styled.ScrollView``;
+	const Container = styled.View`
+		flex: 1;
+		background-color: rgb(35, 35, 35);
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	`;
+	return (
+		<Container>
+			{!loading ? (
+				<AnotherContainer>
+					<TeamColorWidget teamColor={color} />
+					<NewsWidget />
+					<EventsWidget />
+				</AnotherContainer>
+			) : (
+				<ActivityIndicator size="large" />
+			)}
+		</Container>
+	);
+}

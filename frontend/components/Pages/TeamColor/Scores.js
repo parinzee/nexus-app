@@ -90,7 +90,7 @@ export default function BottomContent({ uri, mainColor }) {
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,
-					name: colors[index],
+					name: `${colors[index]}  TEAM`,
 					score: value,
 					color: realColors[index],
 				};
