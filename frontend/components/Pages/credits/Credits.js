@@ -6,7 +6,7 @@ export default function Credits() {
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;
-		background-color: rgb(35, 35, 35);
+		background-color: #121212;
 	`;
 
 	const Title = styled.Text`

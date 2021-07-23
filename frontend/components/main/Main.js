@@ -8,7 +8,7 @@ export default function Main({ navigation }) {
 	const [name, setName] = useState();
 	const OutContainer = styled.View`
 		flex: 1;
-		background-color: rgb(35, 35, 35);
+		background-color: #121212;
 		display: flex;
 	`;
 

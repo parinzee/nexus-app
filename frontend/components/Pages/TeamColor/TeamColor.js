@@ -14,7 +14,7 @@ export default function Activities({}) {
 	const [refreshing, setRefreshing] = React.useState(false);
 	const Container = styled.View`
 		flex: 1;
-		background-color: rgb(35, 35, 35);
+		background-color: #121212;
 		justify-content: center;
 		align-content: center;
 	`;

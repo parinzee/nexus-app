@@ -32,7 +32,7 @@ export default function GPA4({ route }) {
 	const { grade, honors } = route.params;
 	const Container = styled.View`
 		flex: 1;
-		background-color: rgb(35, 35, 35);
+		background-color: #121212;
 	`;
 	if (grade < 9) {
 		return (

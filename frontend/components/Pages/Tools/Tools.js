@@ -37,7 +37,7 @@ export default function Tools({ navigation }) {
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;
-		background-color: rgb(35, 35, 35);
+		background-color: #121212;
 	`;
 
 	const BottomContainer = styled.View`
