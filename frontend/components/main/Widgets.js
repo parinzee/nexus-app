@@ -344,7 +344,7 @@ const EventsWidget = () => {
 
 const GPAWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
-	const [GPA, setGPA] = useState("IS THIS WORKING?");
+	const [GPA, setGPA] = useState(null);
 	const getNews = async (isMounted) => {
 		const data = JSON.parse(await AsyncStorage.getItem("@GPA"));
 		if (isMounted) {
