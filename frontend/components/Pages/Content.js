@@ -40,7 +40,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 	`;
 
 	const TitleText = styled.Text`
-		color: black;
+		color: white;
 		font-size: ${moderateScale(19)}px;
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
