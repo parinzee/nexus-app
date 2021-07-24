@@ -7,13 +7,13 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ name, score, mainColor }) => {
 	const Container = styled(LinearGradient).attrs({
-		colors: [mainColor, "grey"],
+		colors: ["white", "white"],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
 		display: flex;
 		border-radius: 10px;
-		width: ${moderateScale(296)}px;
+		width: ${moderateScale(320)}px;
 		height: ${moderateScale(46)}px;
 		margin-top: ${verticalScale(14)}px;
 		padding: 5px;
@@ -21,16 +21,17 @@ const Item = ({ name, score, mainColor }) => {
 		margin-left: 20px;
 		justify-content: center;
 		align-content: center;
+		align-self: center;
 	`;
 
 	const InnerContainer = styled.View`
 		display: flex;
 		flex-direction: row;
 		border-radius: 10px;
-		width: ${moderateScale(290)}px;
+		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
-		background-color: rgb(25, 25, 25);
 		padding: 5px;
+		background-color: ${mainColor};
 		padding-right: 30px;
 		padding-left: 10px;
 		align-self: center;
@@ -38,17 +39,19 @@ const Item = ({ name, score, mainColor }) => {
 	`;
 
 	const TitleText = styled.Text`
-		color: white;
+		color: black;
 		font-size: ${moderateScale(19)}px;
-		font-family: "OpenSans_800ExtraBold";
+		font-family: System;
+		font-weight: bold;
 		margin-left: 10px;
 		align-self: center;
 	`;
 
 	const SubtitleText = styled.Text`
-		color: white;
+		color: black;
 		font-size: ${moderateScale(17)}px;
-		font-family: "OpenSans_800ExtraBold";
+		font-family: System;
+		font-weight: bold;
 		margin-left: 10px;
 		align-self: center;
 	`;
@@ -86,7 +89,7 @@ export default function BottomContent({ uri, mainColor }) {
 				dataArray.push(data[0][i]);
 			}
 			const colors = ["RED", "BLUE", "YELLOW", "GREEN"];
-			const realColors = ["red", "#0066ff", "#e6e600", "#33cc33"];
+			const realColors = ["#FF6961", "#89CFF0", "#FFF44F", "#77dd77"];
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,

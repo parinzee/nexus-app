@@ -188,7 +188,7 @@ export default function App() {
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {
-							backgroundColor: "rgb(35,35,35)",
+							backgroundColor: "#121212",
 							elevation: 0,
 							shadowOpacity: 0,
 							borderBottomWidth: 0,

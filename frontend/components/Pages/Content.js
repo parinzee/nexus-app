@@ -18,16 +18,24 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
+		border-left-color: white;
+		border-left-width: 3px;
+		border-right-color: white;
+		border-right-width: 3px;
+		border-bottom-color: white;
+		border-bottom-width: 3px;
+		border-top-color: white;
+		border-top-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`
-		border-top-left-radius: 20px;
-		border-top-right-radius: 20px;
+		border-top-left-radius: 18px;
+		border-top-right-radius: 18px;
 		height: ${moderateScale(30)}px;
-		/* border-bottom-color: #ffcf64; */
+		width: 100%;
+		background-color: white;
 		border-bottom-color: ${mainColor};
 		border-bottom-width: 1.5px;
-		width: ${moderateScale(320)}px;
 		background-color: rgb(50, 50, 50);
 	`;
 

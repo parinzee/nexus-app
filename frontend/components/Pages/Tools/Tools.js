@@ -65,7 +65,7 @@ export default function Tools({ navigation }) {
 						<ListItem
 							bottomDivider
 							containerStyle={{
-								backgroundColor: "rgb(25,25,25)",
+								backgroundColor: "#121212",
 							}}
 						>
 							{icon}

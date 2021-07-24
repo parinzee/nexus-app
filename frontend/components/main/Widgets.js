@@ -10,7 +10,7 @@ import { ActivityIndicator } from "react-native";
 const TeamColorWidget = ({ teamColor }) => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
-	const realColors = ["red", "#4d94ff", "#e6e600", "#33cc33"];
+	const realColors = ["#FF6961", "#89CFF0", "#FFF44F", "#77dd77"];
 	const mainColor =
 		teamColor === "red"
 			? realColors[0]
@@ -21,7 +21,7 @@ const TeamColorWidget = ({ teamColor }) => {
 			: realColors[3];
 
 	const Container = styled(LinearGradient).attrs({
-		colors: [mainColor, mainColor],
+		colors: ["white", "white"],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
@@ -45,6 +45,7 @@ const TeamColorWidget = ({ teamColor }) => {
 		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
 		padding: 5px;
+		background-color: ${mainColor};
 		padding-right: 30px;
 		padding-left: 10px;
 		align-self: center;
@@ -165,6 +166,8 @@ const NewsWidget = () => {
 		border-right-width: 3px;
 		border-bottom-color: white;
 		border-bottom-width: 3px;
+		border-top-color: white;
+		border-top-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`
@@ -173,10 +176,13 @@ const NewsWidget = () => {
 		height: ${moderateScale(30)}px;
 		width: 100%;
 		background-color: white;
+		border-bottom-color: #ffcf64;
+		border-bottom-width: 1.5px;
+		background-color: rgb(50, 50, 50);
 	`;
 
 	const TitleText = styled.Text`
-		color: black;
+		color: white;
 		font-size: ${moderateScale(19)}px;
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
@@ -262,6 +268,8 @@ const EventsWidget = () => {
 		border-right-width: 3px;
 		border-bottom-color: white;
 		border-bottom-width: 3px;
+		border-top-color: white;
+		border-top-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`
@@ -270,10 +278,13 @@ const EventsWidget = () => {
 		height: ${moderateScale(30)}px;
 		width: 100%;
 		background-color: white;
+		border-bottom-color: #5071f6;
+		border-bottom-width: 1.5px;
+		background-color: rgb(50, 50, 50);
 	`;
 
 	const TitleText = styled.Text`
-		color: black;
+		color: white;
 		font-size: ${moderateScale(19)}px;
 		font-family: "OpenSans_800ExtraBold";
 		margin-left: 10px;
@@ -323,6 +334,24 @@ const EventsWidget = () => {
 			)}
 		</View>
 	);
+};
+
+const GPAWidget = () => {
+	Container = styled.View`
+		display: flex;
+		flex-direction: column;
+		background-color: black;
+		border-radius: 20px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(110)}px;
+		margin-top: ${verticalScale(30)}px;
+		border-left-color: white;
+		border-left-width: 3px;
+		border-right-color: white;
+		border-right-width: 3px;
+		border-bottom-color: white;
+		border-bottom-width: 3px;
+	`;
 };
 
 export default function WidgetsDashboard({ navigation }) {
