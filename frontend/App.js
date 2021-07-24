@@ -79,7 +79,7 @@ const MainTab = () => {
 			initialRouteName="Home"
 			tabBarOptions={{ inactiveTintColor: "white" }}
 			appearance={{
-				tabBarBackground: "rgb(70,70,70)",
+				tabBarBackground: "rgb(50,50,50)",
 				floating: true,
 			}}
 			lazy={false}
