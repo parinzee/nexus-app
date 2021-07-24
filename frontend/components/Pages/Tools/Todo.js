@@ -47,7 +47,7 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 	`;
 
 	return (
-		<TaskContainer>
+		<TaskContainer key={title}>
 			<Inner onPress={() => setCheck(index)}>
 				<MaterialIcons
 					name={isChecked ? "check-box" : "check-box-outline-blank"}

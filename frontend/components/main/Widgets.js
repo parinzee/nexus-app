@@ -486,10 +486,10 @@ export default function WidgetsDashboard({ navigation }) {
 						/>
 					}
 				>
-					<NewsWidget />
-					<EventsWidget />
 					<GPAWidget navigation={navigation} />
 					<TeamColorWidget teamColor={color} />
+					<NewsWidget />
+					<EventsWidget />
 				</AnotherContainer>
 			) : (
 				<ActivityIndicator size="large" />
