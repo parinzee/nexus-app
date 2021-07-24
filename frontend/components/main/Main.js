@@ -21,7 +21,7 @@ export default function Main({ navigation }) {
 	return (
 		<OutContainer>
 			<Header text={`Hello, ${name}`} fontSize="35" />
-			<WidgetsDashboard />
+			<WidgetsDashboard navigation={navigation} />
 		</OutContainer>
 	);
 }

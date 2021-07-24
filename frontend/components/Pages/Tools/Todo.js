@@ -24,7 +24,7 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 	const [index, setIndex] = useState(indexProp);
 	const TaskContainer = styled.View`
 		width: 85%;
-		background-color: #17181f;
+		background-color: white;
 		border-radius: 10px;
 		flex-direction: row;
 		justify-content: space-between;
@@ -33,7 +33,7 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 		margin-top: ${verticalScale(15)}px;
 	`;
 	const TitleText = styled.Text`
-		color: white;
+		color: black;
 		font-family: System;
 		font-size: ${moderateScale(15)}px;
 		align-self: center;
@@ -173,7 +173,9 @@ const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask }) => {
 							height: moderateScale(300),
 						}}
 					/>
-					<IntroText>Add your task below to get started!</IntroText>
+					<IntroText>
+						Add your task/note below to get started!
+					</IntroText>
 				</View>
 			)}
 		</View>
