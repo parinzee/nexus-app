@@ -38,7 +38,7 @@ const Item = ({ name, score, mainColor }) => {
 
 	const TitleText = styled.Text`
 		color: black;
-		font-size: ${moderateScale(19)}px;
+		font-size: ${moderateScale(17)}px;
 		font-family: System;
 		font-weight: bold;
 		margin-left: 10px;
@@ -87,7 +87,7 @@ export default function BottomContent({ uri, mainColor }) {
 				dataArray.push(data[0][i]);
 			}
 			const colors = ["RED", "BLUE", "YELLOW", "GREEN"];
-			const realColors = ["#FF6961", "#89CFF0", "#FFF44F", "#77dd77"];
+			const realColors = ["#D35D6E", "#87A7B3", "#FFCF64", "#83B582"];
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,

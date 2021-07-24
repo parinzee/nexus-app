@@ -17,7 +17,7 @@ function useForceUpdate() {
 const TeamColorWidget = ({ teamColor }) => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
-	const realColors = ["#FF6961", "#89CFF0", "#FFF44F", "#77dd77"];
+	const realColors = ["#D35D6E", "#87A7B3", "#FFCF64", "#83B582"];
 	const mainColor =
 		teamColor === "red"
 			? realColors[0]
@@ -61,7 +61,7 @@ const TeamColorWidget = ({ teamColor }) => {
 
 	const TitleText = styled.Text`
 		color: black;
-		font-size: ${moderateScale(19)}px;
+		font-size: ${moderateScale(17)}px;
 		font-family: System;
 		font-weight: bold;
 		margin-left: 10px;
@@ -165,7 +165,7 @@ const NewsWidget = () => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(110)}px;
+		height: ${verticalScale(120)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -174,7 +174,7 @@ const NewsWidget = () => {
 	const TitleContainer = styled.View`
 		border-top-left-radius: 18px;
 		border-top-right-radius: 18px;
-		height: ${moderateScale(30)}px;
+		height: ${moderateScale(35)}px;
 		width: 100%;
 		background-color: white;
 		border-bottom-color: #ffcf64;
@@ -261,7 +261,7 @@ const EventsWidget = () => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(110)}px;
+		height: ${verticalScale(120)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -270,7 +270,7 @@ const EventsWidget = () => {
 	const TitleContainer = styled.View`
 		border-top-left-radius: 18px;
 		border-top-right-radius: 18px;
-		height: ${moderateScale(30)}px;
+		height: ${moderateScale(35)}px;
 		width: 100%;
 		background-color: white;
 		border-bottom-color: #5071f6;

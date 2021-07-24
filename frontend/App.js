@@ -77,7 +77,10 @@ const MainTab = () => {
 	return (
 		<Tab.Navigator
 			initialRouteName="Home"
-			tabBarOptions={{ inactiveTintColor: "white" }}
+			tabBarOptions={{
+				inactiveTintColor: "white",
+				activeBackgroundColor: "#F5B971",
+			}}
 			appearance={{
 				tabBarBackground: "rgb(50,50,50)",
 				floating: true,

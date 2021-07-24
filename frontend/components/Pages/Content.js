@@ -16,7 +16,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(110)}px;
+		height: ${verticalScale(120)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -25,11 +25,11 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 	const TitleContainer = styled.View`
 		border-top-left-radius: 18px;
 		border-top-right-radius: 18px;
-		height: ${moderateScale(30)}px;
+		height: ${moderateScale(35)}px;
 		width: 100%;
 		background-color: white;
 		border-bottom-color: ${mainColor};
-		border-bottom-width: 1.5px;
+		border-bottom-width: 3px;
 		background-color: rgb(50, 50, 50);
 	`;
 
