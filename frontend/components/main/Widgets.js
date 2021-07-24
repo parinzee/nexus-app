@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ActivityIndicator } from "react-native";
 import { Button } from "react-native-elements";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 function useForceUpdate() {
 	const [value, setValue] = useState(0); // integer state
@@ -27,7 +28,7 @@ const TeamColorWidget = ({ teamColor }) => {
 			: realColors[3];
 
 	const Container = styled(LinearGradient).attrs({
-		colors: ["white", "white"],
+		colors: ["#f2e1c1", "#f2e1c1"],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
@@ -166,14 +167,8 @@ const NewsWidget = () => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-left-color: white;
-		border-left-width: 3px;
-		border-right-color: white;
-		border-right-width: 3px;
-		border-bottom-color: white;
-		border-bottom-width: 3px;
-		border-top-color: white;
-		border-top-width: 3px;
+		border-color: #f2e1c1;
+		border-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`
@@ -268,14 +263,8 @@ const EventsWidget = () => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-left-color: white;
-		border-left-width: 3px;
-		border-right-color: white;
-		border-right-width: 3px;
-		border-bottom-color: white;
-		border-bottom-width: 3px;
-		border-top-color: white;
-		border-top-width: 3px;
+		border-color: #f2e1c1;
+		border-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`
@@ -360,7 +349,135 @@ const GPAWidget = ({ navigation }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color: white;
+		border-color: #f2e1c1;
+		border-width: 3px;
+	`;
+
+	const LeftContainer = styled.View`
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 30%;
+		border-right-color: white;
+		border-right-width: 1px;
+		justify-content: center;
+		align-items: center;
+	`;
+
+	const TopText = styled.Text`
+		font-family: System;
+		color: white;
+		font-size: ${moderateScale(20)}px;
+		text-align: center;
+	`;
+
+	const BottomText = styled.Text`
+		font-family: System;
+		color: white;
+		font-size: ${moderateScale(25)}px;
+		text-align: center;
+	`;
+
+	useEffect(() => {
+		let isMounted = true;
+		getNews(isMounted);
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+	return (
+		<View style={{ alignSelf: "center" }}>
+			{refresh === false ? (
+				<Container>
+					<LeftContainer>
+						<TopText>Current</TopText>
+						<BottomText>GPA</BottomText>
+					</LeftContainer>
+					<View
+						style={{
+							alignSelf: "center",
+							margin: "auto",
+							width: "70%",
+						}}
+					>
+						{GPA != null ? (
+							<Button
+								title={`  ${GPA.toString()}`}
+								containerStyle={{
+									alignSelf: "center",
+								}}
+								buttonStyle={{
+									backgroundColor: "#f2e1c1",
+								}}
+								titleStyle={{
+									fontSize: moderateScale(20),
+									color: "black",
+								}}
+								icon={
+									<FontAwesome5
+										name="calculator"
+										size={moderateScale(15)}
+										color="black"
+									/>
+								}
+								onPress={() => {
+									navigation.navigate("Tools");
+								}}
+								raised={true}
+							/>
+						) : (
+							<Button
+								title="  Calculate Grade"
+								containerStyle={{
+									alignSelf: "center",
+								}}
+								buttonStyle={{
+									backgroundColor: "#f2e1c1",
+								}}
+								titleStyle={{
+									color: "black",
+								}}
+								onPress={() => {
+									navigation.navigate("Tools");
+								}}
+								icon={
+									<FontAwesome5
+										name="calculator"
+										size={moderateScale(15)}
+										color="black"
+									/>
+								}
+								raised={true}
+							/>
+						)}
+					</View>
+				</Container>
+			) : (
+				<View />
+			)}
+		</View>
+	);
+};
+
+const TaskWidget = ({ navigation }) => {
+	const [refresh, setRefresh] = useState(true);
+	const [set, setGPA] = useState(null);
+	const getNews = async (isMounted) => {
+		const data = JSON.parse(await AsyncStorage.getItem("@GPA"));
+		if (isMounted) {
+			setGPA(data);
+			setRefresh(false);
+		}
+	};
+	const Container = styled.View`
+		display: flex;
+		flex-direction: row;
+		background-color: black;
+		border-radius: 20px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(110)}px;
+		margin-top: ${verticalScale(30)}px;
+		border-color: #f2e1c1;
 		border-width: 3px;
 	`;
 

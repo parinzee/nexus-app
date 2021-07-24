@@ -7,7 +7,7 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ name, score, mainColor }) => {
 	const Container = styled(LinearGradient).attrs({
-		colors: ["white", "white"],
+		colors: ["#f2e1c1", "#f2e1c1"],
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 0 },
 	})`
@@ -17,8 +17,6 @@ const Item = ({ name, score, mainColor }) => {
 		height: ${moderateScale(46)}px;
 		margin-top: ${verticalScale(14)}px;
 		padding: 5px;
-		margin-right: 20px;
-		margin-left: 20px;
 		justify-content: center;
 		align-content: center;
 		align-self: center;

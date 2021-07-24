@@ -18,14 +18,8 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(110)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-left-color: white;
-		border-left-width: 3px;
-		border-right-color: white;
-		border-right-width: 3px;
-		border-bottom-color: white;
-		border-bottom-width: 3px;
-		border-top-color: white;
-		border-top-width: 3px;
+		border-color: #f2e1c1;
+		border-width: 3px;
 	`;
 
 	const TitleContainer = styled.View`

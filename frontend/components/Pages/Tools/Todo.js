@@ -24,7 +24,7 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 	const [index, setIndex] = useState(indexProp);
 	const TaskContainer = styled.View`
 		width: 85%;
-		background-color: white;
+		background-color: #f2e1c1;
 		border-radius: 10px;
 		flex-direction: row;
 		justify-content: space-between;
@@ -52,14 +52,14 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
 				<MaterialIcons
 					name={isChecked ? "check-box" : "check-box-outline-blank"}
 					size={24}
-					color="#ffcf64"
+					color="#7D5A50"
 				/>
 				<TitleText>{title}</TitleText>
 			</Inner>
 			<MaterialIcons
 				name="delete"
 				size={24}
-				color="#ffcf64"
+				color="#7D5A50"
 				style={{ alignSelf: "center", marginRight: moderateScale(10) }}
 				onPress={() => setRemove(index)}
 			/>
