@@ -488,20 +488,8 @@ const TaskWidget = ({ navigation }) => {
 	);
 };
 
-export default function WidgetsDashboard({ navigation }) {
-	const [loading, setLoading] = useState(true);
+export default function WidgetsDashboard({ navigation, setLoading }) {
 	const forceUpdate = useForceUpdate();
-
-	useEffect(() => {
-		async function WaitServer() {
-			await axios
-				.get("http://nexussc.herokuapp.com/announcements/")
-				.then((value) => {
-					setLoading(false);
-				});
-		}
-		WaitServer();
-	}, []);
 
 	const AnotherContainer = styled.ScrollView``;
 	const Container = styled.View`
@@ -516,27 +504,24 @@ export default function WidgetsDashboard({ navigation }) {
 	`;
 	return (
 		<Container>
-			{!loading ? (
-				<AnotherContainer
-					refreshControl={
-						<RefreshControl
-							tintColor="white"
-							colors={["white"]}
-							refreshing={loading}
-							onRefresh={forceUpdate}
-						/>
-					}
-				>
-					<GPAWidget navigation={navigation} />
-					<TeamColorWidget />
-					<NewsWidget />
-					<EventsWidget />
-					<TaskWidget />
-					<ClearFix />
-				</AnotherContainer>
-			) : (
-				<ActivityIndicator size="large" />
-			)}
+			<AnotherContainer
+				refreshControl={
+					<RefreshControl
+						tintColor="white"
+						colors={["white"]}
+						onRefresh={() => {
+							setLoading(true);
+						}}
+					/>
+				}
+			>
+				<GPAWidget navigation={navigation} />
+				<TeamColorWidget />
+				<NewsWidget />
+				<EventsWidget />
+				<TaskWidget />
+				<ClearFix />
+			</AnotherContainer>
 		</Container>
 	);
 }

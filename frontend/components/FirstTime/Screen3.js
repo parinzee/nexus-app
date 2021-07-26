@@ -20,6 +20,8 @@ const LogicPart = ({ navigation }) => {
 	const [teamColor, setTeamColor] = useState("red");
 	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
+	const [teacher, setTeacher] = useState(false);
+	const [student, setStudent] = useState(false);
 	const [honors, setHonors] = useState(false);
 	const [standards, setStandards] = useState(false);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -33,7 +35,7 @@ const LogicPart = ({ navigation }) => {
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
-		if (name != null && grade != null) {
+		if (name != null && (teacher === true || grade != null)) {
 			setButtonDisabled(false);
 		}
 	}, [name, grade]);
@@ -54,6 +56,10 @@ const LogicPart = ({ navigation }) => {
 		setHonors(!honors);
 	};
 
+	const handleTeacher = () => {
+		setTeacher(!teacher);
+	};
+
 	const onSubmit = async () => {
 		if (grade > 12) {
 			Alert.alert(
@@ -62,7 +68,7 @@ const LogicPart = ({ navigation }) => {
 				[{ text: "OK" }]
 			);
 			return;
-		} else if (standards === honors) {
+		} else if (standards === honors && !teacher) {
 			if (standards === true) {
 				Alert.alert(
 					"Invalid Class",
@@ -77,14 +83,23 @@ const LogicPart = ({ navigation }) => {
 				);
 			}
 		} else {
-			const JSONName = JSON.stringify(name);
-			const JSONGrade = JSON.stringify(grade);
-			const JSONTeam = JSON.stringify(teamColor);
-			const JSONHonors = JSON.stringify(honors);
-			await AsyncStorage.setItem("@honors", JSONHonors);
-			await AsyncStorage.setItem("@name", JSONName);
-			await AsyncStorage.setItem("@grade", JSONGrade);
-			await AsyncStorage.setItem("@team", JSONTeam);
+			if (teacher) {
+				const JSONTeacher = JSON.stringify(teacher);
+				const JSONName = JSON.stringify(name);
+				const JSONTeam = JSON.stringify(teamColor);
+				await AsyncStorage.setItem("@name", JSONName);
+				await AsyncStorage.setItem("@team", JSONTeam);
+				await AsyncStorage.setItem("@teacher", JSONTeacher);
+			} else {
+				const JSONName = JSON.stringify(name);
+				const JSONGrade = JSON.stringify(grade);
+				const JSONTeam = JSON.stringify(teamColor);
+				const JSONHonors = JSON.stringify(honors);
+				await AsyncStorage.setItem("@honors", JSONHonors);
+				await AsyncStorage.setItem("@name", JSONName);
+				await AsyncStorage.setItem("@grade", JSONGrade);
+				await AsyncStorage.setItem("@team", JSONTeam);
+			}
 
 			navigation.navigate("Screen4");
 		}
@@ -92,10 +107,46 @@ const LogicPart = ({ navigation }) => {
 
 	return (
 		<View>
+			<View
+				style={{
+					alignSelf: "center",
+					marginBottom: verticalScale(20),
+					width: "85%",
+					marginLeft: 0,
+					marginRight: 0,
+					marginTop: verticalScale(7),
+					justifyContent: "space-between",
+					flexDirection: "row",
+				}}
+			>
+				<CheckBox
+					title="Teacher/Parent"
+					textStyle={{ color: "white" }}
+					checked={teacher}
+					containerStyle={{
+						backgroundColor: "#292d3e",
+						alignSelf: "center",
+						width: "40%",
+						marginLeft: 0,
+					}}
+					onPress={handleTeacher}
+				/>
+				<CheckBox
+					title="Student"
+					textStyle={{ color: "white" }}
+					checked={!teacher}
+					containerStyle={{
+						backgroundColor: "#292d3e",
+						alignSelf: "center",
+						width: "40%",
+						marginRight: 0,
+					}}
+					onPress={handleTeacher}
+				/>
+			</View>
 			<Input
 				label="Nickname"
 				labelStyle={{
-					marginTop: verticalScale(20),
 					marginLeft: moderateScale(20),
 					color: "white",
 				}}
@@ -111,63 +162,71 @@ const LogicPart = ({ navigation }) => {
 				maxLength={10}
 				onChangeText={(text) => setName(text)}
 			/>
-			<Input
-				label="Grade Level"
-				labelStyle={{
-					marginLeft: moderateScale(20),
-					color: "white",
-				}}
-				placeholder="7"
-				leftIcon={
-					<FontAwesome5 name="address-card" size={24} color="white" />
-				}
-				inputContainerStyle={{
-					marginRight: moderateScale(20),
-					marginLeft: moderateScale(20),
-				}}
-				maxLength={2}
-				inputStyle={{ color: "white" }}
-				keyboardType="numeric"
-				onChangeText={(text) => handleGrade(text)}
-			/>
-			<View
-				style={{
-					alignSelf: "center",
-					marginBottom: verticalScale(20),
-					width: "85%",
-					marginLeft: 0,
-					marginRight: 0,
-					justifyContent: "space-between",
-					flexDirection: "row",
-				}}
-			>
-				<CheckBox
-					title="Honors"
-					textStyle={{ color: "white" }}
-					checked={honors}
-					containerStyle={{
-						backgroundColor: "#292d3e",
+			{teacher ? null : (
+				<Input
+					label="Grade Level"
+					labelStyle={{
+						marginLeft: moderateScale(20),
+						color: "white",
+					}}
+					placeholder="7"
+					leftIcon={
+						<FontAwesome5
+							name="address-card"
+							size={24}
+							color="white"
+						/>
+					}
+					inputContainerStyle={{
+						marginRight: moderateScale(20),
+						marginLeft: moderateScale(20),
+					}}
+					maxLength={2}
+					inputStyle={{ color: "white" }}
+					keyboardType="numeric"
+					onChangeText={(text) => handleGrade(text)}
+				/>
+			)}
+			{teacher ? null : (
+				<View
+					style={{
 						alignSelf: "center",
-						width: "40%",
-						marginBottom: verticalScale(20),
+						marginBottom: verticalScale(10),
+						width: "85%",
 						marginLeft: 0,
-					}}
-					onPress={handleHonors}
-				/>
-				<CheckBox
-					title="Standards"
-					textStyle={{ color: "white" }}
-					checked={standards}
-					containerStyle={{
-						backgroundColor: "#292d3e",
-						alignSelf: "center",
-						width: "40%",
-						marginBottom: verticalScale(20),
 						marginRight: 0,
+						justifyContent: "space-between",
+						flexDirection: "row",
 					}}
-					onPress={handleStandards}
-				/>
-			</View>
+				>
+					<CheckBox
+						title="Honors"
+						textStyle={{ color: "white" }}
+						checked={honors}
+						containerStyle={{
+							backgroundColor: "#292d3e",
+							alignSelf: "center",
+							width: "40%",
+							marginBottom: verticalScale(10),
+							marginLeft: 0,
+						}}
+						onPress={handleHonors}
+					/>
+					<CheckBox
+						title="Standards"
+						textStyle={{ color: "white" }}
+						checked={standards}
+						containerStyle={{
+							backgroundColor: "#292d3e",
+							alignSelf: "center",
+							width: "40%",
+							marginBottom: verticalScale(10),
+							marginRight: 0,
+						}}
+						onPress={handleStandards}
+					/>
+				</View>
+			)}
 			<DropDownPicker
 				open={open}
 				value={teamColor}
@@ -213,7 +272,7 @@ export default function Screen3({ navigation }) {
 	const HiText = styled.Text`
 		text-align: center;
 		font-size: ${moderateScale(25)}px;
-		margin-bottom: -10px;
+		margin-bottom: 10px;
 		font-family: Now;
 		color: white;
 	`;
