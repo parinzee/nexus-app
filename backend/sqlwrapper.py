@@ -69,6 +69,12 @@ def listItems(itemType):
         ''')
 
         cur.execute("SELECT * FROM scores")
+    elif itemType == "verse":
+        cur.execute('''CREATE TABLE IF NOT EXISTS verses(
+            id INTEGER PRIMARY KEY,
+            verse text NOT NULL,
+        ''')
+        cur.execute("SELECT * FROM verses")
     
     else:
         pass
@@ -102,6 +108,31 @@ def insertScore(red, blue, yellow, green):
     cur.execute('''
         INSERT INTO scores(id, red, blue, yellow, green) VALUES(1, %s, %s, %s, %s);
         ''', (red, blue, yellow, green))
+
+    db.commit()
+    cur.close()
+    db.close()
+
+def insertBibleVerse(verse):
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = db.cursor()
+    try:
+        cur.execute("DROP TABLE verses;")
+    except:
+        pass
+    cur.execute('''CREATE TABLE IF NOT EXISTS verses(
+        id INTEGER PRIMARY KEY,
+        verse text NOT NULL,
+    ''')
+
+    try:
+        cur.execute("DELETE FROM verses WHERE id=1")
+    except:
+        pass
+
+    cur.execute('''
+        INSERT INTO verses(id, verse) VALUES(1, %s);
+        ''', (verse))
 
     db.commit()
     cur.close()
