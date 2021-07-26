@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlwrapper import insertItem, insertScore, listItems, deleteItem
+from sqlwrapper import insertItem, insertScore, insertBibleVerse, listItems, deleteItem
 
 app = FastAPI()
 
@@ -20,6 +20,10 @@ async def listscores():
 async def listannouncements():
     return listItems("announcements")
 
+@app.get("/verse/")
+async def listverse():
+    return listItems("verse")
+
 @app.post("/insertItem/")
 async def insert(eventName: str, eventDesc: str, itemType:str):
     insertItem(eventName, eventDesc, itemType)
@@ -30,6 +34,10 @@ async def insertscore(red: str, blue: str, yellow:str, green:str):
     insertScore(red, blue, yellow, green)
     return "Success"
 
+@app.post("/insertVerse/")
+async def insertverse(verse: str):
+    insertBibleVerse(verse)
+    return "Success"
 
 @app.post("/deleteItem/")
 async def delete(id: int, itemType: str):
