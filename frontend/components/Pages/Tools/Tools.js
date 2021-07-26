@@ -23,7 +23,7 @@ export default function Tools({ navigation }) {
 			destination: "Calculate to 4.0",
 		},
 		{
-			title: "My notes",
+			title: "My Tasks",
 			icon: (
 				<FontAwesome5
 					name="clipboard-list"

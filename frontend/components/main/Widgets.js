@@ -5,6 +5,7 @@ import { verticalScale, moderateScale } from "react-native-size-matters";
 import { View, RefreshControl } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import Todo from "../Pages/Tools/Todo";
 import { ActivityIndicator } from "react-native";
 import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -14,18 +15,10 @@ function useForceUpdate() {
 	return () => setValue((value) => value + 1); // update the state to force render
 }
 
-const TeamColorWidget = ({ teamColor }) => {
+const TeamColorWidget = () => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const realColors = ["#D35D6E", "#87A7B3", "#FFCF64", "#83B582"];
-	const mainColor =
-		teamColor === "red"
-			? realColors[0]
-			: teamColor === "blue"
-			? realColors[1]
-			: teamColor === "yellow"
-			? realColors[2]
-			: realColors[3];
 
 	const Container = styled(LinearGradient).attrs({
 		colors: ["#f2e1c1", "#f2e1c1"],
@@ -52,7 +45,6 @@ const TeamColorWidget = ({ teamColor }) => {
 		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
 		padding: 5px;
-		background-color: ${mainColor};
 		padding-right: 30px;
 		padding-left: 10px;
 		align-self: center;
@@ -78,6 +70,7 @@ const TeamColorWidget = ({ teamColor }) => {
 	`;
 
 	const getEvents = async (isMounted) => {
+		const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 		const data = await axios
 			.get("http://nexussc.herokuapp.com/scores/")
 			.then((response) => {
@@ -101,14 +94,22 @@ const TeamColorWidget = ({ teamColor }) => {
 				};
 			});
 			if (isMounted === true) {
+				const background =
+					teamColor === "red"
+						? realColors[0]
+						: teamColor === "blue"
+						? realColors[1]
+						: teamColor === "yellow"
+						? realColors[2]
+						: realColors[3];
 				if (teamColor === "red") {
-					setItem(dataArray[0]);
+					setItem([dataArray[0], background]);
 				} else if (teamColor === "blue") {
-					setItem(dataArray[1]);
+					setItem([dataArray[1], background]);
 				} else if (teamColor === "yellow") {
-					setItem(dataArray[2]);
+					setItem([dataArray[2], background]);
 				} else {
-					setItem(dataArray[3]);
+					setItem([dataArray[3], background]);
 				}
 				setRefresh(false);
 			}
@@ -127,9 +128,9 @@ const TeamColorWidget = ({ teamColor }) => {
 		<View style={{ justifyContent: "center", alignContent: "center" }}>
 			{refresh === false ? (
 				<Container>
-					<InnerContainer>
-						<TitleText>{item.name}</TitleText>
-						<SubtitleText>{item.score} pt</SubtitleText>
+					<InnerContainer style={{ backgroundColor: item[1] }}>
+						<TitleText>{item[0].name}</TitleText>
+						<SubtitleText>{item[0].score} pt</SubtitleText>
 					</InnerContainer>
 				</Container>
 			) : (
@@ -334,13 +335,6 @@ const EventsWidget = () => {
 const GPAWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
 	const [GPA, setGPA] = useState(null);
-	const getNews = async (isMounted) => {
-		const data = JSON.parse(await AsyncStorage.getItem("@GPA"));
-		if (isMounted) {
-			setGPA(data);
-			setRefresh(false);
-		}
-	};
 	const Container = styled.View`
 		display: flex;
 		flex-direction: row;
@@ -380,207 +374,134 @@ const GPAWidget = ({ navigation }) => {
 
 	useEffect(() => {
 		let isMounted = true;
-		getNews(isMounted);
+		if (isMounted && refresh) {
+			const getNews = async (isMounted) => {
+				const data = JSON.parse(await AsyncStorage.getItem("@GPA"));
+				setGPA(data);
+				setRefresh(false);
+			};
+			getNews(isMounted);
+		}
 		return () => {
 			isMounted = false;
 		};
 	}, []);
 	return (
 		<View style={{ alignSelf: "center" }}>
-			{refresh === false ? (
-				<Container>
-					<LeftContainer>
-						<TopText>Current</TopText>
-						<BottomText>GPA</BottomText>
-					</LeftContainer>
-					<View
-						style={{
-							alignSelf: "center",
-							margin: "auto",
-							width: "70%",
-						}}
-					>
-						{GPA != null ? (
-							<Button
-								title={`  ${GPA.toString()}`}
-								containerStyle={{
-									alignSelf: "center",
-								}}
-								buttonStyle={{
-									backgroundColor: "#f2e1c1",
-								}}
-								titleStyle={{
-									fontSize: moderateScale(20),
-									color: "black",
-								}}
-								icon={
-									<FontAwesome5
-										name="calculator"
-										size={moderateScale(15)}
-										color="black"
-									/>
-								}
-								onPress={() => {
-									navigation.navigate("Tools");
-								}}
-								raised={true}
-							/>
-						) : (
-							<Button
-								title="  Calculate Grade"
-								containerStyle={{
-									alignSelf: "center",
-								}}
-								buttonStyle={{
-									backgroundColor: "#f2e1c1",
-								}}
-								titleStyle={{
-									color: "black",
-								}}
-								onPress={() => {
-									navigation.navigate("Tools");
-								}}
-								icon={
-									<FontAwesome5
-										name="calculator"
-										size={moderateScale(15)}
-										color="black"
-									/>
-								}
-								raised={true}
-							/>
-						)}
-					</View>
-				</Container>
-			) : (
-				<View />
-			)}
+			<Container>
+				<LeftContainer>
+					<TopText>Current</TopText>
+					<BottomText>GPA</BottomText>
+				</LeftContainer>
+				<View
+					style={{
+						alignSelf: "center",
+						margin: "auto",
+						width: "70%",
+					}}
+				>
+					{GPA != null ? (
+						<Button
+							title={`  ${GPA.toString()}`}
+							containerStyle={{
+								alignSelf: "center",
+							}}
+							buttonStyle={{
+								backgroundColor: "#f2e1c1",
+							}}
+							titleStyle={{
+								fontSize: moderateScale(20),
+								color: "black",
+							}}
+							icon={
+								<FontAwesome5
+									name="calculator"
+									size={moderateScale(15)}
+									color="black"
+								/>
+							}
+							onPress={() => {
+								navigation.navigate("Tools");
+							}}
+							raised={true}
+						/>
+					) : (
+						<Button
+							title="  Calculate Grade"
+							containerStyle={{
+								alignSelf: "center",
+							}}
+							buttonStyle={{
+								backgroundColor: "#f2e1c1",
+							}}
+							titleStyle={{
+								color: "black",
+							}}
+							onPress={() => {
+								navigation.navigate("Tools");
+							}}
+							icon={
+								<FontAwesome5
+									name="calculator"
+									size={moderateScale(15)}
+									color="black"
+								/>
+							}
+							raised={true}
+						/>
+					)}
+				</View>
+			</Container>
 		</View>
 	);
 };
 
 const TaskWidget = ({ navigation }) => {
-	const [refresh, setRefresh] = useState(true);
-	const [set, setGPA] = useState(null);
-	const getNews = async (isMounted) => {
-		const data = JSON.parse(await AsyncStorage.getItem("@GPA"));
-		if (isMounted) {
-			setGPA(data);
-			setRefresh(false);
-		}
-	};
 	const Container = styled.View`
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(110)}px;
+		height: ${verticalScale(200)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
+		padding: 5px;
 	`;
 
-	const LeftContainer = styled.View`
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		width: 30%;
-		border-right-color: white;
-		border-right-width: 1px;
-		justify-content: center;
-		align-items: center;
-	`;
-
-	const TopText = styled.Text`
+	const Title = styled.Text`
+		text-align: center;
 		font-family: System;
-		color: white;
+		margin-top: ${verticalScale(10)}px;
 		font-size: ${moderateScale(20)}px;
-		text-align: center;
-	`;
-
-	const BottomText = styled.Text`
-		font-family: System;
 		color: white;
-		font-size: ${moderateScale(25)}px;
-		text-align: center;
 	`;
 
-	useEffect(() => {
-		let isMounted = true;
-		getNews(isMounted);
-		return () => {
-			isMounted = false;
-		};
-	}, []);
 	return (
 		<View style={{ alignSelf: "center" }}>
-			{refresh === false ? (
-				<Container>
-					<LeftContainer>
-						<TopText>Current</TopText>
-						<BottomText>GPA</BottomText>
-					</LeftContainer>
-					<View
-						style={{
-							alignSelf: "center",
-							margin: "auto",
-							width: "70%",
-						}}
-					>
-						{GPA != null ? (
-							<Button
-								title={GPA.toString()}
-								containerStyle={{
-									alignSelf: "center",
-								}}
-								titleStyle={{
-									fontSize: moderateScale(25),
-								}}
-								onPress={() => {
-									navigation.navigate("Tools");
-								}}
-							/>
-						) : (
-							<Button
-								title="Calculate Grade"
-								containerStyle={{
-									alignSelf: "center",
-								}}
-								onPress={() => {
-									navigation.navigate("Tools");
-								}}
-							/>
-						)}
-					</View>
-				</Container>
-			) : (
-				<View />
-			)}
+			<Container>
+				<Title>Your Tasks</Title>
+				<Todo hideAdd={true} />
+			</Container>
 		</View>
 	);
 };
 
 export default function WidgetsDashboard({ navigation }) {
-	const [color, setColor] = useState();
 	const [loading, setLoading] = useState(true);
 	const forceUpdate = useForceUpdate();
 
-	async function getColor(isMounted) {
-		if (isMounted) {
-			setColor(JSON.parse(await AsyncStorage.getItem("@team")));
-			await axios.get("https://nexussc.herokuapp.com/events/");
-			setTimeout(() => setLoading(false), 500);
-		}
-	}
-
 	useEffect(() => {
-		let isMounted = true;
-		getColor(isMounted);
-		return () => {
-			isMounted = false;
-		};
-	});
+		async function WaitServer() {
+			await axios
+				.get("http://nexussc.herokuapp.com/announcements/")
+				.then((value) => {
+					setLoading(false);
+				});
+		}
+		WaitServer();
+	}, []);
 
 	const AnotherContainer = styled.ScrollView``;
 	const Container = styled.View`
@@ -589,6 +510,9 @@ export default function WidgetsDashboard({ navigation }) {
 		display: flex;
 		justify-content: center;
 		align-content: center;
+	`;
+	const ClearFix = styled.View`
+		height: 150px;
 	`;
 	return (
 		<Container>
@@ -604,9 +528,11 @@ export default function WidgetsDashboard({ navigation }) {
 					}
 				>
 					<GPAWidget navigation={navigation} />
-					<TeamColorWidget teamColor={color} />
+					<TeamColorWidget />
 					<NewsWidget />
 					<EventsWidget />
+					<TaskWidget />
+					<ClearFix />
 				</AnotherContainer>
 			) : (
 				<ActivityIndicator size="large" />
