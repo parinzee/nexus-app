@@ -72,7 +72,7 @@ def listItems(itemType):
     elif itemType == "verse":
         cur.execute('''CREATE TABLE IF NOT EXISTS verses(
             id INTEGER PRIMARY KEY,
-            verse text NOT NULL,
+            verse text NOT NULL);
         ''')
         cur.execute("SELECT * FROM verses")
     
@@ -122,7 +122,7 @@ def insertBibleVerse(verse):
         pass
     cur.execute('''CREATE TABLE IF NOT EXISTS verses(
         id INTEGER PRIMARY KEY,
-        verse text NOT NULL,
+        verse text NOT NULL);
     ''')
 
     try:
