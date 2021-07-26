@@ -5,12 +5,13 @@ import WidgetsDashboard from "./Widgets";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ActivityIndicator, Modal, Alert } from "react-native";
-import { verticalScale, moderateScale } from "react-native-size-matters";
+import { moderateScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
 	const [name, setName] = useState();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	const [teacher, setTeacher] = useState();
 	const OutContainer = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -60,6 +61,7 @@ export default function Main({ navigation }) {
 	useEffect(() => {
 		async function getData() {
 			setName(JSON.parse(await AsyncStorage.getItem("@name")));
+			setTeacher(JSON.parse(await AsyncStorage.getItem("@teacher")));
 			const yeet = await axios
 				.get("http://nexussc.herokuapp.com/")
 				.then((response) => {
@@ -109,6 +111,7 @@ export default function Main({ navigation }) {
 				<WidgetsDashboard
 					navigation={navigation}
 					setLoading={setLoading}
+					teacher={teacher}
 				/>
 			)}
 		</OutContainer>

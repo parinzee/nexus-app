@@ -6,14 +6,8 @@ import { View, RefreshControl } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Todo from "../Pages/Tools/Todo";
-import { ActivityIndicator } from "react-native";
 import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
-
-function useForceUpdate() {
-	const [value, setValue] = useState(0); // integer state
-	return () => setValue((value) => value + 1); // update the state to force render
-}
 
 const TeamColorWidget = () => {
 	const [item, setItem] = useState(null);
@@ -488,9 +482,7 @@ const TaskWidget = ({ navigation }) => {
 	);
 };
 
-export default function WidgetsDashboard({ navigation, setLoading }) {
-	const forceUpdate = useForceUpdate();
-
+export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 	const AnotherContainer = styled.ScrollView``;
 	const Container = styled.View`
 		flex: 1;
@@ -515,7 +507,7 @@ export default function WidgetsDashboard({ navigation, setLoading }) {
 					/>
 				}
 			>
-				<GPAWidget navigation={navigation} />
+				{teacher ? null : <GPAWidget navigation={navigation} />}
 				<TeamColorWidget />
 				<NewsWidget />
 				<EventsWidget />
