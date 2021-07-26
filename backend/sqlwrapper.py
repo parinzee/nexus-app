@@ -132,7 +132,7 @@ def insertBibleVerse(verse):
 
     cur.execute('''
         INSERT INTO verses(id, verse) VALUES(1, %s);
-        ''', (verse))
+        ''', verse)
 
     db.commit()
     cur.close()
