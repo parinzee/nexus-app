@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { verticalScale, moderateScale } from "react-native-size-matters";
-import { View, RefreshControl } from "react-native";
+import { View, RefreshControl, ImageBackground } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Todo from "../Pages/Tools/Todo";
@@ -482,6 +482,86 @@ const TaskWidget = ({ navigation }) => {
 	);
 };
 
+const BibleVerseWidget = () => {
+	const [verse, setVerse] = useState(null);
+
+	const Container = styled.View`
+		display: flex;
+		flex-direction: column;
+		background-color: black;
+		border-radius: 20px;
+		width: ${moderateScale(320)}px;
+		height: ${verticalScale(200)}px;
+		margin-top: ${verticalScale(30)}px;
+		border-color: #f2e1c1;
+		border-width: 3px;
+	`;
+
+	const VerseText = styled.Text`
+		font-family: Comfortaa_700Bold;
+		color: white;
+		text-align: center;
+		font-size: ${moderateScale(17)}px;
+	`;
+	const Verse = styled.Text`
+		font-family: Comfortaa_400Regular;
+		color: white;
+		text-align: center;
+		font-size: ${moderateScale(20)}px;
+		margin-top: ${verticalScale(20)}px;
+	`;
+
+	const getVerse = async (isMounted) => {
+		const data = await axios
+			.get("http://nexussc.herokuapp.com/verse/")
+			.then((response) => {
+				return response.data;
+			})
+			.catch(() => {
+				return false;
+			});
+		if (data != false) {
+			if (isMounted === true) {
+				console.log(data);
+				setVerse(data);
+			}
+		}
+	};
+
+	useEffect(() => {
+		let isMounted = true;
+		getVerse(isMounted);
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	return (
+		<View style={{ alignSelf: "center" }}>
+			{verse != null ? (
+				<Container>
+					<ImageBackground
+						source={require("../../assets/valley.jpg")}
+						style={{
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "center",
+							paddingHorizontal: 10,
+						}}
+						resizeMode="cover"
+						imageStyle={{ borderRadius: 15 }}
+					>
+						<VerseText adjustsFontSizeToFit numberOfLines={5}>
+							{verse[0][1].split("--")[0]}
+						</VerseText>
+						<Verse>{verse[0][1].split("--")[1]}</Verse>
+					</ImageBackground>
+				</Container>
+			) : null}
+		</View>
+	);
+};
+
 export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 	const AnotherContainer = styled.ScrollView``;
 	const Container = styled.View`
@@ -507,6 +587,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 					/>
 				}
 			>
+				<BibleVerseWidget />
 				{teacher ? null : <GPAWidget navigation={navigation} />}
 				<TeamColorWidget />
 				<NewsWidget />

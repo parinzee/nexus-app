@@ -7,6 +7,10 @@ import {
 	OpenSans_300Light,
 	OpenSans_400Regular,
 } from "@expo-google-fonts/open-sans";
+import {
+	Comfortaa_400Regular,
+	Comfortaa_700Bold,
+} from "@expo-google-fonts/comfortaa";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
@@ -149,11 +153,16 @@ export default function App() {
 		OpenSans_800ExtraBold,
 		OpenSans_300Light,
 		OpenSans_400Regular,
+		Comfortaa_400Regular,
+		Comfortaa_700Bold,
 	});
 
 	const fetchImages = () => {
 		axios.get("https://nexussc.herokuapp.com/");
-		const images = [require("./assets/nexus-logo.png")];
+		const images = [
+			require("./assets/nexus-logo.png"),
+			require("./assets/valley.jpg"),
+		];
 
 		const cacheImages = images.map((image) => {
 			return Asset.fromModule(image).downloadAsync();
