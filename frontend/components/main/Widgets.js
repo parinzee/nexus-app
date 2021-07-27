@@ -9,16 +9,13 @@ import Todo from "../Pages/Tools/Todo";
 import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const TeamColorWidget = () => {
+const TeamColorWidget = ({ navigation }) => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const realColors = ["#D35D6E", "#87A7B3", "#FFCF64", "#83B582"];
 
-	const Container = styled(LinearGradient).attrs({
-		colors: ["#f2e1c1", "#f2e1c1"],
-		start: { x: 0, y: 0 },
-		end: { x: 1, y: 0 },
-	})`
+	const Container = styled.TouchableOpacity`
+		background-color: #f2e1c1;
 		display: flex;
 		border-radius: 10px;
 		width: ${moderateScale(320)}px;
@@ -121,7 +118,7 @@ const TeamColorWidget = () => {
 	return (
 		<View style={{ justifyContent: "center", alignContent: "center" }}>
 			{refresh === false ? (
-				<Container>
+				<Container onPress={() => navigation.navigate("Team Color")}>
 					<InnerContainer style={{ backgroundColor: item[1] }}>
 						<TitleText>{item[0].name}</TitleText>
 						<SubtitleText>{item[0].score} pt</SubtitleText>
@@ -134,7 +131,7 @@ const TeamColorWidget = () => {
 	);
 };
 
-const NewsWidget = () => {
+const NewsWidget = ({ navigation }) => {
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -154,7 +151,7 @@ const NewsWidget = () => {
 		}
 	};
 
-	const Container = styled.View`
+	const Container = styled.TouchableOpacity`
 		display: flex;
 		flex-direction: column;
 		background-color: black;
@@ -214,7 +211,7 @@ const NewsWidget = () => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			{refresh === false ? (
-				<Container>
+				<Container onPress={() => navigation.navigate("News")}>
 					<TitleContainer>
 						<TitleText>{latestNews[1]}</TitleText>
 					</TitleContainer>
@@ -230,7 +227,7 @@ const NewsWidget = () => {
 	);
 };
 
-const EventsWidget = () => {
+const EventsWidget = ({ navigation }) => {
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -250,7 +247,7 @@ const EventsWidget = () => {
 		}
 	};
 
-	const Container = styled.View`
+	const Container = styled.TouchableOpacity`
 		display: flex;
 		flex-direction: column;
 		background-color: black;
@@ -310,7 +307,7 @@ const EventsWidget = () => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			{refresh === false ? (
-				<Container>
+				<Container onPress={() => navigation.navigate("Team Color")}>
 					<TitleContainer>
 						<TitleText>{latestNews[1]}</TitleText>
 					</TitleContainer>
@@ -588,9 +585,9 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 			>
 				<BibleVerseWidget />
 				{teacher ? null : <GPAWidget navigation={navigation} />}
-				<TeamColorWidget />
-				<NewsWidget />
-				<EventsWidget />
+				<TeamColorWidget navigation={navigation} />
+				<NewsWidget navigation={navigation} />
+				<EventsWidget navigation={navigation} />
 				<TaskWidget />
 				<ClearFix />
 			</AnotherContainer>

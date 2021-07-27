@@ -5,7 +5,7 @@ import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const Item = ({ name, score, mainColor }) => {
+const Item = ({ index, name, score, mainColor }) => {
 	const Container = styled(LinearGradient).attrs({
 		colors: ["#f2e1c1", "#f2e1c1"],
 		start: { x: 0, y: 0 },
@@ -57,7 +57,9 @@ const Item = ({ name, score, mainColor }) => {
 	return (
 		<Container>
 			<InnerContainer>
-				<TitleText>{name}</TitleText>
+				<TitleText>
+					{`${index}. `} {name}
+				</TitleText>
 				<SubtitleText>{score} pt</SubtitleText>
 			</InnerContainer>
 		</Container>
@@ -91,12 +93,21 @@ export default function BottomContent({ uri, mainColor }) {
 			dataArray = dataArray.map((value, index) => {
 				return {
 					key: index,
-					name: `${colors[index]}  TEAM`,
+					name: `${colors[index]} TEAM`,
 					score: value,
 					color: realColors[index],
 				};
 			});
-			setItems(dataArray);
+			dataArray.sort((a, b) => {
+				if (parseInt(a.score) > parseInt(b.score)) {
+					return 1;
+				} else if (parseInt(a.score) < parseInt(b.score)) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
+			setItems(dataArray.reverse());
 			setRefresh(false);
 		}
 	};
@@ -151,8 +162,9 @@ export default function BottomContent({ uri, mainColor }) {
 			{refresh === false ? (
 				<FlatList
 					data={items}
-					renderItem={({ item }) => (
+					renderItem={({ item, index }) => (
 						<Item
+							index={index + 1}
 							name={item.name}
 							score={item.score}
 							mainColor={item.color}
