@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { LinearGradient } from "expo-linear-gradient";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { View, RefreshControl, ImageBackground } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";

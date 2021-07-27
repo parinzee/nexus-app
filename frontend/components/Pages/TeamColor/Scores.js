@@ -2,15 +2,11 @@ import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import axios from "axios";
-import { LinearGradient } from "expo-linear-gradient";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ index, name, score, mainColor }) => {
-	const Container = styled(LinearGradient).attrs({
-		colors: ["#f2e1c1", "#f2e1c1"],
-		start: { x: 0, y: 0 },
-		end: { x: 1, y: 0 },
-	})`
+	const Container = styled.View`
+		background-color: #f2e1c1;
 		display: flex;
 		border-radius: 10px;
 		width: ${moderateScale(320)}px;
