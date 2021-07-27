@@ -14,6 +14,7 @@ const Standards = () => {
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
+		position: absolute;
 	`;
 
 	return (
@@ -32,6 +33,7 @@ const Honors = () => {
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
+		position: absolute;
 	`;
 	return (
 		<WebView
