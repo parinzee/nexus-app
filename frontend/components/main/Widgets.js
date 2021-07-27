@@ -331,7 +331,7 @@ const GPAWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(110)}px;
+		height: ${verticalScale(100)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -487,7 +487,7 @@ const BibleVerseWidget = () => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(200)}px;
+		height: ${verticalScale(150)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;

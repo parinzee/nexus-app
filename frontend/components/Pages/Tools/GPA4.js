@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { WebView } from "react-native-webview";
 import { Button } from "react-native-elements";
-import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
@@ -24,6 +23,8 @@ const Standards = () => {
 			onMessage={(event) => handleGPA(event.nativeEvent.data)}
 			startInLoadingState={true}
 			renderLoading={() => <Container />}
+			originWhitelist={["*"]}
+			javaScriptEnabled={true}
 		/>
 	);
 };
@@ -39,8 +40,11 @@ const Honors = () => {
 		<WebView
 			style={{ flex: 1, backgroundColor: "#121212" }}
 			source={HTML}
+			onMessage={(event) => handleGPA(event.nativeEvent.data)}
 			startInLoadingState={true}
 			renderLoading={() => <Container />}
+			originWhitelist={["*"]}
+			javaScriptEnabled={true}
 		/>
 	);
 };
