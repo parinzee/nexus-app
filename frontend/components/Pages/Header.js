@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Header({ text, fontSize }) {
-	const Container = styled.View`
+	const navigation = useNavigation();
+	const Container = styled.Pressable`
 		margin-top: ${verticalScale(35)}px;
 		margin-right: ${moderateScale(30)}px;
 		margin-left: ${moderateScale(30)}px;
@@ -28,7 +30,7 @@ export default function Header({ text, fontSize }) {
 	`;
 
 	return (
-		<Container>
+		<Container onPress={() => navigation.navigate("Credits")}>
 			<MenuText>{text}</MenuText>
 			<Logo source={require("../../assets/nexus-logo.png")} />
 		</Container>

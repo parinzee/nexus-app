@@ -43,16 +43,16 @@ export default function Credits() {
 		<Container>
 			<Title>Information</Title>
 			<InfoTextContainer>
+				<FrontText>Publisher</FrontText>
+				<BackText>NEXUS Student Council</BackText>
+			</InfoTextContainer>
+			<InfoTextContainer>
 				<FrontText>Copyright</FrontText>
-				<BackText>© NEXUS Student Council 2021-22</BackText>
+				<BackText>© Parinthapat Pengpun 2021-2022</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>App Developer</FrontText>
 				<BackText>Parinthapat Pengpun</BackText>
-			</InfoTextContainer>
-			<InfoTextContainer>
-				<FrontText>Graphic Designer</FrontText>
-				<BackText>Titus Chinsomboon</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Version</FrontText>
@@ -65,6 +65,10 @@ export default function Credits() {
 			<InfoTextContainer>
 				<FrontText>Last Updated</FrontText>
 				<BackText>July 15 2021</BackText>
+			</InfoTextContainer>
+			<InfoTextContainer>
+				<FrontText>Special Thanks</FrontText>
+				<BackText>NEXUS Members</BackText>
 			</InfoTextContainer>
 		</Container>
 	);

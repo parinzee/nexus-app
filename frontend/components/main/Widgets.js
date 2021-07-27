@@ -522,7 +522,6 @@ const BibleVerseWidget = () => {
 			});
 		if (data != false) {
 			if (isMounted === true) {
-				console.log(data);
 				setVerse(data);
 			}
 		}
