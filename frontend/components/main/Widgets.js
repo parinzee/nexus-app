@@ -172,8 +172,8 @@ const NewsWidget = () => {
 		height: ${moderateScale(35)}px;
 		width: 100%;
 		background-color: white;
-		border-bottom-color: #ffcf64;
-		border-bottom-width: 1.5px;
+		border-bottom-color: #cc9b6d;
+		border-bottom-width: 3px;
 		background-color: rgb(50, 50, 50);
 	`;
 
@@ -268,8 +268,8 @@ const EventsWidget = () => {
 		height: ${moderateScale(35)}px;
 		width: 100%;
 		background-color: white;
-		border-bottom-color: #5071f6;
-		border-bottom-width: 1.5px;
+		border-bottom-color: #5f939a;
+		border-bottom-width: 3px;
 		background-color: rgb(50, 50, 50);
 	`;
 
