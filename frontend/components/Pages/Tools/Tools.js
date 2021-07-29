@@ -33,6 +33,17 @@ export default function Tools({ navigation }) {
 			),
 			destination: "My Notes",
 		},
+		{
+			title: "Stress Reliever (Clicker)",
+			icon: (
+				<FontAwesome5
+					name="hand-pointer"
+					size={moderateScale(24)}
+					color="white"
+				/>
+			),
+			destination: "Clicker",
+		},
 	];
 	const Container = styled.View`
 		flex: 1;

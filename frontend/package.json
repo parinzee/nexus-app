@@ -29,6 +29,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-advanced-ripple": "^1.0.0",
     "react-native-animated-nav-tab-bar": "^3.1.4",
     "react-native-dropdown-picker": "^5.1.21",
     "react-native-elements": "^3.4.2",

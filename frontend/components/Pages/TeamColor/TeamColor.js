@@ -33,8 +33,8 @@ export default function Activities({}) {
 			<AnotherContainer
 				refreshControl={
 					<RefreshControl
-						tintColor="#5071f6"
-						colors={["#5071f6"]}
+						tintColor="white"
+						colors={["white"]}
 						refreshing={refreshing}
 						onRefresh={forceUpdate}
 					/>

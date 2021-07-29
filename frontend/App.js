@@ -25,6 +25,7 @@ import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import GPA4 from "./components/Pages/Tools/GPA4";
 import Todo from "./components/Pages/Tools/Todo";
+import Clicker from "./components/Pages/Tools/Clicker"
 import Credits from "./components/Pages/Credits/Credits";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
@@ -247,6 +248,13 @@ export default function App() {
 					<Stack.Screen
 						name="My Notes"
 						component={Todo}
+						options={{
+							headerShown: true,
+						}}
+					/>
+					<Stack.Screen
+						name="Clicker"
+						component={Clicker}
 						options={{
 							headerShown: true,
 						}}

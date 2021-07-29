@@ -181,8 +181,8 @@ export default function BottomContent({ uri, mainColor, type }) {
 					refreshControl={
 						<RefreshControl
 							refreshing={refresh}
-							tintColor={mainColor}
-							colors={[mainColor]}
+							tintColor="white"
+							colors={["white"]}
 							onRefresh={() => {
 								setRefresh(true);
 							}}
@@ -193,7 +193,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 				<ActivityIndicator
 					style={{ textAlign: "center" }}
 					size="large"
-					color={mainColor}
+					color="white"
 				/>
 			)}
 			<ClearFix />

@@ -5702,6 +5702,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-advanced-ripple@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-advanced-ripple/-/react-native-advanced-ripple-1.0.0.tgz#e34d79323bf720b29d441a7a17868f6bd8b07bea"
+  integrity sha512-zqCPjrHWBiN1Nn2Cp0fFoAqTQRbFFYJoG4qqCYh8Z/NlYTqUoOIlBvp/ZyZjqPSx+c9p3asD1ttFYM3V1m0bVA==
+
 react-native-animated-nav-tab-bar@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/react-native-animated-nav-tab-bar/-/react-native-animated-nav-tab-bar-3.1.4.tgz#a96b6bb69e02a61b1ecbe118b84f52c63ceeb54e"
