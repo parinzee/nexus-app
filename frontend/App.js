@@ -159,7 +159,7 @@ export default function App() {
 	});
 
 	const fetchImages = () => {
-		axios.get("https://nexussc.herokuapp.com/");
+		axios.get("https://nbcis.herokuapp.com/");
 		const images = [
 			require("./assets/nexus-logo.png"),
 			require("./assets/valley.jpg"),

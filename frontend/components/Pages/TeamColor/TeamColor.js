@@ -41,12 +41,12 @@ export default function Activities({}) {
 				}
 			>
 				<Scores
-					uri="http://nexussc.herokuapp.com/scores/"
+					uri="http://nbcis.herokuapp.com/scores/"
 					mainColor="#ff9151"
 				/>
 
 				<Content
-					uri="http://nexussc.herokuapp.com/events/"
+					uri="http://nbcis.herokuapp.com/events/"
 					mainColor="#5F939A"
 					type="activities"
 				/>

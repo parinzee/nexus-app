@@ -13,7 +13,7 @@ export default function Events({}) {
 		<Container>
 			<Header text={`News`} fontSize="35" />
 			<Content
-				uri="http://nexussc.herokuapp.com/announcements/"
+				uri="http://nbcis.herokuapp.com/announcements/"
 				mainColor="#CC9B6D"
 				type="news"
 			/>

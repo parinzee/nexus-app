@@ -63,7 +63,7 @@ export default function Main({ navigation }) {
 			setName(JSON.parse(await AsyncStorage.getItem("@name")));
 			setTeacher(JSON.parse(await AsyncStorage.getItem("@teacher")));
 			const yeet = await axios
-				.get("http://nexussc.herokuapp.com/")
+				.get("http://nbcis.herokuapp.com/")
 				.then((response) => {
 					return response.data;
 				})

@@ -62,7 +62,7 @@ const TeamColorWidget = ({ navigation }) => {
 	const getEvents = async (isMounted) => {
 		const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 		const data = await axios
-			.get("http://nexussc.herokuapp.com/scores/")
+			.get("http://nbcis.herokuapp.com/scores/")
 			.then((response) => {
 				return response.data;
 			})
@@ -135,7 +135,7 @@ const NewsWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
 		const data = await axios
-			.get("http://nexussc.herokuapp.com/announcements/")
+			.get("http://nbcis.herokuapp.com/announcements/")
 			.then((response) => {
 				return response.data;
 			})
@@ -231,7 +231,7 @@ const EventsWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
 		const data = await axios
-			.get("http://nexussc.herokuapp.com/events/")
+			.get("http://nbcis.herokuapp.com/events/")
 			.then((response) => {
 				return response.data;
 			})
@@ -509,7 +509,7 @@ const BibleVerseWidget = () => {
 
 	const getVerse = async (isMounted) => {
 		const data = await axios
-			.get("http://nexussc.herokuapp.com/verse/")
+			.get("http://nbcis.herokuapp.com/verse/")
 			.then((response) => {
 				return response.data;
 			})
