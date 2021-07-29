@@ -1,10 +1,11 @@
 {
 	"expo": {
+		"owner": "nexus-bcis",
 		"name": "Nexus",
 		"slug": "Nexus",
 		"description": "This is official app from the BCIS student council. This app was made for checking news and updates from the student council.",
 		"privacy": "public",
-		"version": "1.1.0",
+		"version": "1.1.2",
 		"icon": "./assets/icon.png",
 		"backgroundColor": "#121212",
 		"primaryColor": "#121212",
