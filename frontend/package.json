@@ -20,6 +20,7 @@
     "expo": "~41.0.1",
     "expo-app-loading": "^1.0.3",
     "expo-asset": "~8.3.1",
+    "expo-av": "~9.1.2",
     "expo-device": "~3.2.0",
     "expo-font": "~9.1.0",
     "expo-linear-gradient": "~9.1.0",

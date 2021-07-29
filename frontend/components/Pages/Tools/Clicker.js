@@ -4,6 +4,7 @@ import styled from "styled-components/native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { moderateScale, verticalScale } from "react-native-size-matters"
 import Ripple from 'react-native-advanced-ripple'
+import {Audio} from "expo-av"
 
 export default function Clicker() {
   const [clicks, setClicks] = useState(0)
@@ -21,11 +22,18 @@ export default function Clicker() {
     position: absolute;
     bottom: ${verticalScale(10)}px;
   `
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+       require('../../../assets/click.mp3')
+    );
+    await sound.playAsync()
+  }
 
-  const handlePress = () => {
-    setTimeout(() => setClicks(clicks + 1), 1000)
+  const handlePress = async () => {
+    await playSound()
+    await AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
+    setTimeout(() => setClicks(clicks + 1), 500)
     Vibration.vibrate()
-    AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
   }
 
   useEffect(() => {
@@ -38,11 +46,12 @@ export default function Clicker() {
         setClicks(counts)
       }
     }
+    getCounts()
   })
 
   return (
     <Container>
-      <Ripple onPress={handlePress} containerStyle={{ width: moderateScale(100), height: moderateScale(100), backgroundColor: "white", alignSelf: "center" }} borderless={true} duration={1000} />
+      <Ripple onPress={handlePress} containerStyle={{ width: moderateScale(100), height: moderateScale(100), backgroundColor: "white", alignSelf: "center" }} borderless={true} duration={500} />
       <Counter>{clicks}</Counter>
     </Container>
   )
