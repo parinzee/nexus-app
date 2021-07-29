@@ -1,74 +1,119 @@
-import React, { useEffect } from "react";
-import { ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import Header from "./Header";
-import Menu from "./Menu";
-import { Asset } from "expo-asset";
-import { TouchableOpacity } from "react-native";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+import Header from "../Pages/Header";
+import WidgetsDashboard from "./Widgets";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { ActivityIndicator, Modal, Alert } from "react-native";
+import { moderateScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
-    const fetchImages = () => {
-        const images = [
-            require("../../assets/glowingBlob.gif"),
-            require("../../assets/nexus-icon.png"),
-            require("../../assets/houseTeam.png"),
-            require("../../assets/instagram.png"),
-            require("../../assets/tiktok.png"),
-            require("../../assets/line.png"),
-            require("../../assets/covid.png"),
-        ];
+	const [name, setName] = useState();
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
+	const [teacher, setTeacher] = useState();
+	const OutContainer = styled.View`
+		flex: 1;
+		background-color: #121212;
+		display: flex;
+	`;
 
-        const cacheImages = images.map((image) => {
-            return Asset.fromModule(image).downloadAsync();
-        });
+	const BackupContainer = styled.View`
+		flex: 1;
+		justify-content: center;
+		align-items: center;
+	`;
 
-        return Promise.all(cacheImages);
-    };
-    const preload = async () => {
-        const imageAssets = fetchImages();
-        await Promise.all([imageAssets]);
-    };
+	const ModalContainer = styled.TouchableOpacity`
+		flex: 1;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+	`;
 
-    useEffect(() => {
-        preload();
-    });
+	const ModalTitle = styled.Text`
+		color: white;
+		font-family: System;
+		text-align: center;
+		font-size: ${moderateScale(25)}px;
+		margin-bottom: 10px;
+	`;
 
-    const handlePress = async () => {
-        navigation.navigate("Credits");
-    };
+	const ModalText = styled.Text`
+		text-align: center;
+		color: white;
+		font-family: System;
+		font-size: ${moderateScale(13)}px;
+	`;
 
-    const Container = styled.View`
-        flex: 1;
-        background-color: rgb(25, 25, 25);
-        display: flex;
-        justify-content: center;
-        align-content: center;
-    `;
+	const InnerContainer = styled.View`
+		background-color: rgb(25, 25, 25);
+		display: flex;
+		flex-direction: column;
+		border-width: 1px;
+		border-color: white;
+		border-radius: 25px;
+		width: 30%;
+		height: 17%;
+		padding: 10px;
+	`;
 
-    const BCISTEXT = styled.Text`
-        padding-top: ${verticalScale(7)}px;
-        font-family: Now;
-        font-size: ${moderateScale(10)}px;
-        color: grey;
-        text-align: center;
-    `;
-
-    const AnotherContainer = styled.View``;
-    return (
-        <Container>
-            <AnotherContainer>
-                <TouchableOpacity
-                    activeOpacity="1"
-                    onPress={() => handlePress()}
-                >
-                    <Header />
-                </TouchableOpacity>
-                <ScrollView>
-                    <Menu />
-                </ScrollView>
-                <BCISTEXT>BCIS Student Council 2021-22</BCISTEXT>
-            </AnotherContainer>
-        </Container>
-    );
+	useEffect(() => {
+		async function getData() {
+			setName(JSON.parse(await AsyncStorage.getItem("@name")));
+			setTeacher(JSON.parse(await AsyncStorage.getItem("@teacher")));
+			const yeet = await axios
+				.get("http://nbcis.herokuapp.com/")
+				.then((response) => {
+					return response.data;
+				})
+				.catch(() => {
+					return false;
+				});
+			if (yeet != false) {
+				setLoading(false);
+			} else {
+				setLoading(false);
+				setError(true);
+			}
+		}
+		getData();
+	}, [loading]);
+	return (
+		<OutContainer>
+			<Modal
+				animationType="fade"
+				transparent={true}
+				visible={error}
+				onRequestClose={() => {
+					setError(false);
+				}}
+			>
+				<ModalContainer
+					onPress={() => {
+						setError(false);
+					}}
+				>
+					<InnerContainer>
+						<ModalTitle>Error</ModalTitle>
+						<ModalText>
+							Please check your internet connection.
+						</ModalText>
+					</InnerContainer>
+				</ModalContainer>
+			</Modal>
+			<Header text={`Hello, ${name}`} fontSize="35" />
+			{loading ? (
+				<BackupContainer>
+					<ActivityIndicator size="large" />
+				</BackupContainer>
+			) : (
+				<WidgetsDashboard
+					navigation={navigation}
+					setLoading={setLoading}
+					teacher={teacher}
+				/>
+			)}
+		</OutContainer>
+	);
 }
