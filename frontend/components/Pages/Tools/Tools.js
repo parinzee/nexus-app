@@ -44,6 +44,17 @@ export default function Tools({ navigation }) {
 			),
 			destination: "Clicker",
 		},
+		{
+			title: "Stress Reliever (Tic Tac Toe)",
+			icon: (
+				<FontAwesome5
+					name="gamepad"
+					size={moderateScale(24)}
+					color="white"
+				/>
+			),
+			destination: "Tic Tac Toe",
+		},
 	];
 	const Container = styled.View`
 		flex: 1;
