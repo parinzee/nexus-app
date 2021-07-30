@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import {Vibration, Alert} from "react-native"
+import {Vibration, Alert, TouchableOpacity} from "react-native"
 import styled from "styled-components/native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { moderateScale, verticalScale } from "react-native-size-matters"
-import Ripple from 'react-native-advanced-ripple'
 import {Audio} from "expo-av"
 
 export default function Clicker() {
@@ -30,10 +29,10 @@ export default function Clicker() {
   }
 
   const handlePress = async () => {
-    await playSound()
-    await AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
     Vibration.vibrate()
-    setTimeout(() => {setClicks(clicks + 1)}, 100)
+    playSound()
+    setClicks(clicks + 1)
+    AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
   }
 
   useEffect(() => {
@@ -46,11 +45,11 @@ export default function Clicker() {
       }
     }
     getCounts()
-  })
+  }, [])
 
   return (
     <Container>
-      <Ripple onPress={handlePress} containerStyle={{ width: moderateScale(200), height: moderateScale(200), backgroundColor: "white", alignSelf: "center", borderRadius: clicks}} borderless={true} duration={320} />
+      <TouchableOpacity activeOpacity={1} onPress={handlePress} style={{ width: moderateScale(200) - (0.05 * clicks), height: moderateScale(200) - (0.05 * clicks), backgroundColor: "white", alignSelf: "center", borderRadius: clicks/2}} />
       <Counter>{clicks}</Counter>
     </Container>
   )

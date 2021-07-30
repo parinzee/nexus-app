@@ -165,6 +165,7 @@ export default function App() {
 		const images = [
 			require("./assets/nexus-logo.png"),
 			require("./assets/valley.jpg"),
+            require("./assets/click.mp3")
 		];
 
 		const cacheImages = images.map((image) => {
