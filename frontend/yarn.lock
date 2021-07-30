@@ -3396,6 +3396,14 @@ expo-av@~9.1.2:
     nullthrows "^1.1.0"
     unimodules-permissions-interface "~6.1.0"
 
+expo-background-fetch@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-9.1.0.tgz#f3ba0db0fb9993822497b7bed6077ea9e7dfdb18"
+  integrity sha512-vBA+qTugxTYhAlNcXQxUUXTR6Qm2H/6QA3OzfgZUFL2bvnATuJ6BLoA29mrxHRUtSIcPDjHD9PVBnGBOEyCnwA==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    expo-task-manager "~9.1.0"
+
 expo-constants@~10.1.3:
   version "10.1.3"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-10.1.3.tgz#dfbe30362d27d6f500318eb528621424034b72d5"
@@ -3462,6 +3470,14 @@ expo-status-bar@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.4.tgz#d8a4c4418b5868c1606969b12bdee85b6fa7d8a4"
   integrity sha512-s7nc496D/Zn1NGiMJ5wu6HyIdXxbgGtmZZtbHm7rpbcmLdf28GmMSNHDx7M0t00BMhky7VAurTCUo+BJs8ugsw==
+
+expo-task-manager@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-9.1.0.tgz#04203d1368f9a06cf372c57f3f64f08960091c84"
+  integrity sha512-mCWpjsBrlP/8B97UUpEoimSlFY67qNlblL5RQoL07UTYG14CCVmoIwMwOgxkE3lw+078gPOiwDuDQvYibbLyRw==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    unimodules-app-loader "~2.1.0"
 
 expo@~41.0.1:
   version "41.0.1"
@@ -6751,6 +6767,11 @@ unicode-property-aliases-ecmascript@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.1.0.tgz#dd57a99f6207bedff4628abefb94c50db941c8f4"
   integrity sha512-PqSoPh/pWetQ2phoj5RLiaqIk4kCNwoV3CI+LfGmWLKI3rE3kl1h59XpX2BjgDrmbxD9ARtQobPGU1SguCYuQg==
+
+unimodules-app-loader@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/unimodules-app-loader/-/unimodules-app-loader-2.1.0.tgz#4cf9fa058997729ce284a713c7d04bba0952e4b7"
+  integrity sha512-W+D+hVXq6jOvBm7QVwODPENz6Lupj73QequNNG+6GCTkqn4ybq/lba9IQvJQT2QzdL3luVHin+eym18cDblMlg==
 
 unimodules-permissions-interface@~6.1.0:
   version "6.1.0"

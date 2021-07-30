@@ -21,7 +21,12 @@
 		"ios": {
 			"supportsTablet": true,
 			"buildNumber": "1.1.1",
-			"bundleIdentifier": "com.parin.nexus"
+			"bundleIdentifier": "com.parin.nexus",
+			"infoPlist": {
+				"UIBackgroundModes": [
+					"fetch"
+				]
+			}
 		},
 		"android": {
 			"package": "com.parin.nexus",
