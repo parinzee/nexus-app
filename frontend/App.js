@@ -13,6 +13,8 @@ import {
 	Comfortaa_700Bold,
 } from "@expo-google-fonts/comfortaa";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import * as BackgroundFetch from "expo-background-fetch";
+import * as TaskManager from "expo-task-manager"
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { createStackNavigator } from "@react-navigation/stack";
