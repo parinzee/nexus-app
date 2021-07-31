@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
 	RefreshControl,
 	Modal,
@@ -91,6 +92,8 @@ export default function BottomContent({ uri, mainColor, type }) {
 		} else {
 			setItems(data.sort((a, b) => b[0] - a[0]));
 			setRefresh(false);
+			let key = "@" + type
+			await AsyncStorage.setItem(key, JSON.stringify(items.length))
 		}
 	};
 	useEffect(() => {
