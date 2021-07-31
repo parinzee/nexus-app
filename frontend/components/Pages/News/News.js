@@ -32,6 +32,14 @@ export default function Events({}) {
                 const result = await requestNotificationsPermission();
                 if (result === false) {
                     await AsyncStorage.setItem("@notifications", JSON.stringify(false))
+                } else {
+                    const BACKGROUND_FETCH_TASK = 'background-fetch';
+                    await AsyncStorage.setItem("@notifications", JSON.stringify(true))
+                    BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+                        minimumInterval: 60 * 15, // 15 minutes
+                        stopOnTerminate: false, // android only,
+                        startOnBoot: true, // android only
+                    });
                 }
             }
         }

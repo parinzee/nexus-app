@@ -45,6 +45,45 @@ const Stack = createStackNavigator();
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
+const BACKGROUND_FETCH_TASK = 'background-fetch';
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+	const getLength = async (url) => {
+		const data = await axios
+			.get(url)
+			.then((response) => {
+				return response.data;
+			})
+			.catch(() => {
+				return false;
+			});
+		if (data === false) {
+            return Promise.resolve(null)
+		} else {
+            return Promise.resolve(data.length)
+		}
+	};
+
+    const lengthNews = JSON.parse(await AsyncStorage.getItem("@news"))
+    const lengthActivities = JSON.parse(await AsyncStorage.getItem("@activities"))
+
+    const newLengthNews = await getLength("http://nbcis.herokuapp.com/announcements/")
+    const newLengthActivities= await getLength("http://nbcis.herokuapp.com/events/")
+
+    if (newLength === null || newLengthActivities === null) {
+        return BackgroundFetch.Result.NewData;
+    }
+
+    if (lengthNews != newLengthNews || lengthActivities != newLengthActivities) {
+		await Notifications.presentLocalNotificationAsync({
+			title: 'News!',
+			body: "There are new news available on Nexus!",
+		});
+    }
+
+    return BackgroundFetch.Result.NewData;
+});
+
+
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	const progress = Animated.add(
 		current.progress.interpolate({
