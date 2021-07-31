@@ -331,9 +331,9 @@ const GPAWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(100)}px;
+		height: ${verticalScale(70)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color: #f2e1c1;
+		border-color:  #C9E4C5;
 		border-width: 3px;
 	`;
 
@@ -342,8 +342,8 @@ const GPAWidget = ({ navigation }) => {
 		flex-direction: column;
 		height: 100%;
 		width: 30%;
-		border-right-color: white;
-		border-right-width: 1px;
+		border-right-color: #C9E4C5;
+		border-right-width: 3px;
 		justify-content: center;
 		align-items: center;
 	`;
@@ -357,8 +357,9 @@ const GPAWidget = ({ navigation }) => {
 
 	const BottomText = styled.Text`
 		font-family: System;
-		color: white;
+		color: #C9E4C5;
 		font-size: ${moderateScale(25)}px;
+		font-weight: bold;
 		text-align: center;
 	`;
 
@@ -380,7 +381,6 @@ const GPAWidget = ({ navigation }) => {
 		<View style={{ alignSelf: "center" }}>
 			<Container>
 				<LeftContainer>
-					<TopText>Current</TopText>
 					<BottomText>GPA</BottomText>
 				</LeftContainer>
 				<View
@@ -395,9 +395,11 @@ const GPAWidget = ({ navigation }) => {
 							title={`  ${GPA.toString()}`}
 							containerStyle={{
 								alignSelf: "center",
+                                borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#f2e1c1",
+								backgroundColor: "#C9E4C5",
+                                borderRadius: 15,
 							}}
 							titleStyle={{
 								fontSize: moderateScale(20),
@@ -420,9 +422,11 @@ const GPAWidget = ({ navigation }) => {
 							title="  Calculate Grade"
 							containerStyle={{
 								alignSelf: "center",
+                                borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#f2e1c1",
+								backgroundColor: "#F8D49D",
+                                borderRadius: 15,
 							}}
 							titleStyle={{
 								color: "black",

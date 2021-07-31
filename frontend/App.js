@@ -30,6 +30,7 @@ import GPA4 from "./components/Pages/Tools/GPA4";
 import Todo from "./components/Pages/Tools/Todo";
 import Clicker from "./components/Pages/Tools/Clicker"
 import TicTacToe from "./components/Pages/Tools/TicTacToe"
+import Contact from "./components/Pages/Tools/Contact"
 import Credits from "./components/Pages/Credits/Credits";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
@@ -283,7 +284,7 @@ export default function App() {
 						options={{ headerShown: false }}
 					/>
 					<Stack.Screen
-						name="Calculate to 4.0"
+						name="Grade Calculator"
 						component={GPA4}
 						options={{
 							headerShown: true,
@@ -306,6 +307,13 @@ export default function App() {
 					<Stack.Screen
 						name="Tic Tac Toe"
 						component={TicTacToe}
+						options={{
+							headerShown: true,
+						}}
+					/>
+					<Stack.Screen
+						name="Contact Us"
+						component={Contact}
 						options={{
 							headerShown: true,
 						}}

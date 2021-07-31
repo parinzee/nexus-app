@@ -12,7 +12,7 @@ export default function Tools({ navigation }) {
 	const [honors, setHonors] = useState(false);
 	const Destinations = [
 		{
-			title: "Calculate Grades to 4.00/4.50",
+			title: "GPA Calculator (4.00/4.50)",
 			icon: (
 				<FontAwesome5
 					name="calculator"
@@ -20,7 +20,7 @@ export default function Tools({ navigation }) {
 					color="white"
 				/>
 			),
-			destination: "Calculate to 4.0",
+			destination: "Grade Calculator",
 		},
 		{
 			title: "My Tasks",
@@ -55,6 +55,17 @@ export default function Tools({ navigation }) {
 			),
 			destination: "Tic Tac Toe",
 		},
+        {
+			title: "Contact Us",
+			icon: (
+				<FontAwesome5
+					name="question-circle"
+					size={moderateScale(24)}
+					color="white"
+				/>
+			),
+			destination: "Contact Us",
+        }
 	];
 	const Container = styled.View`
 		flex: 1;
