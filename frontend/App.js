@@ -291,7 +291,7 @@ export default function App() {
 						}}
 					/>
 					<Stack.Screen
-						name="My Notes"
+						name="My Tasks"
 						component={Todo}
 						options={{
 							headerShown: true,

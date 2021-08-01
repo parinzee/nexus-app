@@ -22,11 +22,11 @@ import LottieView from "lottie-react-native";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
-const Task = ({ title, isChecked, indexProp, setCheck, setRemove }) => {
+const Task = ({ title, isChecked, indexProp, setCheck, setRemove, hideAdd }) => {
 	const [index, setIndex] = useState(indexProp);
 	const TaskContainer = styled.View`
 		width: 85%;
-		background-color: #f2e1c1;
+		background-color: ${hideAdd ? "#F0E2D0" : "#f2e1c1"};
 		border-radius: 10px;
 		flex-direction: row;
 		justify-content: space-between;
@@ -162,6 +162,7 @@ const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask, hideAdd }) => {
 							setCheck={HandleCheckTask}
 							setRemove={HandleRemoveTask}
 							key={index}
+                          	hideAdd={true}
 						/>
 					);
 				})

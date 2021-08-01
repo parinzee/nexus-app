@@ -31,7 +31,7 @@ export default function Tools({ navigation }) {
 					color="white"
 				/>
 			),
-			destination: "My Notes",
+			destination: "My Tasks",
 		},
 		{
 			title: "Stress Reliever (Clicker)",

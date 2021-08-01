@@ -25,6 +25,8 @@ export default function Events({}) {
 		background-color: #121212;
 	`;
 
+	const AnotherContainer = styled.ScrollView``;
+
     useEffect(() => {
         async function GetStatus() {
             const status = JSON.parse(await AsyncStorage.getItem("@notifications"))

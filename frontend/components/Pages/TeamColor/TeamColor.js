@@ -39,6 +39,7 @@ export default function Activities({}) {
 						onRefresh={forceUpdate}
 					/>
 				}
+                  indicatorStyle="white"
 			>
 				<Scores
 					uri="http://nbcis.herokuapp.com/scores/"

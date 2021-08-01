@@ -459,7 +459,7 @@ const TaskWidget = ({ navigation }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(200)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color: #f2e1c1;
+		border-color: #E8E9A1;
 		border-width: 3px;
 		padding: 5px;
 	`;
@@ -585,6 +585,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 						}}
 					/>
 				}
+              	indicatorStyle="white"
 			>
 				<BibleVerseWidget />
 				{teacher ? null : <GPAWidget navigation={navigation} />}

@@ -172,6 +172,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 			</Modal>
 			{refresh === false ? (
 				<FlatList
+              	  	indicatorStyle="white"
 					data={items}
 					renderItem={({ item }) => (
 						<Item
