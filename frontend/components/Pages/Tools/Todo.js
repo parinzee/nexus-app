@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import {
 	Keyboard,
@@ -26,13 +26,13 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove, hideAdd }) => 
 	const [index, setIndex] = useState(indexProp);
 	const TaskContainer = styled.View`
 		width: 85%;
-		background-color: ${hideAdd ? "#F0E2D0" : "#f2e1c1"};
+		background-color: ${hideAdd ? "#A0937D" : "#f2e1c1"};
 		border-radius: 10px;
 		flex-direction: row;
 		justify-content: space-between;
 		align-self: center;
-		height: ${verticalScale(50)}px;
-		margin-top: ${verticalScale(15)}px;
+		height: ${hideAdd ? verticalScale(40) : verticalScale(50)}px;
+		margin-top: ${hideAdd ? verticalScale(10) : verticalScale(15)}px;
 	`;
 	const TitleText = styled.Text`
 		color: black;
@@ -56,14 +56,15 @@ const Task = ({ title, isChecked, indexProp, setCheck, setRemove, hideAdd }) => 
 				<MaterialIcons
 					name={isChecked ? "check-box" : "check-box-outline-blank"}
 					size={24}
-					color="#7D5A50"
+			  	  	color={hideAdd ? "white" : "#7D5A50"}
+				  	style={{ alignSelf: "center" }}
 				/>
 				<TitleText>{title}</TitleText>
 			</Inner>
-			<MaterialIcons
+			<AntDesign
 				name="delete"
 				size={24}
-				color="#7D5A50"
+			  	color={hideAdd ? "white" : "#7D5A50"}
 				style={{ alignSelf: "center", marginRight: moderateScale(10) }}
 				onPress={() => setRemove(index)}
 			/>
@@ -102,6 +103,7 @@ const AddTodos = ({ HandleAddTask }) => {
 					paddingLeft: moderateScale(5),
 					color: "white",
 				}}
+              	maxLength={88}
 				onChangeText={(text) => {
 					textInputRef.current.value = text;
 				}}
@@ -162,7 +164,7 @@ const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask, hideAdd }) => {
 							setCheck={HandleCheckTask}
 							setRemove={HandleRemoveTask}
 							key={index}
-                          	hideAdd={true}
+                          	hideAdd={hideAdd}
 						/>
 					);
 				})
@@ -190,21 +192,25 @@ const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask, hideAdd }) => {
 						<Button
 							title="  Add Tasks!"
 							titleStyle={{
-								color: "black",
-								fontSize: moderateScale(19),
+								color: "white",
+								fontSize: moderateScale(16.5),
 							}}
 							containerStyle={{
 								marginTop: verticalScale(60),
 								alignSelf: "center",
+                                borderColor: "rgb(90,90,90)",
+                                borderWidth: 2,
+                                borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#E8E9A1",
+								backgroundColor: "rgb(50,50,50)",
+                                borderRadius: 15,
 							}}
 							icon={
 								<FontAwesome5
 									name="clipboard-list"
 									size={moderateScale(18)}
-									color="black"
+									color="white"
 								/>
 							}
 							onPress={() => navigation.navigate("Tools", {navigateTo: "My Tasks"})}
@@ -239,6 +245,8 @@ export default function Todo({ hideAdd }) {
 		flex: 1;
 		${hideAdd ? "background-color: black;" : "background-color: #121212;"}
 		justify-content: flex-end;
+		${hideAdd ? "border-bottom-right-radius: 20px;": null}
+		${hideAdd ? "border-bottom-left-radius: 20px;": null}
 	`;
 
 	const HandleRemoveTask = async (id) => {

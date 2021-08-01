@@ -331,9 +331,9 @@ const GPAWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(70)}px;
+		height: ${verticalScale(60)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color:  #C9E4C5;
+		border-color: #45526C;
 		border-width: 3px;
 	`;
 
@@ -342,7 +342,7 @@ const GPAWidget = ({ navigation }) => {
 		flex-direction: column;
 		height: 100%;
 		width: 30%;
-		border-right-color: #C9E4C5;
+		border-right-color: #45526C;
 		border-right-width: 3px;
 		justify-content: center;
 		align-items: center;
@@ -357,8 +357,8 @@ const GPAWidget = ({ navigation }) => {
 
 	const BottomText = styled.Text`
 		font-family: System;
-		color: #C9E4C5;
-		font-size: ${moderateScale(25)}px;
+		color: white;
+		font-size: ${moderateScale(20)}px;
 		font-weight: bold;
 		text-align: center;
 	`;
@@ -398,18 +398,20 @@ const GPAWidget = ({ navigation }) => {
                                 borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#C9E4C5",
+								backgroundColor: "#45526C",
                                 borderRadius: 15,
+                                borderColor: "white",
+                                borderWidth: 1,
 							}}
 							titleStyle={{
-								fontSize: moderateScale(20),
-								color: "black",
+								fontSize: moderateScale(17),
+								color: "white",
 							}}
 							icon={
 								<FontAwesome5
 									name="calculator"
 									size={moderateScale(15)}
-									color="black"
+									color="white"
 								/>
 							}
 							onPress={() => {
@@ -425,11 +427,13 @@ const GPAWidget = ({ navigation }) => {
                                 borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#C9E4C5",
+								backgroundColor: "#45526C",
                                 borderRadius: 15,
+                                borderColor: "white",
+                                borderWidth: 1,
 							}}
 							titleStyle={{
-								color: "black",
+								color: "white",
 							}}
 							onPress={() => {
 								navigation.navigate("Tools", {navigateTo: "Grade Calculator"});
@@ -438,7 +442,7 @@ const GPAWidget = ({ navigation }) => {
 								<FontAwesome5
 									name="calculator"
 									size={moderateScale(15)}
-									color="black"
+									color="white"
 								/>
 							}
 							raised={true}
@@ -459,9 +463,8 @@ const TaskWidget = ({ navigation }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(230)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color: #E8E9A1;
+		border-color: #f2e1c1;
 		border-width: 3px;
-		padding: 5px;
 	`;
 
 	const Title = styled.Text`
@@ -470,13 +473,27 @@ const TaskWidget = ({ navigation }) => {
 		margin-top: ${verticalScale(5)}px;
 		font-size: ${moderateScale(22)}px;
 		font-weight: bold;
-		color: #E8E9A1;
+		color: white;
+	`;
+
+
+	const TitleContainer = styled.TouchableOpacity`
+		border-top-left-radius: 18px;
+		border-top-right-radius: 18px;
+		height: ${moderateScale(40)}px;
+		width: 100%;
+		border-bottom-color: #A0937D;
+		border-bottom-width: 3px;
+		background-color: rgb(50, 50, 50);
+		margin-bottom: ${verticalScale(4)}px;
 	`;
 
 	return (
 		<View style={{ alignSelf: "center" }}>
 			<Container>
-				<Title>Your Tasks</Title>
+              <TitleContainer onPress={navigation.navigate("Tools", {navigateTo: "My Tasks"})}>
+				<Title>My Tasks</Title>
+              </TitleContainer>
 				<Todo hideAdd={true} />
 			</Container>
 		</View>
@@ -593,7 +610,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 				<TeamColorWidget navigation={navigation} />
 				<NewsWidget navigation={navigation} />
 				<EventsWidget navigation={navigation} />
-				<TaskWidget />
+				<TaskWidget navigation={navigation}/>
 				<ClearFix />
 			</AnotherContainer>
 		</Container>
