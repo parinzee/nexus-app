@@ -127,7 +127,7 @@ export default class App extends React.Component {
 
     } else if(winner == -1){
       var instance2 = this;
-      Alert.alert("The AI won!", "Give up yet?");
+      Alert.alert("Parin's AI won!", "Give up yet?");
       setTimeout(function(){
         instance2.initializeGame();
       }, 1200);
