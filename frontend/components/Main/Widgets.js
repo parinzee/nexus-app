@@ -413,7 +413,7 @@ const GPAWidget = ({ navigation }) => {
 								/>
 							}
 							onPress={() => {
-								navigation.navigate("Tools");
+								navigation.navigate("Tools", {navigateTo: "Grade Calculator"});
 							}}
 							raised={true}
 						/>
@@ -425,14 +425,14 @@ const GPAWidget = ({ navigation }) => {
                                 borderRadius: 15,
 							}}
 							buttonStyle={{
-								backgroundColor: "#F8D49D",
+								backgroundColor: "#C9E4C5",
                                 borderRadius: 15,
 							}}
 							titleStyle={{
 								color: "black",
 							}}
 							onPress={() => {
-								navigation.navigate("Tools");
+								navigation.navigate("Tools", {navigateTo: "Grade Calculator"});
 							}}
 							icon={
 								<FontAwesome5
@@ -457,7 +457,7 @@ const TaskWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(200)}px;
+		height: ${verticalScale(230)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #E8E9A1;
 		border-width: 3px;
@@ -467,9 +467,10 @@ const TaskWidget = ({ navigation }) => {
 	const Title = styled.Text`
 		text-align: center;
 		font-family: System;
-		margin-top: ${verticalScale(10)}px;
-		font-size: ${moderateScale(20)}px;
-		color: white;
+		margin-top: ${verticalScale(5)}px;
+		font-size: ${moderateScale(22)}px;
+		font-weight: bold;
+		color: #E8E9A1;
 	`;
 
 	return (
@@ -482,10 +483,10 @@ const TaskWidget = ({ navigation }) => {
 	);
 };
 
-const BibleVerseWidget = () => {
+const BibleVerseWidget = ({navigation}) => {
 	const [verse, setVerse] = useState(null);
 
-	const Container = styled.View`
+	const Container = styled.TouchableOpacity`
 		display: flex;
 		flex-direction: column;
 		background-color: black;
@@ -537,7 +538,7 @@ const BibleVerseWidget = () => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			{verse != null ? (
-				<Container>
+				<Container onPress={() => {navigation.navigate("Verse Of The Week", {verse: verse[0][1].split("--")[1]})}}>
 					<ImageBackground
 						source={require("../../assets/valley.jpg")}
 						style={{
@@ -587,7 +588,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 				}
               	indicatorStyle="white"
 			>
-				<BibleVerseWidget />
+				<BibleVerseWidget navigation={navigation}/>
 				{teacher ? null : <GPAWidget navigation={navigation} />}
 				<TeamColorWidget navigation={navigation} />
 				<NewsWidget navigation={navigation} />

@@ -19,6 +19,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/Main/Main";
+import Verse from "./components/Main/BibleVerse"
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
 import Tools from "./components/Pages/Tools/Tools";
@@ -282,6 +283,11 @@ export default function App() {
 						name="Home"
 						component={MainTab}
 						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
+						name="Verse Of The Week"
+						component={Verse}
+						options={{ headerShown: true}}
 					/>
 					<Stack.Screen
 						name="Grade Calculator"

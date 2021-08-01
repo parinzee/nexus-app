@@ -7,7 +7,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Header from "../Header";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 
-export default function Tools({ navigation }) {
+export default function Tools({ navigation, route }) {
+    try {
+		const {navigateTo} = route.params
+		setTimeout(() => {navigation.navigate(navigateTo, { grade, honors })}, 300)
+    } catch {}
 	const [grade, setGrade] = useState(0);
 	const [honors, setHonors] = useState(false);
 	const Destinations = [

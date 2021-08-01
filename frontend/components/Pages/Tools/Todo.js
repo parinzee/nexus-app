@@ -188,26 +188,26 @@ const TodoList = ({ tasks, HandleCheckTask, HandleRemoveTask, hideAdd }) => {
 						</View>
 					) : (
 						<Button
-							title="  Add some tasks!"
+							title="  Add Tasks!"
 							titleStyle={{
 								color: "black",
-								fontSize: moderateScale(17),
+								fontSize: moderateScale(19),
 							}}
 							containerStyle={{
-								marginTop: verticalScale(50),
+								marginTop: verticalScale(60),
 								alignSelf: "center",
 							}}
 							buttonStyle={{
-								backgroundColor: "#f2e1c1",
+								backgroundColor: "#E8E9A1",
 							}}
 							icon={
 								<FontAwesome5
 									name="clipboard-list"
-									size={moderateScale(15)}
+									size={moderateScale(18)}
 									color="black"
 								/>
 							}
-							onPress={() => navigation.navigate("Tools")}
+							onPress={() => navigation.navigate("Tools", {navigateTo: "My Tasks"})}
 						/>
 					)}
 				</View>
