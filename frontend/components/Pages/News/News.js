@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import * as Notifications from 'expo-notifications';
+import * as BackgroundFetch from "expo-background-fetch";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from "styled-components/native";
 import Header from "../Header";

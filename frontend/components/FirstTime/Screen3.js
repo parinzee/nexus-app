@@ -285,7 +285,7 @@ export default function Screen3({ navigation }) {
 				flexDirection: "column",
 				alignContent: "center",
 				justifyContent: "center",
-				backgroundColor: "rgb(35,35,35)",
+				backgroundColor: "#121212",
 			}}
 		>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>

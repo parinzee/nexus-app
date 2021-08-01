@@ -31,8 +31,13 @@ export default function Clicker() {
   const handlePress = async () => {
     Vibration.vibrate()
     playSound()
-    setClicks(clicks + 1)
-    AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
+    if (clicks >= 1000) {
+      setClicks(0)
+      AsyncStorage.setItem("@counter", JSON.stringify(0))
+    } else {
+      setClicks(clicks + 1)
+      AsyncStorage.setItem("@counter", JSON.stringify(clicks + 1))
+    }
   }
 
   useEffect(() => {
@@ -49,7 +54,7 @@ export default function Clicker() {
 
   return (
     <Container>
-      <TouchableOpacity activeOpacity={1} onPress={handlePress} style={{ width: moderateScale(200) - (0.05 * clicks), height: moderateScale(200) - (0.05 * clicks), backgroundColor: "white", alignSelf: "center", borderRadius: clicks/2}} />
+      <TouchableOpacity activeOpacity={1} onPress={handlePress} style={{ width: moderateScale(200) - (0.2 * clicks), height: moderateScale(200) - (0.2 * clicks), backgroundColor: "#CA8A8B",alignSelf: "center", borderRadius: clicks*0.1}} />
       <Counter>{clicks}</Counter>
     </Container>
   )

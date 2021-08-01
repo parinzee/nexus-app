@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     width: 100,
     height: 100,
-    backgroundColor: "white"
+    backgroundColor: "#f2e1c1"
   },
 
   tileX: {

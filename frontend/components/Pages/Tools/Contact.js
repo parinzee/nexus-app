@@ -64,7 +64,7 @@ const Item = ({text, link, icon}) => {
   const ItemContainer = styled.View`
     width: ${moderateScale(300)}px;
     height: ${verticalScale(55)}px;
-    background-color: #ECE2E1;
+    background-color: #f2e1c1;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
