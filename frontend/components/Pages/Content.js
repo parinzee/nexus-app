@@ -108,6 +108,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 		align-content: center;
 		margin-top: ${verticalScale(10)}px;
 		flex: 1;
+		width: 100%;
 	`;
 
 	const ModalContainer = styled.TouchableOpacity`
@@ -172,7 +173,6 @@ export default function BottomContent({ uri, mainColor, type }) {
 			</Modal>
 			{refresh === false ? (
 				<FlatList
-              	  	indicatorStyle="white"
 					data={items}
 					renderItem={({ item }) => (
 						<Item
@@ -182,6 +182,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 						/>
 					)}
 					keyExtractor={(entry) => entry[0].toString()}
+                  	contentContainerStyle={{width: "100%"}}
 					refreshControl={
 						<RefreshControl
 							refreshing={refresh}

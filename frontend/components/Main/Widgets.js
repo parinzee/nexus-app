@@ -491,7 +491,7 @@ const TaskWidget = ({ navigation }) => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			<Container>
-              <TitleContainer onPress={navigation.navigate("Tools", {navigateTo: "My Tasks"})}>
+              <TitleContainer onPress={() => {navigation.navigate("Tools", {navigateTo: "My Tasks"})}}>
 				<Title>My Tasks</Title>
               </TitleContainer>
 				<Todo hideAdd={true} />
