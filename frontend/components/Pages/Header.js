@@ -13,7 +13,7 @@ export default function Header({ text, fontSize }) {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 	`;
 
 	const MenuText = styled.Text`

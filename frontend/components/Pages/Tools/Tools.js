@@ -16,7 +16,7 @@ export default function Tools({ navigation, route }) {
 	const [honors, setHonors] = useState(false);
 	const Destinations = [
 		{
-			title: "GPA Calculator (4.00/4.50)",
+			title: "Grade Calculator (4.00/4.50)",
 			icon: (
 				<FontAwesome5
 					name="calculator"
@@ -38,7 +38,7 @@ export default function Tools({ navigation, route }) {
 			destination: "My Tasks",
 		},
 		{
-			title: "Stress Reliever (Tic Tac Toe)",
+			title: "Tic Tac Toe",
 			icon: (
 				<FontAwesome5
 					name="gamepad"
@@ -49,7 +49,7 @@ export default function Tools({ navigation, route }) {
 			destination: "Tic Tac Toe",
 		},
 		{
-			title: "Stress Reliever (Clicker)",
+			title: "Clicker (Stress Reliever)",
 			icon: (
 				<FontAwesome5
 					name="hand-pointer"

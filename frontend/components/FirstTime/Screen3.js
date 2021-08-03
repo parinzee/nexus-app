@@ -6,6 +6,7 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	View,
+    ScrollView,
 	Alert,
 } from "react-native";
 import styled from "styled-components/native";
@@ -106,7 +107,7 @@ const LogicPart = ({ navigation }) => {
 	};
 
 	return (
-		<View>
+		<ScrollView>
 			<View
 				style={{
 					alignSelf: "center",
@@ -206,7 +207,7 @@ const LogicPart = ({ navigation }) => {
 						containerStyle={{
 							backgroundColor: "#292d3e",
 							alignSelf: "center",
-							width: "40%",
+							width: "45%",
 							marginBottom: verticalScale(10),
 							marginLeft: 0,
 						}}
@@ -219,7 +220,7 @@ const LogicPart = ({ navigation }) => {
 						containerStyle={{
 							backgroundColor: "#292d3e",
 							alignSelf: "center",
-							width: "40%",
+							width: "44%",
 							marginBottom: verticalScale(10),
 							marginRight: 0,
 						}}
@@ -259,7 +260,7 @@ const LogicPart = ({ navigation }) => {
 					}}
 				/>
 			</TouchableOpacity>
-		</View>
+		</ScrollView>
 	);
 };
 

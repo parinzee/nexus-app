@@ -486,6 +486,9 @@ const TaskWidget = ({ navigation }) => {
 		border-bottom-width: 3px;
 		background-color: rgb(50, 50, 50);
 		margin-bottom: ${verticalScale(4)}px;
+		flex-direction: row;
+		justify-content: space-between;
+		padding-horizontal: ${moderateScale(20)}px;
 	`;
 
 	return (
@@ -493,6 +496,7 @@ const TaskWidget = ({ navigation }) => {
 			<Container>
               <TitleContainer onPress={() => {navigation.navigate("Tools", {navigateTo: "My Tasks"})}}>
 				<Title>My Tasks</Title>
+				<Title>+</Title>
               </TitleContainer>
 				<Todo hideAdd={true} />
 			</Container>

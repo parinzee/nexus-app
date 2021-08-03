@@ -2,9 +2,8 @@ import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
-	RefreshControl,
+    View,
 	Modal,
-	FlatList,
 	ActivityIndicator,
 } from "react-native";
 import axios from "axios";
@@ -106,7 +105,6 @@ export default function BottomContent({ uri, mainColor, type }) {
 		justify-content: center;
 		align-items: center;
 		align-content: center;
-		margin-top: ${verticalScale(10)}px;
 		flex: 1;
 		width: 100%;
 	`;
@@ -172,34 +170,22 @@ export default function BottomContent({ uri, mainColor, type }) {
 				</ModalContainer>
 			</Modal>
 			{refresh === false ? (
-				<FlatList
-					data={items}
-					renderItem={({ item }) => (
-						<Item
-							eventName={item[1]}
-							eventDesc={item[2]}
-							mainColor={mainColor}
-						/>
-					)}
-					keyExtractor={(entry) => entry[0].toString()}
-                  	contentContainerStyle={{width: "100%"}}
-					refreshControl={
-						<RefreshControl
-							refreshing={refresh}
-							tintColor="white"
-							colors={["white"]}
-							onRefresh={() => {
-								setRefresh(true);
-							}}
-						/>
-					}
-				/>
+                items.map((value) => (
+                    <Item
+						eventName={value[1]}
+						eventDesc={value[2]}
+						mainColor={mainColor}
+                      	key={value[1]}
+					/>
+                ))
 			) : (
-				<ActivityIndicator
-					style={{ textAlign: "center" }}
-					size="large"
-					color="white"
-				/>
+                <View style={{justifyContent: "center", alignContent: "center", alignItems: "center", marginTop: "50%"}}>
+					<ActivityIndicator
+					  style={{ textAlign: "center", alignSelf: "center" }}
+						size="large"
+						color="white"
+					/>
+                </View>
 			)}
 			<ClearFix />
 		</ListContainer>
