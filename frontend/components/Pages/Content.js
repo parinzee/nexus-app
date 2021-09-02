@@ -5,18 +5,20 @@ import {
     View,
 	Modal,
 	ActivityIndicator,
+    useWindowDimensions
 } from "react-native";
 import axios from "axios";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Item = ({ eventName, eventDesc, mainColor }) => {
+    const windowHeight = useWindowDimensions().height;
 	const Container = styled.View`
 		display: flex;
 		flex-direction: column;
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(120)}px;
+		height: ${windowHeight > 600 ? verticalScale(120) : verticalScale(150)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -118,8 +120,6 @@ export default function BottomContent({ uri, mainColor, type }) {
 
 	const InnerContainer = styled.View`
 		background-color: rgb(25, 25, 25);
-		display: flex;
-		flex-direction: column;
 		border-width: 1px;
 		border-color: white;
 		border-radius: 25px;
