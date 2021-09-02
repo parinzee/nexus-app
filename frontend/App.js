@@ -253,6 +253,7 @@ export default function App() {
 							shadowOpacity: 0,
 							borderBottomWidth: 0,
 						},
+                        headerTintColor: "#fff",
 						headerTitleStyle: {
 							color: "white",
 						},
