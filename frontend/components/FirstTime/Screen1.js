@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -42,8 +42,15 @@ export default function Screen1({ navigation }) {
 		flex-direction: row;
 	`;
 	const NexusLogo = styled.Image`
-		max-width: ${moderateScale(50)}px;
-		max-height: ${moderateScale(50)}px;
+		${Platform.OS === "ios" ?
+			`max-width: ${moderateScale(50)}px;
+			max-height: ${moderateScale(50)}px;`
+			:
+			`max-width: ${moderateScale(50)}px;
+			max-height: ${moderateScale(50)}px;
+    		margin-bottom: -${verticalScale(5)}px;
+    		`
+		}
 		align-self: center;
 	`;
 
