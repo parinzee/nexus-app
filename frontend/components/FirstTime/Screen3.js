@@ -249,6 +249,7 @@ const LogicPart = ({ navigation }) => {
 				}}
 				dropDownDirection="TOP"
 				theme="DARK"
+              	listMode="MODAL"
 			/>
 			<TouchableOpacity disabled={buttonDisabled} onPress={onSubmit}>
 				<FontAwesome5
