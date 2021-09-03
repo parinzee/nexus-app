@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAssets } from "expo-asset";
+import * as FileSystem from "expo-file-system"
 import styled from "styled-components/native";
 import { WebView } from "react-native-webview";
 import { Button } from "react-native-elements";
@@ -8,8 +10,14 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 const handleGPA = async (grade) => {
 	await AsyncStorage.setItem("@GPA", JSON.stringify(grade));
 };
-const Standards = () => {
-	const HTML = require("../../../assets/Standards.html");
+
+const readHtml = async (path) => {
+    const HTML = await FileSystem.readAsStringAsync(path)
+    return HTML
+}
+
+const Standards = ({assets}) => {
+	const HTML = {html: assets[0]}
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -25,12 +33,15 @@ const Standards = () => {
 			renderLoading={() => <Container />}
 			originWhitelist={["*"]}
 			javaScriptEnabled={true}
+          	allowFileAccess={true}
+          	allowFileAccessFromFileURLs={true}
+          	allowUniversalAccessFromFileURLs={true}
 		/>
 	);
 };
 
-const Honors = () => {
-	const HTML = require("../../../assets/Honors.html");
+const Honors = ({assets}) => {
+	const HTML = {html: assets[0]}
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -45,13 +56,18 @@ const Honors = () => {
 			renderLoading={() => <Container />}
 			originWhitelist={["*"]}
 			javaScriptEnabled={true}
+          	allowFileAccess={true}
+          	allowFileAccessFromFileURLs={true}
+          	allowUniversalAccessFromFileURLs={true}
 		/>
 	);
 };
 
 export default function GPA4({ route }) {
+    const [assets] = useAssets([require("../../../assets/Honors.html"), require("../../../assets/Standards.html")])
 	const { grade, honors } = route.params;
 	const [honorsManual, setHonorsManual] = useState(null);
+    const [uris, setUris] = useState([])
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -77,22 +93,38 @@ export default function GPA4({ route }) {
 		margin-bottom: ${verticalScale(30)}px;
 	`;
 
-	if (grade < 9 && grade != null) {
+    useEffect(() => {
+       async function getUris() {
+           const honorsHTML = await readHtml(assets[0].localUri)
+           const standardsHTML = await readHtml(assets[1].localUri)
+           setUris([honorsHTML, standardsHTML])
+       }
+       if (assets) {
+           getUris()
+       }
+    }, [assets])
+
+    if (!assets) {
+        return (
+            <Container/>
+        )
+    }
+	else if (grade < 9 && grade != null) {
 		return (
 			<Container>
-				<Standards />
+				<Standards assets={uris}/>
 			</Container>
 		);
 	} else if (honors === true || honorsManual === true) {
 		return (
 			<Container>
-				<Honors />
+				<Honors assets={uris}/>
 			</Container>
 		);
 	} else if ((honors === false && grade != null) || honorsManual === false) {
 		return (
 			<Container>
-				<Standards />
+				<Standards assets={uris}/>
 			</Container>
 		);
 	} else {
