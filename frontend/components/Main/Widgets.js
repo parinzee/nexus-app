@@ -8,6 +8,22 @@ import Todo from "../Pages/Tools/Todo";
 import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+const dataSort = (a, b) => {
+	const [monthA, dateA] = a[2].split("--")[1].split("/")
+	const [monthB, dateB] = b[2].split("--")[1].split("/")
+	if (parseInt(monthA) > parseInt(monthB)) {
+		return -1
+	} else if (parseInt(monthA) < parseInt(monthB)) {
+		return 1
+	} else if (parseInt(dateA) > parseInt(dateB)) {
+		return -1
+	} else if (parseInt(dateA) < parseInt(dateB)) {
+		return 1
+	} else {
+		return b[0] - a[0];
+	}
+}
+
 const TeamColorWidget = ({ navigation }) => {
 	const [item, setItem] = useState(null);
 	const [refresh, setRefresh] = useState(true);
@@ -144,7 +160,7 @@ const NewsWidget = ({ navigation }) => {
 			});
 		if (data != false) {
 			if (isMounted) {
-				setLatestNews(data.sort((a, b) => b[0] - a[0])[0]);
+				setLatestNews(data.sort((a, b) => dataSort(a, b))[0]);
 				setRefresh(false);
 			}
 		}
@@ -240,7 +256,7 @@ const EventsWidget = ({ navigation }) => {
 			});
 		if (data != false) {
 			if (isMounted) {
-				setLatestNews(data.sort((a, b) => b[0] - a[0])[0]);
+				setLatestNews(data.sort((a, b) => dataSort(a, b))[0]);
 				setRefresh(false);
 			}
 		}

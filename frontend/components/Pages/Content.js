@@ -78,6 +78,22 @@ export default function BottomContent({ uri, mainColor, type }) {
 	const [refresh, setRefresh] = useState(true);
 	const [error, setError] = useState(false);
 
+    const dataSort = (a, b) => {
+        const [monthA, dateA] = a[2].split("--")[1].split("/")
+        const [monthB, dateB] = b[2].split("--")[1].split("/")
+        if (parseInt(monthA) > parseInt(monthB)) {
+            return -1
+        } else if (parseInt(monthA) < parseInt(monthB)) {
+            return 1
+        } else if (parseInt(dateA) > parseInt(dateB)) {
+            return -1
+        } else if (parseInt(dateA) < parseInt(dateB)) {
+            return 1
+        } else {
+            return b[0] - a[0];
+        }
+    }
+
 	const getEvents = async () => {
 		const data = await axios
 			.get(uri)
@@ -91,7 +107,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 			setError(true);
 			setRefresh(false);
 		} else {
-			setItems(data.sort((a, b) => b[0] - a[0]));
+			setItems(data.sort((a, b) => dataSort(a,b)));
 			setRefresh(false);
 			let key = "@" + type
 			await AsyncStorage.setItem(key, JSON.stringify(items.length))
@@ -175,7 +191,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 						eventName={value[1]}
 						eventDesc={value[2]}
 						mainColor={mainColor}
-                      	key={value[1]}
+                      	key={value[0]}
 					/>
                 ))
 			) : (
