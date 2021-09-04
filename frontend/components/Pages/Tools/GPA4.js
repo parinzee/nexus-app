@@ -17,7 +17,7 @@ const readHtml = async (path) => {
 }
 
 const Standards = ({assets}) => {
-	const HTML = {html: assets[0]}
+	const HTML = {html: assets[1]}
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
