@@ -8,9 +8,7 @@ export default function Credits() {
 		flex-direction: column;
 		background-color: #121212;
 	`;
-
-	const Title = styled.Text`
-		color: white;
+const Title = styled.Text` color: white;
 		font-family: System;
 		font-size: ${moderateScale(20)}px;
 		margin-top: ${verticalScale(15)}px;
@@ -56,7 +54,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Version</FrontText>
-				<BackText>1.2.2</BackText>
+				<BackText>1.2.3</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Created</FrontText>
@@ -64,7 +62,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Last Updated</FrontText>
-				<BackText>July 15 2021</BackText>
+				<BackText>September 4 2021</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Special Thanks</FrontText>
