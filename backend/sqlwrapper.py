@@ -55,6 +55,9 @@ def insertUser(name: str, teamColor: str, pushToken: str = None):
         cur.execute('''INSERT INTO users(name, teamColor) VALUES(%s, %s) ON CONFLICT DO UPDATE''',
         (name, teamColor))
 
+    db.commit()
+    cur.close()
+    db.close()
 
 def listItems(itemType: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
