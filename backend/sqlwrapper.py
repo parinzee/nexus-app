@@ -37,7 +37,7 @@ def insertItem(eventTitle: str, eventDesc: str, itemType: str):
     cur.close()
     db.close()
 
-def insertUser(name: str, teamColor: str, pushToken: str = None):
+def insertUser(name: str, teamColor: str, pushToken: str, gpa: float):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
@@ -48,12 +48,7 @@ def insertUser(name: str, teamColor: str, pushToken: str = None):
         gpa float
         );''')
 
-    if pushToken != None:
-        cur.execute('INSERT INTO users(name, teamColor, pushToken) VALUES(%s, %s, %s) ON CONFLICT DO UPDATE;',
-        (name, teamColor, pushToken))
-    else:
-        cur.execute('INSERT INTO users(name, teamColor) VALUES(%s, %s) ON CONFLICT DO UPDATE;',
-        (name, teamColor))
+    cur.execute('INSERT INTO users(name, teamColor, pushToken, gpa) VALUES(%s, %s, %s, %f) ON CONFLICT DO UPDATE;', (name, teamColor, pushToken, gpa))
 
     db.commit()
     cur.close()
