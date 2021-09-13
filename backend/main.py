@@ -36,7 +36,7 @@ async def insertverse(verse: str):
     return "Success"
 
 @app.post("/insertUser/")
-async def insertUser(name: str, teamColor: teamColors, pushToken: str = None):
+async def insertuser(name: str, teamColor: teamColors, pushToken: str = None):
     insertUser(name, teamColor, pushToken)
     return "Success"
 
@@ -45,7 +45,7 @@ async def updatePushToken(name: str, pushToken: str):
     raise NotImplementedError
 
 @app.get("/users/")
-async def listUsers():
+async def listusers():
     return listUsers()
 
 @app.get("/announcements/")
