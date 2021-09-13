@@ -3,7 +3,7 @@ import psycopg2
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
-def insertItem(eventTitle, eventDesc, itemType):
+def insertItem(eventTitle: str, eventDesc: str, itemType: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
@@ -37,7 +37,26 @@ def insertItem(eventTitle, eventDesc, itemType):
     cur.close()
     db.close()
 
-def listItems(itemType):
+def insertUser(name: str, teamColor: str, pushToken: str = None):
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = db.cursor()
+
+    cur.execute('''CREATE TABLE IF NOT EXISTS users(
+        name text NOT NULL,
+        teamColor text NOT NULL,
+        pushToken text,
+        gpa float
+        );''')
+
+    if pushToken != None:
+        cur.execute('''INSERT INTO users(name, teamColor, pushToken) VALUES(%s, %s, %s) ON CONFLICT DO UPDATE''',
+        (name, teamColor, pushToken))
+    else:
+        cur.execute('''INSERT INTO users(name, teamColor) VALUES(%s, %s) ON CONFLICT DO UPDATE''',
+        (name, teamColor))
+
+
+def listItems(itemType: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 
@@ -85,7 +104,7 @@ def listItems(itemType):
     db.close()
     return announcements
 
-def insertScore(red, blue, yellow, green):
+def insertScore(red: str, blue: str, yellow: str, green: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
     try:
@@ -113,7 +132,7 @@ def insertScore(red, blue, yellow, green):
     cur.close()
     db.close()
 
-def insertBibleVerse(verse):
+def insertBibleVerse(verse: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
     try:
@@ -138,7 +157,7 @@ def insertBibleVerse(verse):
     cur.close()
     db.close()
 
-def deleteItem(index, itemType):
+def deleteItem(index: str, itemType: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
 

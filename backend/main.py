@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlwrapper import insertItem, insertScore, insertBibleVerse, listItems, deleteItem
+from sqlwrapper import insertItem, insertScore, insertBibleVerse, insertUser, listItems, deleteItem
 from enum import Enum
 
 app = FastAPI()
@@ -8,6 +8,12 @@ app = FastAPI()
 class itemTypes(Enum):
     ANNOUNCEMENTS = "announcements"
     EVENTS = "events"
+
+class teamColors(Enum):
+    RED = "red"
+    GREEN = "green"
+    BLUE = "blue"
+    YELLOW = "yellow"
 
 @app.post("/insertItem/")
 async def insert(eventName: str, eventDesc: str, itemType: itemTypes):
@@ -20,8 +26,8 @@ async def delete(id: int, itemType: itemTypes):
     return "Success"
 
 @app.post("/insertScore/")
-async def insertscore(red: str, blue: str, yellow:str, green:str):
-    insertScore(red, blue, yellow, green)
+async def insertscore(red: int, blue: int, yellow: int, green: int):
+    insertScore(str(red), str(blue), str(yellow), str(green))
     return "Success"
 
 @app.post("/insertVerse/")
@@ -29,6 +35,14 @@ async def insertverse(verse: str):
     insertBibleVerse(verse)
     return "Success"
 
+@app.post("/insertUser/")
+async def insertUser(name: str, teamColor: teamColors, pushToken: str = None):
+    insertUser(name, teamColor, pushToken)
+    return "Success"
+
+@app.post("/updatePushToken/")
+async def updatePushToken(name: str, pushToken: str):
+    raise NotImplementedError
 
 @app.get("/events/")
 async def listevents():
