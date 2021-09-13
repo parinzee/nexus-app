@@ -37,7 +37,7 @@ async def insertverse(verse: str):
 
 @app.post("/insertUser/")
 async def insertuser(name: str, teamColor: teamColors, pushToken: str = None):
-    insertUser(name, teamColor, pushToken)
+    insertUser(name, teamColor.value, pushToken)
     return "Success"
 
 @app.post("/updatePushToken/")
