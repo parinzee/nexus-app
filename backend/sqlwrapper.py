@@ -48,7 +48,7 @@ def insertUser(name: str, teamColor: str, pushToken: str, gpa: float):
         gpa float
         );''')
 
-    cur.execute('INSERT INTO users(name, teamColor, pushToken, gpa) VALUES(%s, %s, %s, %f) ON CONFLICT DO UPDATE;', (name, teamColor, pushToken, gpa))
+    cur.execute('INSERT INTO users(name, teamColor, pushToken, gpa) VALUES(%s, %s, %s, %s) ON CONFLICT DO UPDATE;', (name, teamColor, pushToken, gpa))
 
     db.commit()
     cur.close()
