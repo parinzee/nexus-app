@@ -49,10 +49,10 @@ def insertUser(name: str, teamColor: str, pushToken: str = None):
         );''')
 
     if pushToken != None:
-        cur.execute('''INSERT INTO users(name, teamColor, pushToken) VALUES(%s, %s, %s) ON CONFLICT DO UPDATE''',
+        cur.execute('''INSERT INTO users(name, teamColor, pushToken) VALUES(%s, %s, %s) ON CONFLICT DO UPDATE;''',
         (name, teamColor, pushToken))
     else:
-        cur.execute('''INSERT INTO users(name, teamColor) VALUES(%s, %s) ON CONFLICT DO UPDATE''',
+        cur.execute('''INSERT INTO users(name, teamColor) VALUES(%s, %s) ON CONFLICT DO UPDATE;''',
         (name, teamColor))
 
     db.commit()
