@@ -59,6 +59,25 @@ def insertUser(name: str, teamColor: str, pushToken: str = None):
     cur.close()
     db.close()
 
+def listUsers():
+    db = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = db.cursor()
+
+    cur.execute('''CREATE TABLE IF NOT EXISTS users(
+        name text NOT NULL,
+        teamColor text NOT NULL,
+        pushToken text,
+        gpa float
+        );''')
+
+    cur.execute("SELECT * FROM users")
+
+    users = cur.fetchall()
+    db.commit()
+    cur.close()
+    db.close()
+    return users
+
 def listItems(itemType: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = db.cursor()
@@ -101,11 +120,11 @@ def listItems(itemType: str):
     else:
         pass
 
-    announcements = cur.fetchall()
+    items = cur.fetchall()
     db.commit()
     cur.close()
     db.close()
-    return announcements
+    return items
 
 def insertScore(red: str, blue: str, yellow: str, green: str):
     db = psycopg2.connect(DATABASE_URL, sslmode='require')

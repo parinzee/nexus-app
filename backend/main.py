@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlwrapper import insertItem, insertScore, insertBibleVerse, insertUser, listItems, deleteItem
+from sqlwrapper import insertItem, insertScore, insertBibleVerse, insertUser, listUsers, listItems, deleteItem
 from enum import Enum
 
 app = FastAPI()
@@ -44,6 +44,14 @@ async def insertUser(name: str, teamColor: teamColors, pushToken: str = None):
 async def updatePushToken(name: str, pushToken: str):
     raise NotImplementedError
 
+@app.get("/users/")
+async def listUsers():
+    return listUsers()
+
+@app.get("/announcements/")
+async def listannouncements():
+    return listItems("announcements")
+
 @app.get("/events/")
 async def listevents():
     return listItems("events")
@@ -51,10 +59,6 @@ async def listevents():
 @app.get("/scores/")
 async def listscores():
     return listItems("scores")
-
-@app.get("/announcements/")
-async def listannouncements():
-    return listItems("announcements")
 
 @app.get("/verse/")
 async def listverse():
