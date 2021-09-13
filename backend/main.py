@@ -1,12 +1,34 @@
 import uvicorn
 from fastapi import FastAPI
 from sqlwrapper import insertItem, insertScore, insertBibleVerse, listItems, deleteItem
+from enum import Enum
 
 app = FastAPI()
 
-@app.get("/")
-async def listItem():
-    return True 
+class itemTypes(Enum):
+    ANNOUNCEMENTS = "announcements"
+    EVENTS = "events"
+
+@app.post("/insertItem/")
+async def insert(eventName: str, eventDesc: str, itemType: itemTypes):
+    insertItem(eventName, eventDesc, itemType.value)
+    return "Success"
+
+@app.post("/deleteItem/")
+async def delete(id: int, itemType: itemTypes):
+    deleteItem(str(id), itemType.value)
+    return "Success"
+
+@app.post("/insertScore/")
+async def insertscore(red: str, blue: str, yellow:str, green:str):
+    insertScore(red, blue, yellow, green)
+    return "Success"
+
+@app.post("/insertVerse/")
+async def insertverse(verse: str):
+    insertBibleVerse(verse)
+    return "Success"
+
 
 @app.get("/events/")
 async def listevents():
@@ -24,25 +46,9 @@ async def listannouncements():
 async def listverse():
     return listItems("verse")
 
-@app.post("/insertItem/")
-async def insert(eventName: str, eventDesc: str, itemType:str):
-    insertItem(eventName, eventDesc, itemType)
-    return "Success"
-
-@app.post("/insertScore/")
-async def insertscore(red: str, blue: str, yellow:str, green:str):
-    insertScore(red, blue, yellow, green)
-    return "Success"
-
-@app.post("/insertVerse/")
-async def insertverse(verse: str):
-    insertBibleVerse(verse)
-    return "Success"
-
-@app.post("/deleteItem/")
-async def delete(id: int, itemType: str):
-    deleteItem(str(id), itemType)
-    return "Success"
+@app.get("/")
+async def listItem():
+    return {"Clicker": False}
 
 if __name__ == "__main__":
    uvicorn.run("main:app", host="0.0.0.0", port=5500, log_level="info", reload=True)
