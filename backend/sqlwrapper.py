@@ -58,7 +58,8 @@ def insertUser(deviceID: str, name: str, teamColor: str, pushToken: str, gpa: fl
         name text NOT NULL,
         teamColor text NOT NULL,
         pushToken text,
-        gpa float
+        gpa float,
+        UNIQUE(deviceID)
         );"""
     )
 
@@ -88,7 +89,8 @@ def listUsers():
         name text NOT NULL,
         teamColor text NOT NULL,
         pushToken text,
-        gpa float
+        gpa float,
+        UNIQUE(deviceID)
         );"""
     )
 
