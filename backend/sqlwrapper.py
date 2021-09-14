@@ -48,12 +48,13 @@ def insertItem(eventTitle: str, eventDesc: str, itemType: str):
     db.close()
 
 
-def insertUser(name: str, teamColor: str, pushToken: str, gpa: float):
+def insertUser(deviceID: str, name: str, teamColor: str, pushToken: str, gpa: float):
     db = psycopg2.connect(DATABASE_URL, sslmode="require")
     cur = db.cursor()
 
     cur.execute(
         """CREATE TABLE IF NOT EXISTS users(
+        deviceID text NOT NULL,
         name text NOT NULL,
         teamColor text NOT NULL,
         pushToken text,
@@ -61,13 +62,15 @@ def insertUser(name: str, teamColor: str, pushToken: str, gpa: float):
         );"""
     )
 
+    # Fix by creating device key
     cur.execute(
-        """INSERT INTO users(name, teamColor, pushToken, gpa) 
-            VALUES(%s, %s, %s, %s) ON CONFLICT DO UPDATE 
-            SET name = EXCLUDED.name, teamColor = EXCLUDED.teamcolor, 
+        """INSERT INTO users(deviceID, name, teamColor, pushToken, gpa) 
+            VALUES(%s, %s, %s, %s, %s) ON CONFLICT (deviceID) DO UPDATE 
+            SET name = EXCLUDED.name, 
+            teamColor = EXCLUDED.teamcolor, 
             pushToken = EXCLUDED.pushToken, 
             gpa = EXCLUDED.gpa;""",
-        (name, teamColor, pushToken, gpa),
+        (deviceID, name, teamColor, pushToken, gpa),
     )
 
     db.commit()
