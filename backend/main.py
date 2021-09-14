@@ -61,15 +61,16 @@ async def insertverse(verse: str):
 
 
 @app.post("/insertUser/")
-async def insertuser(user: user):
+async def insertuser(User: user):
+    User_dict = User.dict()
     insertUser(
-        user["deviceID"],
-        user["name"],
-        user["teamColor"],
-        user["pushToken"],
-        user["gpa"],
+        User_dict["deviceID"],
+        User_dict["name"],
+        User_dict["teamColor"].value,
+        User_dict["pushToken"],
+        User_dict["gpa"],
     )
-    return "Success"
+    return User
 
 
 @app.post("/deleteUser/")
