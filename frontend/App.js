@@ -220,10 +220,18 @@ export default function App() {
 	};
 
 	useEffect(() => {
+		async function genDeviceID() {
+			const deviceID = await AsyncStorage.getItem("@deviceID");
+			if (deviceID === null) {
+				const generateDeviceID = () => Math.random().toString(20).substr(2, 10)
+				await AsyncStorage.setItem("@deviceID", JSON.stringify(generateDeviceID())) 
+			}
+		}
 		async function checkFirstTime() {
 			const value = await AsyncStorage.getItem("@firstTime");
 			setFirstTime(value === null ? true : false);
 		}
+		genDeviceID();
 		checkFirstTime();
 	}, []);
 
