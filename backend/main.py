@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from pydantic import BaseModel
 from sqlwrapper import (
     insertItem,
     insertScore,
@@ -27,6 +28,14 @@ class teamColors(Enum):
     YELLOW = "yellow"
 
 
+class user(BaseModel):
+    deviceID: str
+    name: str
+    teamColor: teamColors
+    pushToken: str
+    gpa: float
+
+
 @app.post("/insertItem/")
 async def insert(eventName: str, eventDesc: str, itemType: itemTypes):
     insertItem(eventName, eventDesc, itemType.value)
@@ -52,14 +61,14 @@ async def insertverse(verse: str):
 
 
 @app.post("/insertUser/")
-async def insertuser(
-    deviceID: str,
-    name: str,
-    teamColor: teamColors,
-    pushToken: str = None,
-    gpa: float = None,
-):
-    insertUser(deviceID, name, teamColor.value, pushToken, gpa)
+async def insertuser(user: user):
+    insertUser(
+        user["deviceID"],
+        user["name"],
+        user["teamColor"],
+        user["pushToken"],
+        user["gpa"],
+    )
     return "Success"
 
 
