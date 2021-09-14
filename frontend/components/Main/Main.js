@@ -4,7 +4,7 @@ import Header from "../Pages/Header";
 import WidgetsDashboard from "./Widgets";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { ActivityIndicator, Modal, Alert } from "react-native";
+import { ActivityIndicator, Modal } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
 export default function Main({ navigation }) {
@@ -77,7 +77,25 @@ export default function Main({ navigation }) {
 				setError(true);
 			}
 		}
+		async function telemetry() {
+			const deviceID = JSON.parse(
+				await AsyncStorage.getItem("@deviceID")
+			);
+			const name = JSON.parse(await AsyncStorage.getItem("@name"));
+			const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
+			const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
+			await axios
+				.post("http://nbcis.herokuapp.com/insertUser/", {
+					deviceID: deviceID,
+					name: name,
+					teamColor: teamColor,
+					// pushToken,
+					gpa: gpa,
+				})
+				.catch((err) => console.log(err.response.data));
+		}
 		getData();
+		telemetry();
 	}, [loading]);
 	return (
 		<OutContainer>

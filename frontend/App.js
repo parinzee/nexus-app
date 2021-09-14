@@ -14,12 +14,12 @@ import {
 } from "@expo-google-fonts/comfortaa";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as BackgroundFetch from "expo-background-fetch";
-import * as TaskManager from "expo-task-manager"
+import * as TaskManager from "expo-task-manager";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./components/Main/Main";
-import Verse from "./components/Main/BibleVerse"
+import Verse from "./components/Main/BibleVerse";
 import News from "./components/Pages/News/News";
 import TeamColor from "./components/Pages/TeamColor/TeamColor";
 import Tools from "./components/Pages/Tools/Tools";
@@ -29,9 +29,9 @@ import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import GPA4 from "./components/Pages/Tools/GPA4";
 import Todo from "./components/Pages/Tools/Todo";
-import Clicker from "./components/Pages/Tools/Clicker"
-import TicTacToe from "./components/Pages/Tools/TicTacToe"
-import Contact from "./components/Pages/Tools/Contact"
+import Clicker from "./components/Pages/Tools/Clicker";
+import TicTacToe from "./components/Pages/Tools/TicTacToe";
+import Contact from "./components/Pages/Tools/Contact";
 import Credits from "./components/Pages/Credits/Credits";
 import { Text, Animated } from "react-native";
 import { Asset } from "expo-asset";
@@ -47,7 +47,7 @@ const Stack = createStackNavigator();
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
-const BACKGROUND_FETCH_TASK = 'background-fetch';
+const BACKGROUND_FETCH_TASK = "background-fetch";
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 	const getLength = async (url) => {
 		const data = await axios
@@ -59,32 +59,40 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 				return false;
 			});
 		if (data === false) {
-            return Promise.resolve(null)
+			return Promise.resolve(null);
 		} else {
-            return Promise.resolve(data.length)
+			return Promise.resolve(data.length);
 		}
 	};
 
-    const lengthNews = JSON.parse(await AsyncStorage.getItem("@news"))
-    const lengthActivities = JSON.parse(await AsyncStorage.getItem("@activities"))
+	const lengthNews = JSON.parse(await AsyncStorage.getItem("@news"));
+	const lengthActivities = JSON.parse(
+		await AsyncStorage.getItem("@activities")
+	);
 
-    const newLengthNews = await getLength("http://nbcis.herokuapp.com/announcements/")
-    const newLengthActivities= await getLength("http://nbcis.herokuapp.com/events/")
+	const newLengthNews = await getLength(
+		"http://nbcis.herokuapp.com/announcements/"
+	);
+	const newLengthActivities = await getLength(
+		"http://nbcis.herokuapp.com/events/"
+	);
 
-    if (newLength === null || newLengthActivities === null) {
-        return BackgroundFetch.Result.NewData;
-    }
+	if (newLength === null || newLengthActivities === null) {
+		return BackgroundFetch.Result.NewData;
+	}
 
-    if (lengthNews != newLengthNews || lengthActivities != newLengthActivities) {
+	if (
+		lengthNews != newLengthNews ||
+		lengthActivities != newLengthActivities
+	) {
 		await Notifications.presentLocalNotificationAsync({
-			title: 'News!',
+			title: "News!",
 			body: "There are new news available on Nexus!",
 		});
-    }
+	}
 
-    return BackgroundFetch.Result.NewData;
+	return BackgroundFetch.Result.NewData;
 });
-
 
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	const progress = Animated.add(
@@ -209,7 +217,7 @@ export default function App() {
 		const images = [
 			require("./assets/nexus-logo.png"),
 			require("./assets/valley.jpg"),
-            require("./assets/click.mp3")
+			require("./assets/click.mp3"),
 		];
 
 		const cacheImages = images.map((image) => {
@@ -223,8 +231,12 @@ export default function App() {
 		async function genDeviceID() {
 			const deviceID = await AsyncStorage.getItem("@deviceID");
 			if (deviceID === null) {
-				const generateDeviceID = () => Math.random().toString(20).substr(2, 10)
-				await AsyncStorage.setItem("@deviceID", JSON.stringify(generateDeviceID())) 
+				const generateDeviceID = () =>
+					Math.random().toString(20).substr(2, 10);
+				await AsyncStorage.setItem(
+					"@deviceID",
+					JSON.stringify(generateDeviceID())
+				);
 			}
 		}
 		async function checkFirstTime() {
@@ -261,7 +273,7 @@ export default function App() {
 							shadowOpacity: 0,
 							borderBottomWidth: 0,
 						},
-                        headerTintColor: "#fff",
+						headerTintColor: "#fff",
 						headerTitleStyle: {
 							color: "white",
 						},
@@ -296,7 +308,7 @@ export default function App() {
 					<Stack.Screen
 						name="Verse Of The Week"
 						component={Verse}
-						options={{ headerShown: true}}
+						options={{ headerShown: true }}
 					/>
 					<Stack.Screen
 						name="Grade Calculator"
