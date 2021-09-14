@@ -84,6 +84,7 @@ def listUsers():
 
     cur.execute(
         """CREATE TABLE IF NOT EXISTS users(
+        deviceID text NOT NULL,
         name text NOT NULL,
         teamColor text NOT NULL,
         pushToken text,
