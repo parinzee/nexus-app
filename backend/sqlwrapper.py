@@ -256,3 +256,27 @@ def deleteItem(index: str, itemType: str):
     db.commit()
     cur.close()
     db.close()
+
+def deleteUser(deviceID: str):
+    db = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cur = db.cursor()
+
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS users(
+        deviceID text NOT NULL,
+        name text NOT NULL,
+        teamColor text NOT NULL,
+        pushToken text,
+        gpa float,
+        UNIQUE(deviceID)
+        );"""
+    )
+
+    # Fix by creating device key
+    cur.execute(
+        "DELETE FROM users WHERE deviceID=%s", [deviceID]
+    )
+
+    db.commit()
+    cur.close()
+    db.close()
