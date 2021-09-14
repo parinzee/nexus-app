@@ -32,8 +32,8 @@ class user(BaseModel):
     deviceID: str
     name: str
     teamColor: teamColors
-    pushToken: str
-    gpa: float
+    pushToken: str = None
+    gpa: float = None
 
 
 @app.post("/insertItem/")
