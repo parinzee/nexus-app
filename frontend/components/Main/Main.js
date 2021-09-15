@@ -94,9 +94,13 @@ export default function Main({ navigation }) {
 				})
 				.catch((err) => console.log(err.response.data));
 		}
+		const unsubscribe = navigation.addListener("blur", (e) => {
+			setLoading(true);
+		});
 		getData();
 		telemetry();
-	}, [loading]);
+		return unsubscribe;
+	}, [navigation, loading]);
 	return (
 		<OutContainer>
 			<Modal

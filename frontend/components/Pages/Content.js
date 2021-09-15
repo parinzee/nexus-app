@@ -1,24 +1,27 @@
 import styled from "styled-components/native";
 import React, { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-    View,
+	View,
 	Modal,
 	ActivityIndicator,
-    useWindowDimensions
+	useWindowDimensions,
 } from "react-native";
 import axios from "axios";
 import { moderateScale, verticalScale } from "react-native-size-matters";
+import { useNavigation } from "@react-navigation/native";
 
 const Item = ({ eventName, eventDesc, mainColor }) => {
-    const windowHeight = useWindowDimensions().height;
+	const windowHeight = useWindowDimensions().height;
 	const Container = styled.View`
 		display: flex;
 		flex-direction: column;
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${windowHeight > 600 ? verticalScale(120) : verticalScale(150)}px;
+		height: ${windowHeight > 600
+			? verticalScale(120)
+			: verticalScale(150)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -77,22 +80,23 @@ export default function BottomContent({ uri, mainColor, type }) {
 	const [items, setItems] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 	const [error, setError] = useState(false);
+	const navigation = useNavigation();
 
-    const dataSort = (a, b) => {
-        const [monthA, dateA] = a[2].split("--")[1].split("/")
-        const [monthB, dateB] = b[2].split("--")[1].split("/")
-        if (parseInt(monthA) > parseInt(monthB)) {
-            return -1
-        } else if (parseInt(monthA) < parseInt(monthB)) {
-            return 1
-        } else if (parseInt(dateA) > parseInt(dateB)) {
-            return -1
-        } else if (parseInt(dateA) < parseInt(dateB)) {
-            return 1
-        } else {
-            return b[0] - a[0];
-        }
-    }
+	const dataSort = (a, b) => {
+		const [monthA, dateA] = a[2].split("--")[1].split("/");
+		const [monthB, dateB] = b[2].split("--")[1].split("/");
+		if (parseInt(monthA) > parseInt(monthB)) {
+			return -1;
+		} else if (parseInt(monthA) < parseInt(monthB)) {
+			return 1;
+		} else if (parseInt(dateA) > parseInt(dateB)) {
+			return -1;
+		} else if (parseInt(dateA) < parseInt(dateB)) {
+			return 1;
+		} else {
+			return b[0] - a[0];
+		}
+	};
 
 	const getEvents = async () => {
 		const data = await axios
@@ -107,15 +111,19 @@ export default function BottomContent({ uri, mainColor, type }) {
 			setError(true);
 			setRefresh(false);
 		} else {
-			setItems(data.sort((a, b) => dataSort(a,b)));
+			setItems(data.sort((a, b) => dataSort(a, b)));
 			setRefresh(false);
-			let key = "@" + type
-			await AsyncStorage.setItem(key, JSON.stringify(items.length))
+			let key = "@" + type;
+			await AsyncStorage.setItem(key, JSON.stringify(items.length));
 		}
 	};
 	useEffect(() => {
 		getEvents();
-	}, [refresh]);
+		const unsubscribe = navigation.addListener("blur", (e) => {
+			setRefresh(true);
+		});
+		return unsubscribe;
+	}, [navigation, refresh]);
 
 	const ListContainer = styled.View`
 		display: flex;
@@ -186,22 +194,29 @@ export default function BottomContent({ uri, mainColor, type }) {
 				</ModalContainer>
 			</Modal>
 			{refresh === false ? (
-                items.map((value) => (
-                    <Item
+				items.map((value) => (
+					<Item
 						eventName={value[1]}
 						eventDesc={value[2]}
 						mainColor={mainColor}
-                      	key={value[0]}
+						key={value[0]}
 					/>
-                ))
+				))
 			) : (
-                <View style={{justifyContent: "center", alignContent: "center", alignItems: "center", marginTop: "50%"}}>
+				<View
+					style={{
+						justifyContent: "center",
+						alignContent: "center",
+						alignItems: "center",
+						marginTop: "50%",
+					}}
+				>
 					<ActivityIndicator
-					  style={{ textAlign: "center", alignSelf: "center" }}
+						style={{ textAlign: "center", alignSelf: "center" }}
 						size="large"
 						color="white"
 					/>
-                </View>
+				</View>
 			)}
 			<ClearFix />
 		</ListContainer>
