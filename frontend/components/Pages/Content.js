@@ -119,7 +119,7 @@ export default function BottomContent({ uri, mainColor, type }) {
 	};
 	useEffect(() => {
 		getEvents();
-		const unsubscribe = navigation.addListener("blur", (e) => {
+		const unsubscribe = navigation.addListener("focus", (e) => {
 			setRefresh(true);
 		});
 		return unsubscribe;

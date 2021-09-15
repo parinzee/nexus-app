@@ -94,7 +94,7 @@ export default function Main({ navigation }) {
 				})
 				.catch((err) => console.log(err.response.data));
 		}
-		const unsubscribe = navigation.addListener("blur", (e) => {
+		const unsubscribe = navigation.addListener("focus", (e) => {
 			setLoading(true);
 		});
 		getData();
