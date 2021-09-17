@@ -125,7 +125,7 @@ const MainTab = () => {
 				tabBarBackground: "rgb(50,50,50)",
 				floating: true,
 			}}
-			lazy={false}
+			lazy={true}
 		>
 			<Tab.Screen
 				name="Home"
