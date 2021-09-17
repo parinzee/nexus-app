@@ -152,7 +152,7 @@ const TeamColorWidget = ({ navigation }) => {
 };
 
 const NewsWidget = ({ navigation }) => {
-	const windowHeight = useWindowDimensions.height();
+	const windowHeight = useWindowDimensions().height;
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -251,7 +251,7 @@ const NewsWidget = ({ navigation }) => {
 };
 
 const EventsWidget = ({ navigation }) => {
-	const windowHeight = useWindowDimensions.height();
+	const windowHeight = useWindowDimensions().height;
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
