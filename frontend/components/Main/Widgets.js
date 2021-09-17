@@ -9,20 +9,20 @@ import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const dataSort = (a, b) => {
-	const [monthA, dateA] = a[2].split("--")[1].split("/")
-	const [monthB, dateB] = b[2].split("--")[1].split("/")
+	const [monthA, dateA] = a[2].split("--")[1].split("/");
+	const [monthB, dateB] = b[2].split("--")[1].split("/");
 	if (parseInt(monthA) > parseInt(monthB)) {
-		return -1
+		return -1;
 	} else if (parseInt(monthA) < parseInt(monthB)) {
-		return 1
+		return 1;
 	} else if (parseInt(dateA) > parseInt(dateB)) {
-		return -1
+		return -1;
 	} else if (parseInt(dateA) < parseInt(dateB)) {
-		return 1
+		return 1;
 	} else {
 		return b[0] - a[0];
 	}
-}
+};
 
 const TeamColorWidget = ({ navigation }) => {
 	const [item, setItem] = useState(null);
@@ -78,7 +78,7 @@ const TeamColorWidget = ({ navigation }) => {
 	const getEvents = async (isMounted) => {
 		const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 		const data = await axios
-			.get("http://nbcis.herokuapp.com/scores/")
+			.get("https://nbcis.herokuapp.com/scores/")
 			.then((response) => {
 				return response.data;
 			})
@@ -151,7 +151,7 @@ const NewsWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
 		const data = await axios
-			.get("http://nbcis.herokuapp.com/announcements/")
+			.get("https://nbcis.herokuapp.com/announcements/")
 			.then((response) => {
 				return response.data;
 			})
@@ -247,7 +247,7 @@ const EventsWidget = ({ navigation }) => {
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
 		const data = await axios
-			.get("http://nbcis.herokuapp.com/events/")
+			.get("https://nbcis.herokuapp.com/events/")
 			.then((response) => {
 				return response.data;
 			})
@@ -349,7 +349,7 @@ const GPAWidget = ({ navigation }) => {
 		width: ${moderateScale(320)}px;
 		height: ${verticalScale(60)}px;
 		margin-top: ${verticalScale(30)}px;
-		border-color: #45526C;
+		border-color: #45526c;
 		border-width: 3px;
 	`;
 
@@ -358,7 +358,7 @@ const GPAWidget = ({ navigation }) => {
 		flex-direction: column;
 		height: 100%;
 		width: 30%;
-		border-right-color: #45526C;
+		border-right-color: #45526c;
 		border-right-width: 3px;
 		justify-content: center;
 		align-items: center;
@@ -411,13 +411,13 @@ const GPAWidget = ({ navigation }) => {
 							title={`  ${GPA.toString()}`}
 							containerStyle={{
 								alignSelf: "center",
-                                borderRadius: 15,
+								borderRadius: 15,
 							}}
 							buttonStyle={{
 								backgroundColor: "#45526C",
-                                borderRadius: 15,
-                                borderColor: "white",
-                                borderWidth: 1,
+								borderRadius: 15,
+								borderColor: "white",
+								borderWidth: 1,
 							}}
 							titleStyle={{
 								fontSize: moderateScale(17),
@@ -431,7 +431,9 @@ const GPAWidget = ({ navigation }) => {
 								/>
 							}
 							onPress={() => {
-								navigation.navigate("Tools", {navigateTo: "Grade Calculator"});
+								navigation.navigate("Tools", {
+									navigateTo: "Grade Calculator",
+								});
 							}}
 							raised={true}
 						/>
@@ -440,19 +442,21 @@ const GPAWidget = ({ navigation }) => {
 							title="  Calculate Grade"
 							containerStyle={{
 								alignSelf: "center",
-                                borderRadius: 15,
+								borderRadius: 15,
 							}}
 							buttonStyle={{
 								backgroundColor: "#45526C",
-                                borderRadius: 15,
-                                borderColor: "white",
-                                borderWidth: 1,
+								borderRadius: 15,
+								borderColor: "white",
+								borderWidth: 1,
 							}}
 							titleStyle={{
 								color: "white",
 							}}
 							onPress={() => {
-								navigation.navigate("Tools", {navigateTo: "Grade Calculator"});
+								navigation.navigate("Tools", {
+									navigateTo: "Grade Calculator",
+								});
 							}}
 							icon={
 								<FontAwesome5
@@ -492,13 +496,12 @@ const TaskWidget = ({ navigation }) => {
 		color: white;
 	`;
 
-
 	const TitleContainer = styled.TouchableOpacity`
 		border-top-left-radius: 18px;
 		border-top-right-radius: 18px;
 		height: ${moderateScale(40)}px;
 		width: 100%;
-		border-bottom-color: #A0937D;
+		border-bottom-color: #a0937d;
 		border-bottom-width: 3px;
 		background-color: rgb(50, 50, 50);
 		margin-bottom: ${verticalScale(4)}px;
@@ -510,17 +513,23 @@ const TaskWidget = ({ navigation }) => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			<Container>
-              <TitleContainer onPress={() => {navigation.navigate("Tools", {navigateTo: "My Tasks"})}}>
-				<Title>My Tasks</Title>
-				<Title>+</Title>
-              </TitleContainer>
+				<TitleContainer
+					onPress={() => {
+						navigation.navigate("Tools", {
+							navigateTo: "My Tasks",
+						});
+					}}
+				>
+					<Title>My Tasks</Title>
+					<Title>+</Title>
+				</TitleContainer>
 				<Todo hideAdd={true} />
 			</Container>
 		</View>
 	);
 };
 
-const BibleVerseWidget = ({navigation}) => {
+const BibleVerseWidget = ({ navigation }) => {
 	const [verse, setVerse] = useState(null);
 
 	const Container = styled.TouchableOpacity`
@@ -550,7 +559,7 @@ const BibleVerseWidget = ({navigation}) => {
 
 	const getVerse = async (isMounted) => {
 		const data = await axios
-			.get("http://nbcis.herokuapp.com/verse/")
+			.get("https://nbcis.herokuapp.com/verse/")
 			.then((response) => {
 				return response.data;
 			})
@@ -575,7 +584,13 @@ const BibleVerseWidget = ({navigation}) => {
 	return (
 		<View style={{ alignSelf: "center" }}>
 			{verse != null ? (
-				<Container onPress={() => {navigation.navigate("Verse Of The Week", {verse: verse[0][1].split("--")[1]})}}>
+				<Container
+					onPress={() => {
+						navigation.navigate("Verse Of The Week", {
+							verse: verse[0][1].split("--")[1],
+						});
+					}}
+				>
 					<ImageBackground
 						source={require("../../assets/valley.jpg")}
 						style={{
@@ -583,7 +598,7 @@ const BibleVerseWidget = ({navigation}) => {
 							justifyContent: "center",
 							alignItems: "center",
 							paddingHorizontal: 10,
-                            paddingVertical: 10,
+							paddingVertical: 10,
 						}}
 						resizeMode="cover"
 						imageStyle={{ borderRadius: 15 }}
@@ -623,14 +638,14 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 						}}
 					/>
 				}
-              	indicatorStyle="white"
+				indicatorStyle="white"
 			>
-				<BibleVerseWidget navigation={navigation}/>
+				<BibleVerseWidget navigation={navigation} />
 				{teacher ? null : <GPAWidget navigation={navigation} />}
 				<TeamColorWidget navigation={navigation} />
 				<NewsWidget navigation={navigation} />
 				<EventsWidget navigation={navigation} />
-				<TaskWidget navigation={navigation}/>
+				<TaskWidget navigation={navigation} />
 				<ClearFix />
 			</AnotherContainer>
 		</Container>

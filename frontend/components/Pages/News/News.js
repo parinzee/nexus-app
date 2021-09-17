@@ -32,7 +32,7 @@ export default function News({}) {
 				indicatorStyle="white"
 			>
 				<Content
-					uri="http://nbcis.herokuapp.com/announcements/"
+					uri="https://nbcis.herokuapp.com/announcements/"
 					mainColor="#CC9B6D"
 					type="news"
 				/>

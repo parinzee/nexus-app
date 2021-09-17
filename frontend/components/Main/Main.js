@@ -86,7 +86,7 @@ export default function Main({ navigation }) {
 			setName(JSON.parse(await AsyncStorage.getItem("@name")));
 			setTeacher(JSON.parse(await AsyncStorage.getItem("@teacher")));
 			const yeet = await axios
-				.get("http://nbcis.herokuapp.com/")
+				.get("https://nbcis.herokuapp.com/")
 				.then((response) => {
 					return response.data;
 				})
@@ -108,7 +108,7 @@ export default function Main({ navigation }) {
 			const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 			const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
 			await axios
-				.post("http://nbcis.herokuapp.com/insertUser/", {
+				.post("https://nbcis.herokuapp.com/insertUser/", {
 					deviceID: deviceID,
 					name: name,
 					teamColor: teamColor,

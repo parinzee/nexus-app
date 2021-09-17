@@ -39,15 +39,15 @@ export default function Activities({}) {
 						onRefresh={forceUpdate}
 					/>
 				}
-                  indicatorStyle="white"
+				indicatorStyle="white"
 			>
 				<Scores
-					uri="http://nbcis.herokuapp.com/scores/"
+					uri="https://nbcis.herokuapp.com/scores/"
 					mainColor="#ff9151"
 				/>
 
 				<Content
-					uri="http://nbcis.herokuapp.com/events/"
+					uri="https://nbcis.herokuapp.com/events/"
 					mainColor="#5F939A"
 					type="activities"
 				/>
