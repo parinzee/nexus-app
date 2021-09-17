@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
-import { View, RefreshControl, ImageBackground } from "react-native";
+import {
+	View,
+	RefreshControl,
+	ImageBackground,
+	useWindowDimensions,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Todo from "../Pages/Tools/Todo";
@@ -147,6 +152,7 @@ const TeamColorWidget = ({ navigation }) => {
 };
 
 const NewsWidget = ({ navigation }) => {
+	const windowHeight = useWindowDimensions.height();
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -172,7 +178,9 @@ const NewsWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(120)}px;
+		height: ${windowHeight > 600
+			? verticalScale(120)
+			: verticalScale(150)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
@@ -243,6 +251,7 @@ const NewsWidget = ({ navigation }) => {
 };
 
 const EventsWidget = ({ navigation }) => {
+	const windowHeight = useWindowDimensions.height();
 	const [latestNews, setLatestNews] = useState(null);
 	const [refresh, setRefresh] = useState(true);
 	const getNews = async (isMounted) => {
@@ -268,7 +277,9 @@ const EventsWidget = ({ navigation }) => {
 		background-color: black;
 		border-radius: 20px;
 		width: ${moderateScale(320)}px;
-		height: ${verticalScale(120)}px;
+		height: ${windowHeight > 600
+			? verticalScale(120)
+			: verticalScale(150)}px;
 		margin-top: ${verticalScale(30)}px;
 		border-color: #f2e1c1;
 		border-width: 3px;
