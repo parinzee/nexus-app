@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import * as Notifications from "expo-notifications";
 import styled from "styled-components/native";
 import Header from "../Pages/Header";
 import WidgetsDashboard from "./Widgets";
@@ -6,6 +7,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ActivityIndicator, Modal } from "react-native";
 import { moderateScale } from "react-native-size-matters";
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: true,
+	}),
+});
+
+const requestNotificationsPermission = async () => {
+	const { status: existingStatus } =
+		await Notifications.getPermissionsAsync();
+	let finalStatus = existingStatus;
+	if (existingStatus !== "granted") {
+		const { status } = await Notifications.requestPermissionsAsync();
+		finalStatus = status;
+	}
+	if (finalStatus !== "granted") {
+		return false;
+	}
+	return true;
+};
 
 export default function Main({ navigation }) {
 	const [name, setName] = useState();
@@ -77,7 +100,7 @@ export default function Main({ navigation }) {
 				setError(true);
 			}
 		}
-		async function telemetry() {
+		async function telemetry(pushToken) {
 			const deviceID = JSON.parse(
 				await AsyncStorage.getItem("@deviceID")
 			);
@@ -89,16 +112,45 @@ export default function Main({ navigation }) {
 					deviceID: deviceID,
 					name: name,
 					teamColor: teamColor,
-					// pushToken,
+					pushToken: pushToken,
 					gpa: gpa,
 				})
 				.catch((err) => console.log(err.response.data));
+		}
+		async function notifications() {
+			const status = JSON.parse(
+				await AsyncStorage.getItem("@notifications")
+			);
+			if (status === null) {
+				const result = await requestNotificationsPermission();
+				if (result === false) {
+					await AsyncStorage.setItem(
+						"@notifications",
+						JSON.stringify(false)
+					);
+					telemetry(null);
+				} else {
+					await AsyncStorage.setItem(
+						"@notifications",
+						JSON.stringify(true)
+					);
+					const token = (await Notifications.getExpoPushTokenAsync())
+						.data;
+					telemetry(token);
+				}
+			} else if (status === true) {
+				const token = (await Notifications.getExpoPushTokenAsync())
+					.data;
+				telemetry(token);
+			} else {
+				telemetry(null);
+			}
 		}
 		const unsubscribe = navigation.addListener("focus", (e) => {
 			setLoading(true);
 		});
 		getData();
-		telemetry();
+		notifications();
 		return unsubscribe;
 	}, [navigation, loading]);
 	return (

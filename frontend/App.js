@@ -13,7 +13,6 @@ import {
 	Comfortaa_700Bold,
 } from "@expo-google-fonts/comfortaa";
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
-import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import { NavigationContainer } from "@react-navigation/native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
@@ -47,52 +46,16 @@ const Stack = createStackNavigator();
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
-const BACKGROUND_FETCH_TASK = "background-fetch";
-TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-	const getLength = async (url) => {
-		const data = await axios
-			.get(url)
-			.then((response) => {
-				return response.data;
-			})
-			.catch(() => {
-				return false;
-			});
-		if (data === false) {
-			return Promise.resolve(null);
-		} else {
-			return Promise.resolve(data.length);
-		}
-	};
+const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
-	const lengthNews = JSON.parse(await AsyncStorage.getItem("@news"));
-	const lengthActivities = JSON.parse(
-		await AsyncStorage.getItem("@activities")
-	);
-
-	const newLengthNews = await getLength(
-		"http://nbcis.herokuapp.com/announcements/"
-	);
-	const newLengthActivities = await getLength(
-		"http://nbcis.herokuapp.com/events/"
-	);
-
-	if (newLength === null || newLengthActivities === null) {
-		return BackgroundFetch.Result.NewData;
+TaskManager.defineTask(
+	BACKGROUND_NOTIFICATION_TASK,
+	({ data, error, executionInfo }) => {
+		console.log("Notification Received");
 	}
+);
 
-	if (
-		lengthNews != newLengthNews ||
-		lengthActivities != newLengthActivities
-	) {
-		await Notifications.presentLocalNotificationAsync({
-			title: "News!",
-			body: "There are new news available on Nexus!",
-		});
-	}
-
-	return BackgroundFetch.Result.NewData;
-});
+Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	const progress = Animated.add(
