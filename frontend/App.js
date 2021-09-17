@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import AppLoading from "expo-app-loading";
 import * as Notifications from "expo-notifications";
+import * as Linking from "expo-linking";
 import {
 	useFonts,
 	OpenSans_800ExtraBold,
@@ -47,6 +48,7 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
+const prefix = Linking.createURL("/");
 
 TaskManager.defineTask(
 	BACKGROUND_NOTIFICATION_TASK,
@@ -162,6 +164,10 @@ const MainTab = () => {
 };
 
 export default function App() {
+	const linking = {
+		prefixes: [prefix],
+	};
+
 	const [loading, setLoading] = useState(true);
 	const [firstTime, setFirstTime] = useState();
 
@@ -225,9 +231,9 @@ export default function App() {
 		);
 	} else {
 		return (
-			<NavigationContainer>
+			<NavigationContainer linking={linking}>
 				<Stack.Navigator
-					initialRouteName={firstTime ? "Screen1" : "Home"}
+					initialRouteName={firstTime ? "Screen1" : "MainTab"}
 					detachInactiveScreens={true}
 					screenOptions={{
 						headerStyle: {
@@ -264,7 +270,7 @@ export default function App() {
 						options={{ headerShown: false }}
 					/>
 					<Stack.Screen
-						name="Home"
+						name="MainTab"
 						component={MainTab}
 						options={{ headerShown: false }}
 					/>
