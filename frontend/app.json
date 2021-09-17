@@ -6,7 +6,7 @@
 		"scheme": "nexus",
 		"description": "This is official app from the BCIS student council. This app was made for checking news and updates from the student council.",
 		"privacy": "public",
-		"version": "1.2.3",
+		"version": "1.2.4",
 		"icon": "./assets/icon.png",
 		"backgroundColor": "#121212",
 		"primaryColor": "#121212",
@@ -21,7 +21,7 @@
 		"assetBundlePatterns": ["assets/*", "assets/fonts/*"],
 		"ios": {
 			"supportsTablet": true,
-			"buildNumber": "1.2.3",
+			"buildNumber": "1.2.4",
 			"bundleIdentifier": "com.parin.nexus",
 			"infoPlist": {
 				"UIBackgroundModes": [
@@ -31,7 +31,7 @@
 		},
 		"android": {
 			"package": "com.parin.nexus",
-			"versionCode": 3 
+			"versionCode": 4
 		},
 		"web": {
 			"favicon": "./assets/adaptive-icon.png"
