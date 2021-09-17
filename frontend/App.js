@@ -47,13 +47,29 @@ const Stack = createStackNavigator();
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
+const handleNewNotification = async (data) => {
+	try {
+		// const newNotification = {
+		// 	id: notificationObject.messageId,
+		// 	date: notificationObject.sentTime,
+		// 	title: notificationObject.data.title,
+		// 	body: notificationObject.data.message,
+		// 	data: JSON.parse(notificationObject.data.body),
+		// };
+		Linking.openURL(prefix + data.Link);
+		await Notifications.setBadgeCountAsync(1);
+	} catch (error) {
+		console.error(error);
+	}
+};
+
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 const prefix = Linking.createURL("/");
 
 TaskManager.defineTask(
 	BACKGROUND_NOTIFICATION_TASK,
 	({ data, error, executionInfo }) => {
-		console.log("Notification Received");
+		handleNewNotification(data.notification.data);
 	}
 );
 
@@ -197,6 +213,9 @@ export default function App() {
 	};
 
 	useEffect(() => {
+		Notifications.addNotificationResponseReceivedListener((response) => {
+			handleNewNotification(response.notification.request.content.data);
+		});
 		async function genDeviceID() {
 			const deviceID = await AsyncStorage.getItem("@deviceID");
 			if (deviceID === null) {
