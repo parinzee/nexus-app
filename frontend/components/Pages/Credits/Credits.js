@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
+import { Button } from "react-native-elements";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Credits() {
 	const Container = styled.View`
@@ -8,7 +10,8 @@ export default function Credits() {
 		flex-direction: column;
 		background-color: #121212;
 	`;
-const Title = styled.Text` color: white;
+	const Title = styled.Text`
+		color: white;
 		font-family: System;
 		font-size: ${moderateScale(20)}px;
 		margin-top: ${verticalScale(15)}px;
@@ -68,6 +71,12 @@ const Title = styled.Text` color: white;
 				<FrontText>Special Thanks</FrontText>
 				<BackText>NEXUS Members</BackText>
 			</InfoTextContainer>
+			<Button
+				title="Reset Data"
+				type="outline"
+				onPress={() => AsyncStorage.clear()}
+				containerStyle={{ marginTop: 100, paddingHorizontal: 20 }}
+			/>
 		</Container>
 	);
 }
