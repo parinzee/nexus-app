@@ -1,11 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from notificationSender import send_message
 from sqlwrapper import (
     insertItem,
     insertScore,
     insertBibleVerse,
     insertUser,
+    listPushTokens,
     listUsers,
     listItems,
     deleteItem,
@@ -36,9 +38,23 @@ class user(BaseModel):
     gpa: float = None
 
 
+@app.post("/pushNotification/")
+async def push(token: str, title: str, message: str):
+    send_message(token, title, message, data=None)
+    return "Success"
+
+
+@app.post("/pushNotificationAll/")
+async def pushall(title: str, message: str):
+    send_message(listPushTokens(), title, message, data=None)
+    return "Success"
+
+
 @app.post("/insertItem/")
-async def insert(eventName: str, eventDesc: str, itemType: itemTypes):
+async def insert(eventName: str, eventDesc: str, itemType: itemTypes, notify: bool):
     insertItem(eventName, eventDesc, itemType.value)
+    if notify:
+        send_message(listPushTokens(), eventName, eventDesc.split("--")[0], data=None)
     return "Success"
 
 

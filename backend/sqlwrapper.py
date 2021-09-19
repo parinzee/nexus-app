@@ -96,11 +96,35 @@ def listUsers():
 
     cur.execute("SELECT * FROM users")
 
-    users = cur.fetchall()
+    tokens = cur.fetchall()
     db.commit()
     cur.close()
     db.close()
-    return users
+    return tokens
+
+
+def listPushTokens():
+    db = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cur = db.cursor()
+
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS users(
+        deviceID text NOT NULL,
+        name text NOT NULL,
+        teamColor text NOT NULL,
+        pushToken text,
+        gpa float,
+        UNIQUE(deviceID)
+        );"""
+    )
+
+    cur.execute("SELECT pushToken FROM users")
+
+    pushTokens = list(map(lambda x: x[0], cur.fetchall()))
+    db.commit()
+    cur.close()
+    db.close()
+    return pushTokens
 
 
 def listItems(itemType: str):
@@ -257,6 +281,7 @@ def deleteItem(index: str, itemType: str):
     cur.close()
     db.close()
 
+
 def deleteUser(deviceID: str):
     db = psycopg2.connect(DATABASE_URL, sslmode="require")
     cur = db.cursor()
@@ -273,9 +298,7 @@ def deleteUser(deviceID: str):
     )
 
     # Fix by creating device key
-    cur.execute(
-        "DELETE FROM users WHERE deviceID=%s", [deviceID]
-    )
+    cur.execute("DELETE FROM users WHERE deviceID=%s", [deviceID])
 
     db.commit()
     cur.close()
