@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Header from "../Header";
+import * as Notifications from "expo-notifications";
 import { LogBox, RefreshControl } from "react-native";
 import Scores from "./Scores";
 import Content from "../Content";
@@ -23,8 +24,13 @@ export default function Activities({}) {
 
 	const forceUpdate = useForceUpdate();
 
+	const resetNotificationBadgeCount = async () => {
+		await Notifications.setBadgeCountAsync(0);
+	};
+
 	useEffect(() => {
 		LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+		resetNotificationBadgeCount();
 	}, []);
 
 	return (

@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components/native";
 import Header from "../Header";
 import Content from "../Content";
 import { ScrollView, RefreshControl } from "react-native";
+import * as Notifications from "expo-notifications";
 
 export default function News({}) {
 	const [, updateState] = useState();
@@ -11,6 +12,14 @@ export default function News({}) {
 		flex: 1;
 		background-color: #121212;
 	`;
+
+	const resetNotificationBadgeCount = async () => {
+		await Notifications.setBadgeCountAsync(0);
+	};
+
+	useEffect(() => {
+		resetNotificationBadgeCount();
+	});
 
 	return (
 		<Container>
