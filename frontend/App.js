@@ -291,7 +291,11 @@ export default function App() {
 					<Stack.Screen
 						name="MainTab"
 						component={MainTab}
-						options={{ headerShown: false }}
+						options={{
+							headerShown: false,
+							title: "Home",
+							headerTitle: "Home",
+						}}
 					/>
 					<Stack.Screen
 						name="Verse Of The Week"
