@@ -121,6 +121,18 @@ export default function Main({ navigation }) {
 			const status = JSON.parse(
 				await AsyncStorage.getItem("@notifications")
 			);
+			const settings = await Notifications.getPermissionsAsync();
+			if (
+				settings.granted === true ||
+				settings.ios?.status ===
+					Notifications.IosAuthorizationStatus.PROVISIONAL ||
+				settings.ios?.status ===
+					Notifications.IosAuthorizationStatus.AUTHORIZED ||
+				settings.ios?.status ===
+					Notifications.IosAuthorizationStatus.EPHEMERAL
+			) {
+				const allowedNotifs = true;
+			}
 			if (status === null) {
 				const result = await requestNotificationsPermission();
 				if (result === false) {
@@ -138,7 +150,11 @@ export default function Main({ navigation }) {
 						.data;
 					telemetry(token);
 				}
-			} else if (status === true) {
+			} else if (status === true || allowedNotifs === true) {
+				await AsyncStorage.setItem(
+					"@notifications",
+					JSON.stringify(true)
+				);
 				const token = (await Notifications.getExpoPushTokenAsync())
 					.data;
 				telemetry(token);
