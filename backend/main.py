@@ -39,8 +39,14 @@ class user(BaseModel):
 
 
 @app.post("/pushNotification/")
-async def push(token: str, title: str, message: str):
-    send_message(token, title, message, data=None)
+async def push(token: str, title: str, message: str, itemType: itemTypes = None):
+    if itemType == itemTypes.ANNOUNCEMENTS:
+        page = {"Link": "MainTab/News"}
+    elif itemType == itemTypes.EVENTS:
+        page = {"Link": "MainTab/Team Color"}
+    else:
+        page = None
+    send_message(token, title, message, data=page)
     return "Success"
 
 
@@ -54,7 +60,11 @@ async def pushall(title: str, message: str):
 async def insert(eventName: str, eventDesc: str, itemType: itemTypes, notify: bool):
     insertItem(eventName, eventDesc, itemType.value)
     if notify:
-        send_message(listPushTokens(), eventName, eventDesc.split("--")[0], data=None)
+        if itemType == itemTypes.ANNOUNCEMENTS:
+            page = {"Link": "MainTab/News"}
+        else:
+            page = {"Link": "MainTab/Team Color"}
+        send_message(listPushTokens(), eventName, eventDesc.split("--")[0], data=page)
     return "Success"
 
 
