@@ -120,7 +120,7 @@ def listPushTokens():
 
     cur.execute("SELECT pushToken FROM users")
 
-    pushTokens = list(map(lambda x: x[0], cur.fetchall()))
+    pushTokens = list(filter(None, list(map(lambda x: x[0], cur.fetchall()))))
     db.commit()
     cur.close()
     db.close()
