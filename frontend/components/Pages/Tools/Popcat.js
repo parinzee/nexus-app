@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Pressable } from "react-native";
 import styled from "styled-components/native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export default function PopCat() {
 	const [clicked, setClicked] = useState(false);
-	const image = [
+	const imgsrc = [
 		require("../../../assets/Cat-Closed.png"),
 		require("../../../assets/Cat-Open.png"),
 	];
@@ -21,9 +22,29 @@ export default function PopCat() {
 		width: ${moderateScale(400)}px;
 	`;
 
+	const onPress = () => {
+		setClicked(true);
+		setTimeout(() => {
+			setClicked(false);
+		}, 30);
+	};
+
+	const onLongPress = () => {
+		setClicked(true);
+		setTimeout(() => {
+			setClicked(false);
+		}, 500);
+	};
+
 	return (
 		<Container>
-			<Cat source={clicked === false ? image[0] : image[1]} />
+			<Pressable
+				onPress={onPress}
+				onLongPress={onLongPress}
+				delayLongPress={200}
+			>
+				<Cat source={clicked === false ? imgsrc[0] : imgsrc[1]} />
+			</Pressable>
 		</Container>
 	);
 }
