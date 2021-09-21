@@ -28,6 +28,7 @@ import Screen2 from "./components/FirstTime/Screen2";
 import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import GPA4 from "./components/Pages/Tools/GPA4";
+import PopCat from "./components/Pages/Tools/Popcat";
 import Todo from "./components/Pages/Tools/Todo";
 import Clicker from "./components/Pages/Tools/Clicker";
 import TicTacToe from "./components/Pages/Tools/TicTacToe";
@@ -125,7 +126,7 @@ const MainTab = () => {
 				tabBarBackground: "rgb(50,50,50)",
 				floating: true,
 			}}
-			lazy={true}
+			lazy={false}
 		>
 			<Tab.Screen
 				name="Home"
@@ -198,11 +199,12 @@ export default function App() {
 	});
 
 	const fetchImages = () => {
-		axios.get("https://nbcis.herokuapp.com/");
 		const images = [
 			require("./assets/nexus-logo.png"),
 			require("./assets/valley.jpg"),
 			require("./assets/click.mp3"),
+			require("./assets/Cat-Open.png"),
+			require("./assets/Cat-Closed.png"),
 		];
 
 		const cacheImages = images.map((image) => {
@@ -305,6 +307,13 @@ export default function App() {
 					<Stack.Screen
 						name="Grade Calculator"
 						component={GPA4}
+						options={{
+							headerShown: true,
+						}}
+					/>
+					<Stack.Screen
+						name="PopCat"
+						component={PopCat}
 						options={{
 							headerShown: true,
 						}}

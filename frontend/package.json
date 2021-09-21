@@ -38,6 +38,7 @@
     "react-native-dropdown-picker": "^5.1.21",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-reanimated": "~2.2.0",
     "react-native-render-html": "^6.0.4",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",

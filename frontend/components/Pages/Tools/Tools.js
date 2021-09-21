@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ListItem, Button } from "react-native-elements";
+import { ListItem } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import Header from "../Header";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 
 export default function Tools({ navigation, route }) {
-    try {
-		const {navigateTo} = route.params
-		setTimeout(() => {navigation.navigate(navigateTo, { grade, honors })}, 400)
-    } catch {}
+	try {
+		const { navigateTo } = route.params;
+		setTimeout(() => {
+			navigation.navigate(navigateTo, { grade, honors });
+		}, 400);
+	} catch {}
 	const [grade, setGrade] = useState(0);
 	const [honors, setHonors] = useState(false);
 	const Destinations = [
@@ -25,6 +28,19 @@ export default function Tools({ navigation, route }) {
 				/>
 			),
 			destination: "Grade Calculator",
+			gradient: false,
+		},
+		{
+			title: "Popcat Event 🏆",
+			icon: (
+				<FontAwesome5
+					name="cat"
+					size={moderateScale(24)}
+					color="white"
+				/>
+			),
+			destination: "PopCat",
+			gradient: true,
 		},
 		{
 			title: "My Tasks",
@@ -36,6 +52,7 @@ export default function Tools({ navigation, route }) {
 				/>
 			),
 			destination: "My Tasks",
+			gradient: false,
 		},
 		{
 			title: "Tic Tac Toe",
@@ -47,6 +64,7 @@ export default function Tools({ navigation, route }) {
 				/>
 			),
 			destination: "Tic Tac Toe",
+			gradient: false,
 		},
 		{
 			title: "Clicker (Stress Reliever)",
@@ -58,8 +76,9 @@ export default function Tools({ navigation, route }) {
 				/>
 			),
 			destination: "Clicker",
+			gradient: false,
 		},
-        {
+		{
 			title: "Contact Us",
 			icon: (
 				<FontAwesome5
@@ -69,7 +88,8 @@ export default function Tools({ navigation, route }) {
 				/>
 			),
 			destination: "Contact Us",
-        }
+			gradient: false,
+		},
 	];
 	const Container = styled.View`
 		flex: 1;
@@ -92,27 +112,50 @@ export default function Tools({ navigation, route }) {
 		<Container>
 			<Header text="Tools" fontSize="35" />
 			<BottomContainer>
-				{Destinations.map(({ title, icon, destination }) => (
+				{Destinations.map(({ title, icon, destination, gradient }) => (
 					<TouchableOpacity
-						onPress={() =>
-							{navigation.navigate(destination, { grade, honors })}
-						}
+						onPress={() => {
+							navigation.navigate(destination, { grade, honors });
+						}}
 						key={title}
 					>
-						<ListItem
-							bottomDivider
-							containerStyle={{
-								backgroundColor: "#121212",
-							}}
-						>
-							{icon}
-							<ListItem.Content>
-								<ListItem.Title style={{ color: "white" }}>
-									{title}
-								</ListItem.Title>
-							</ListItem.Content>
-							<ListItem.Chevron />
-						</ListItem>
+						{gradient ? (
+							<ListItem
+								bottomDivider
+								containerStyle={{
+									backgroundColor: "#121212",
+								}}
+								linearGradientProps={{
+									colors: ["#FF9800", "#F44336"],
+									start: { x: 1, y: 0 },
+									end: { x: 0.2, y: 0 },
+								}}
+								ViewComponent={LinearGradient}
+							>
+								{icon}
+								<ListItem.Content>
+									<ListItem.Title style={{ color: "white" }}>
+										{title}
+									</ListItem.Title>
+								</ListItem.Content>
+								<ListItem.Chevron />
+							</ListItem>
+						) : (
+							<ListItem
+								bottomDivider
+								containerStyle={{
+									backgroundColor: "#121212",
+								}}
+							>
+								{icon}
+								<ListItem.Content>
+									<ListItem.Title style={{ color: "white" }}>
+										{title}
+									</ListItem.Title>
+								</ListItem.Content>
+								<ListItem.Chevron />
+							</ListItem>
+						)}
 					</TouchableOpacity>
 				))}
 			</BottomContainer>
