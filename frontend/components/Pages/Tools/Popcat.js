@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {
+	useEffect,
+	useState,
+	useCallback,
+	useMemo,
+	useRef,
+} from "react";
 import styled from "styled-components/native";
 import { moderateScale } from "react-native-size-matters";
 import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 export default function PopCat() {
 	const Container = styled.View`
@@ -15,6 +22,7 @@ export default function PopCat() {
 	return (
 		<Container>
 			<Cat />
+			<LeaderBoard />
 		</Container>
 	);
 }
@@ -105,4 +113,15 @@ function Counter({ clicks }) {
 	}, [clicks]);
 
 	return <CounterText>{clicks}</CounterText>;
+}
+
+function LeaderBoard() {
+	const snapPoints = useMemo(() => ["15%", "60%"], []);
+	return (
+		<BottomSheet
+			index={0}
+			snapPoints={snapPoints}
+			backgroundStyle={{ backgroundColor: "#252525" }}
+		></BottomSheet>
+	);
 }
