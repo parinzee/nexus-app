@@ -1,10 +1,4 @@
-import React, {
-	useEffect,
-	useState,
-	useCallback,
-	useMemo,
-	useRef,
-} from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components/native";
 import { moderateScale } from "react-native-size-matters";
 import { Audio } from "expo-av";
@@ -12,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 export default function PopCat() {
+	var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -21,13 +16,13 @@ export default function PopCat() {
 
 	return (
 		<Container>
-			<Cat />
+			<Cat WS={WS} />
 			<LeaderBoard />
 		</Container>
 	);
 }
 
-function Cat() {
+function Cat({ WS }) {
 	const [clicked, setClicked] = useState(false);
 	const [clicks, setClicks] = useState(0);
 	const imgsrc = [
@@ -86,13 +81,13 @@ function Cat() {
 			onLongPress={onLongPress}
 			delayLongPress={200}
 		>
-			<Counter clicks={clicks} setClicks={setClicks} />
+			<Counter clicks={clicks} WS={WS} />
 			<Cat source={clicked === false ? imgsrc[0] : imgsrc[1]} />
 		</Pressable>
 	);
 }
 
-function Counter({ clicks }) {
+function Counter({ clicks, WS }) {
 	const CounterText = styled.Text`
 		font-family: System;
 		font-size: ${moderateScale(50)}px;
@@ -104,6 +99,15 @@ function Counter({ clicks }) {
 
 	const updateCounts = async () => {
 		if (clicks != 0) {
+			try {
+				WS.send(
+					JSON.stringify({
+						name: JSON.parse(await AsyncStorage.getItem("@name")),
+						team: JSON.parse(await AsyncStorage.getItem("@team")),
+						clicks: clicks,
+					})
+				);
+			} catch {}
 			await AsyncStorage.setItem("@popcat", JSON.stringify(clicks));
 		}
 	};
@@ -116,7 +120,7 @@ function Counter({ clicks }) {
 }
 
 function LeaderBoard() {
-	const snapPoints = useMemo(() => ["15%", "60%"], []);
+	const snapPoints = useMemo(() => ["15%", "70%"], []);
 	return (
 		<BottomSheet
 			index={0}
