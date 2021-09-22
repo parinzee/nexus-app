@@ -11,6 +11,7 @@
     "@expo-google-fonts/comfortaa": "^0.2.0",
     "@expo-google-fonts/open-sans": "^0.1.0",
     "@expo/vector-icons": "^12.0.0",
+    "@gorhom/bottom-sheet": "^4",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.11",

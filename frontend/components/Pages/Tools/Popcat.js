@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { moderateScale } from "react-native-size-matters";
 import { Audio } from "expo-av";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PopCat() {
 	const Container = styled.View`
@@ -60,13 +61,24 @@ function Cat() {
 		}, 400);
 	};
 
+	const loadCounts = async () => {
+		const counts = JSON.parse(await AsyncStorage.getItem("@popcat"));
+		if (counts != null) {
+			setClicks(counts);
+		}
+	};
+
+	useEffect(() => {
+		loadCounts();
+	}, []);
+
 	return (
 		<Pressable
 			onPress={onPress}
 			onLongPress={onLongPress}
 			delayLongPress={200}
 		>
-			<Counter clicks={clicks} />
+			<Counter clicks={clicks} setClicks={setClicks} />
 			<Cat source={clicked === false ? imgsrc[0] : imgsrc[1]} />
 		</Pressable>
 	);
@@ -78,7 +90,19 @@ function Counter({ clicks }) {
 		font-size: ${moderateScale(50)}px;
 		color: white;
 		text-align: center;
+		margin-top: -100px;
+		margin-bottom: -20px;
 	`;
+
+	const updateCounts = async () => {
+		if (clicks != 0) {
+			await AsyncStorage.setItem("@popcat", JSON.stringify(clicks));
+		}
+	};
+
+	useEffect(() => {
+		updateCounts();
+	}, [clicks]);
 
 	return <CounterText>{clicks}</CounterText>;
 }
