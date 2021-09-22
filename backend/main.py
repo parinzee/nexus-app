@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from pydantic import BaseModel
 from notificationSender import send_message
 from sqlwrapper import (
@@ -133,6 +133,14 @@ async def listverse():
 @app.get("/")
 async def listItem():
     return {"Clicker": False}
+
+
+@app.websocket("/popcat/")
+async def socket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_json()
+        print(data)
 
 
 if __name__ == "__main__":
