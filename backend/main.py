@@ -164,7 +164,7 @@ async def socket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
-            increment_score(data)
+            await increment_score(data)
             # ConnMan Broadcast
     except WebSocketDisconnect:
         ConnMan.disconnect(websocket)
