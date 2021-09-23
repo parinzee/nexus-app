@@ -19,7 +19,7 @@ def increment_score(data: dict):
         data
     )
     # Only run these if clicks are divisible by 2 to not stress out redis
-    if float(clicks) % 3 == 0:
+    if int(clicks) % 3 == 0:
         # First increment the team, then add individual scores
         r.zincrby("teams", float(clicks), team)
         r.zadd("individual", {f"{deviceID}:{name}": float(clicks)})
