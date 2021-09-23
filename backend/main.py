@@ -1,20 +1,23 @@
+from enum import Enum
+from typing import List
+
 import uvicorn
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
+
 from notificationSender import send_message
+from rediswrapper import increment_score
 from sqlwrapper import (
-    insertItem,
-    insertScore,
-    insertBibleVerse,
-    insertUser,
-    listPushTokens,
-    listUsers,
-    listItems,
     deleteItem,
     deleteUser,
+    insertBibleVerse,
+    insertItem,
+    insertScore,
+    insertUser,
+    listItems,
+    listPushTokens,
+    listUsers,
 )
-from enum import Enum
-from typing import List
 
 app = FastAPI()
 
@@ -161,6 +164,7 @@ async def socket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
+            increment_score(data)
             # ConnMan Broadcast
     except WebSocketDisconnect:
         ConnMan.disconnect(websocket)
