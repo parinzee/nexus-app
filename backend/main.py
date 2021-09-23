@@ -6,7 +6,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 
 from notificationSender import send_message
-from rediswrapper import increment_score
+from rediswrapper import get_leaderboard, increment_score
 from sqlwrapper import (
     deleteItem,
     deleteUser,
@@ -53,9 +53,9 @@ class ConnectionManager:
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
 
-    async def broadcast(self, message: str):
+    async def broadcast(self, message: dict):
         for connection in self.active_connections:
-            await connection.send_text(message)
+            await connection.send_json(message)
 
 
 ConnMan = ConnectionManager()
@@ -159,14 +159,23 @@ async def listItem():
 
 
 @app.websocket("/popcat/")
-async def socket_endpoint(websocket: WebSocket):
-    await ConnMan.connect(websocket)
+async def popcat_ws(websocket: WebSocket):
+    await websocket.accept(websocket)
     try:
         while True:
             data = await websocket.receive_json()
             await increment_score(data)
-            # ConnMan Broadcast
     except WebSocketDisconnect:
+        pass
+
+
+@app.websocket("/popcat_leaderboard/")
+async def leaderboard_ws(websocket: WebSocket):
+    await ConnMan.connect(websocket)
+    try:
+        while True:
+            await ConnMan.broadcast(await get_leaderboard())
+    except:
         ConnMan.disconnect(websocket)
 
 

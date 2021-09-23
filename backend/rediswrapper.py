@@ -1,8 +1,19 @@
 import os
 import aioredis
+from urllib.parse import urlparse
 from operator import itemgetter
 
-r = aioredis.from_url(os.environ.get("REDIS_URL"))
+
+url = urlparse(os.environ.get("REDIS_URL"))
+r = aioredis.Redis(
+    host=url.hostname,
+    port=url.port,
+    username=url.username,
+    password=url.password,
+    ssl=True,
+    ssl_cert_reqs=None,
+    decode_responses=True,
+)
 
 
 async def increment_score(data: dict):
@@ -12,3 +23,10 @@ async def increment_score(data: dict):
     if int(clicks) % 3 == 0:
         await r.zincrby("teams", 3, team)
         await r.zadd("individual", {f"{deviceID}:{name}": float(clicks)})
+
+
+async def get_leaderboard():
+    teamLeaderboard = await r.zrange("teams", 0, -1, True, True)
+    individualLeaderboard = await r.zrange("individual", 0, -1, True, True)
+
+    return {"t": teamLeaderboard, "i": individualLeaderboard}
