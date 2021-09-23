@@ -15,9 +15,11 @@ r = redis.Redis(
 
 
 def increment_score(data: dict):
-    deviceID, team, clicks = itemgetter("deviceID", "team", "clicks")(data)
+    deviceID, name, team, clicks = itemgetter("deviceID", "name", "team", "clicks")(
+        data
+    )
     # Only run these if clicks are divisible by 2 to not stress out redis
     if clicks % 2 == 0:
         # First increment the team, then add individual scores
         r.zincrby("teams", clicks, team)
-        r.zadd("individual", {deviceID: clicks})
+        r.zadd("individual", {f"{deviceID}:{name}": clicks})
