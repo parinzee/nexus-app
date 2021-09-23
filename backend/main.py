@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from notificationSender import send_message
 from sqlwrapper import (
@@ -14,6 +14,7 @@ from sqlwrapper import (
     deleteUser,
 )
 from enum import Enum
+from typing import List
 
 app = FastAPI()
 
@@ -36,6 +37,25 @@ class user(BaseModel):
     teamColor: teamColors
     pushToken: str = None
     gpa: float = None
+
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: str):
+        for connection in self.active_connections:
+            await connection.send_text(message)
+
+
+ConnMan = ConnectionManager()
 
 
 @app.post("/pushNotification/")
@@ -137,10 +157,13 @@ async def listItem():
 
 @app.websocket("/popcat/")
 async def socket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_json()
-        print(data)
+    await ConnMan.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_json()
+            # ConnMan Broadcast
+    except WebSocketDisconnect:
+        ConnMan.disconnect(websocket)
 
 
 if __name__ == "__main__":
