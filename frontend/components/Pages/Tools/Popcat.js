@@ -102,6 +102,9 @@ function Counter({ clicks, WS }) {
 			try {
 				WS.send(
 					JSON.stringify({
+						deviceID: JSON.parse(
+							await AsyncStorage.getItem("@deviceID")
+						),
 						name: JSON.parse(await AsyncStorage.getItem("@name")),
 						team: JSON.parse(await AsyncStorage.getItem("@team")),
 						clicks: clicks,
