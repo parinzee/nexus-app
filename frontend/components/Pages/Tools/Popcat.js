@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components/native";
-import { moderateScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Tab = createMaterialTopTabNavigator();
+var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
 
 export default function PopCat() {
-	var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -17,7 +22,7 @@ export default function PopCat() {
 	return (
 		<Container>
 			<Cat WS={WS} />
-			<LeaderBoard />
+			<LeaderBoard WS={WS} />
 		</Container>
 	);
 }
@@ -129,6 +134,143 @@ function LeaderBoard() {
 			index={0}
 			snapPoints={snapPoints}
 			backgroundStyle={{ backgroundColor: "#252525" }}
-		></BottomSheet>
+		>
+			<LeaderBoard_Tabs />
+		</BottomSheet>
+	);
+}
+
+function Item({ index, name, score }) {
+	const Container = styled.View`
+		background-color: #f2e1c1;
+		display: flex;
+		border-radius: 10px;
+		width: ${moderateScale(320)}px;
+		height: ${moderateScale(46)}px;
+		margin-top: ${verticalScale(14)}px;
+		padding: 5px;
+		justify-content: center;
+		align-content: center;
+		align-self: center;
+	`;
+
+	const InnerContainer = styled.View`
+		display: flex;
+		flex-direction: row;
+		border-radius: 10px;
+		width: ${moderateScale(314)}px;
+		height: ${moderateScale(40)}px;
+		padding: 5px;
+		background-color: teal;
+		padding-right: 30px;
+		padding-left: 10px;
+		align-self: center;
+		justify-content: space-between;
+	`;
+
+	const TitleText = styled.Text`
+		color: black;
+		font-size: ${moderateScale(17)}px;
+		font-family: System;
+		font-weight: bold;
+		margin-left: 10px;
+		align-self: center;
+	`;
+
+	const SubtitleText = styled.Text`
+		color: black;
+		font-size: ${moderateScale(17)}px;
+		font-family: System;
+		font-weight: bold;
+		margin-left: 10px;
+		align-self: center;
+	`;
+
+	return (
+		<Container>
+			<InnerContainer>
+				<TitleText>
+					{`${index}. `} {name}
+				</TitleText>
+				<SubtitleText>{score} pt</SubtitleText>
+			</InnerContainer>
+		</Container>
+	);
+}
+
+function IndividualTab() {
+	const [leaderboard, setLeaderboard] = useState({});
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		WS.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			setLeaderboard(data);
+			if (loading != false) {
+				setLoading(false);
+			}
+		};
+	}, []);
+	return leaderboard != {} ? (
+		<BottomSheetFlatList
+			data={leaderboard.i}
+			renderItem={({ item, index }) => (
+				<Item index={index + 1} name={item[0]} score={item[1]} />
+			)}
+			keyExtractor={(items, index) => {
+				return index.toString();
+			}}
+			scrollEnabled={true}
+		/>
+	) : (
+		<View></View>
+	);
+}
+
+function TeamTab() {
+	const [leaderboard, setLeaderboard] = useState({});
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		WS.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			setLeaderboard(data);
+			if (loading != false) {
+				setLoading(false);
+			}
+		};
+	}, []);
+	return leaderboard != {} ? (
+		<BottomSheetFlatList
+			data={leaderboard.t}
+			renderItem={({ item, index }) => (
+				<Item index={index + 1} name={item[0]} score={item[1]} />
+			)}
+			keyExtractor={(items, index) => {
+				return index.toString();
+			}}
+			scrollEnabled={true}
+			style={{
+				backgroundColor: "#252525",
+			}}
+		/>
+	) : (
+		<View></View>
+	);
+}
+
+function LeaderBoard_Tabs() {
+	return (
+		<NavigationContainer independent={true}>
+			<Tab.Navigator
+				screenOptions={{ safeAreaInsets: { top: 0 } }}
+				tabBarOptions={{
+					indicatorStyle: { backgroundColor: "white" },
+					style: { backgroundColor: "#252525" },
+					labelStyle: { color: "white" },
+				}}
+			>
+				<Tab.Screen name="Individual" component={IndividualTab} />
+				<Tab.Screen name="Team" component={TeamTab} />
+			</Tab.Navigator>
+		</NavigationContainer>
 	);
 }
