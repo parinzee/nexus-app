@@ -10,7 +10,7 @@ r = aioredis.Redis(
     port=url.port,
     username=url.username,
     password=url.password,
-    ssl=True,
+    ssl=False,
     ssl_cert_reqs=None,
     decode_responses=True,
 )
@@ -29,4 +29,7 @@ async def get_leaderboard():
     teamLeaderboard = await r.zrange("teams", 0, -1, True, True)
     individualLeaderboard = await r.zrange("individual", 0, -1, True, True)
 
-    return {"t": teamLeaderboard, "i": individualLeaderboard}
+    return {
+        "t": list(map(lambda x: [x[0].split(":")[1], x[1]], teamLeaderboard)),
+        "i": individualLeaderboard,
+    }
