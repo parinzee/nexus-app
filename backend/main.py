@@ -62,6 +62,18 @@ class ConnectionManager:
 ConnMan = ConnectionManager()
 
 
+def splitArr(arr: list, numToSplit: int):
+    masterList = []
+    tempList = []
+    for i in range(len(arr)):
+        tempList.append(arr[i])
+        if (i + 1) % numToSplit == 0:
+            masterList.append(tempList)
+            tempList = []
+    masterList.append(tempList)
+    return masterList
+
+
 @app.post("/pushNotification/")
 async def push(token: str, title: str, message: str, itemType: itemTypes = None):
     if itemType == itemTypes.ANNOUNCEMENTS:
@@ -81,14 +93,15 @@ async def pushall(title: str, message: str):
 
 
 @app.post("/insertItem/")
-async def insert(eventName: str, eventDesc: str, itemType: itemTypes, notify: bool):
+def insert(eventName: str, eventDesc: str, itemType: itemTypes, notify: bool):
     insertItem(eventName, eventDesc, itemType.value)
     if notify:
         if itemType == itemTypes.ANNOUNCEMENTS:
             page = {"Link": "MainTab/News"}
         else:
             page = {"Link": "MainTab/Team Color"}
-        send_message(listPushTokens(), eventName, eventDesc.split("--")[0], data=page)
+        for pushTokens in splitArr(listPushTokens(), 10):
+            send_message(pushTokens, eventName, eventDesc.split("--")[0], data=page)
     return "Success"
 
 

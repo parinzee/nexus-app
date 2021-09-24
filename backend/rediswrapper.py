@@ -28,7 +28,6 @@ async def increment_score(data: dict):
 async def get_leaderboard():
     teamLeaderboard = await r.zrange("teams", 0, -1, True, True)
     individualLeaderboard = await r.zrange("individual", 0, -1, True, True)
-    # TODO
 
     return {
         "i": list(map(lambda x: [x[0].split(":")[1], x[1]], individualLeaderboard)),
