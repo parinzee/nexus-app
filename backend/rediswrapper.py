@@ -21,7 +21,7 @@ async def increment_score(data: dict):
         data
     )
     if int(clicks) % 3 == 0:
-        await r.zincrby("teams", 3, team)
+        await r.zincrby("teams", 1, team)
         await r.zadd("individual", {f"{deviceID}:{name}": float(clicks)})
 
 

@@ -1,5 +1,5 @@
-from enum import Enum
 import asyncio
+from enum import Enum
 from typing import List
 
 import uvicorn
@@ -57,6 +57,11 @@ class ConnectionManager:
     async def broadcast(self, message: dict):
         for connection in self.active_connections:
             await connection.send_json(message)
+
+    async def broadcast_leaderboard(self):
+        while self.active_connections != []:
+            await self.broadcast(await get_leaderboard())
+            await asyncio.sleep(3)
 
 
 ConnMan = ConnectionManager()
@@ -175,11 +180,11 @@ async def listItem():
 @app.websocket("/popcat/")
 async def popcat_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
+    asyncio.create_task(ConnMan.broadcast_leaderboard())
     try:
         while True:
             data = await websocket.receive_json()
             await increment_score(data)
-            await ConnMan.broadcast(await get_leaderboard())
     except WebSocketDisconnect:
         ConnMan.disconnect(websocket)
 
