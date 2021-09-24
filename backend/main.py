@@ -161,24 +161,13 @@ async def listItem():
 
 @app.websocket("/popcat/")
 async def popcat_ws(websocket: WebSocket):
-    await websocket.accept(websocket)
+    await ConnMan.connect(websocket)
     try:
         while True:
             data = await websocket.receive_json()
             await increment_score(data)
+            await ConnMan.broadcast(await get_leaderboard())
     except WebSocketDisconnect:
-        pass
-
-
-@app.websocket("/popcat_leaderboard/")
-async def leaderboard_ws(websocket: WebSocket):
-    await ConnMan.connect(websocket)
-    try:
-        while True:
-            while True:
-                await ConnMan.broadcast(await get_leaderboard())
-                await asyncio.sleep(3)
-    except:
         ConnMan.disconnect(websocket)
 
 
