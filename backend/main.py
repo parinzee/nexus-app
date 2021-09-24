@@ -1,4 +1,5 @@
 from enum import Enum
+import asyncio
 from typing import List
 
 import uvicorn
@@ -174,7 +175,9 @@ async def leaderboard_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
     try:
         while True:
-            await ConnMan.broadcast(await get_leaderboard())
+            while True:
+                await ConnMan.broadcast(await get_leaderboard())
+                await asyncio.sleep(3)
     except:
         ConnMan.disconnect(websocket)
 
