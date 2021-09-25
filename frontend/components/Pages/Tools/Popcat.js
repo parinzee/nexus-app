@@ -10,7 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
-
+var leaderboard_global = {};
 export default function PopCat() {
 	const Container = styled.View`
 		flex: 1;
@@ -129,6 +129,12 @@ function Counter({ clicks, WS }) {
 
 function LeaderBoard() {
 	const snapPoints = useMemo(() => ["15%", "70%"], []);
+	useEffect(() => {
+		WS.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			leaderboard_global = data;
+		};
+	}, []);
 	return (
 		<BottomSheet
 			index={0}
@@ -199,17 +205,11 @@ function Item({ index, name, score }) {
 }
 
 function IndividualTab() {
-	const [leaderboard, setLeaderboard] = useState({});
-	const [loading, setLoading] = useState(true);
+	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
+	const leaderboard = leaderboard_global;
 	useEffect(() => {
-		WS.onmessage = (event) => {
-			const data = JSON.parse(event.data);
-			setLeaderboard(data);
-			if (loading != false) {
-				setLoading(false);
-			}
-		};
-	}, []);
+		setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+	}, [fakeCurrentDate]);
 	return leaderboard != {} ? (
 		<BottomSheetFlatList
 			data={leaderboard.i}
@@ -220,6 +220,9 @@ function IndividualTab() {
 				return index.toString();
 			}}
 			scrollEnabled={true}
+			style={{
+				backgroundColor: "#252525",
+			}}
 		/>
 	) : (
 		<View></View>
@@ -227,17 +230,11 @@ function IndividualTab() {
 }
 
 function TeamTab() {
-	const [leaderboard, setLeaderboard] = useState({});
-	const [loading, setLoading] = useState(true);
+	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
+	const leaderboard = leaderboard_global;
 	useEffect(() => {
-		WS.onmessage = (event) => {
-			const data = JSON.parse(event.data);
-			setLeaderboard(data);
-			if (loading != false) {
-				setLoading(false);
-			}
-		};
-	}, []);
+		setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+	}, [fakeCurrentDate]);
 	return leaderboard != {} ? (
 		<BottomSheetFlatList
 			data={leaderboard.t}
