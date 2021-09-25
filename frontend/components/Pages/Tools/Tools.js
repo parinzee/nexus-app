@@ -19,18 +19,6 @@ export default function Tools({ navigation, route }) {
 	const [honors, setHonors] = useState(false);
 	const Destinations = [
 		{
-			title: "Grade Calculator (4.00/4.50)",
-			icon: (
-				<FontAwesome5
-					name="calculator"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "Grade Calculator",
-			gradient: false,
-		},
-		{
 			title: "Popcat Event 🏆",
 			icon: (
 				<FontAwesome5
@@ -41,6 +29,18 @@ export default function Tools({ navigation, route }) {
 			),
 			destination: "PopCat",
 			gradient: true,
+		},
+		{
+			title: "Grade Calculator (4.00/4.50)",
+			icon: (
+				<FontAwesome5
+					name="calculator"
+					size={moderateScale(24)}
+					color="white"
+				/>
+			),
+			destination: "Grade Calculator",
+			gradient: false,
 		},
 		{
 			title: "My Tasks",

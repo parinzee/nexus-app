@@ -318,10 +318,13 @@ function IndividualTab() {
 	const leaderboard = leaderboard_global;
 	const checkStatus = useStore((state) => state.checkStatus);
 	useEffect(() => {
-		setTimeout(() => {
+		const ID = setTimeout(() => {
 			setFakeCurrentDate(new Date());
 			checkStatus();
 		}, 1000);
+		return () => {
+			clearTimeout(ID);
+		};
 	}, [fakeCurrentDate]);
 	return leaderboard != {} ? (
 		<BottomSheetFlatList
@@ -346,7 +349,10 @@ function TeamTab() {
 	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
 	const leaderboard = leaderboard_global;
 	useEffect(() => {
-		setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+		const ID = setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+		return () => {
+			clearTimeout(ID);
+		};
 	}, [fakeCurrentDate]);
 	return leaderboard != {} ? (
 		<BottomSheetFlatList
