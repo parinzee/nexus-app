@@ -9,8 +9,9 @@ import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
-var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
 var leaderboard_global = {};
+var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
+
 export default function PopCat() {
 	const Container = styled.View`
 		flex: 1;
@@ -18,6 +19,12 @@ export default function PopCat() {
 		justify-content: center;
 		align-items: center;
 	`;
+
+	useEffect(() => {
+		return () => {
+			WS.close();
+		};
+	});
 
 	return (
 		<Container>
@@ -146,7 +153,18 @@ function LeaderBoard() {
 	);
 }
 
-function Item({ index, name, score }) {
+function Item_Team({ index, name, score }) {
+	var bgColor;
+	if (name === "red") {
+		bgColor = "background-color: #D35D6E;";
+	} else if (name === "blue") {
+		bgColor = "background-color: #87A7B3;";
+	} else if (name === "yellow") {
+		bgColor = "background-color: #FFCF64;";
+	} else {
+		bgColor = "background-color: #83B582";
+	}
+
 	const Container = styled.View`
 		background-color: #f2e1c1;
 		display: flex;
@@ -167,7 +185,77 @@ function Item({ index, name, score }) {
 		width: ${moderateScale(314)}px;
 		height: ${moderateScale(40)}px;
 		padding: 5px;
-		background-color: teal;
+		${bgColor}
+		padding-right: 30px;
+		padding-left: 10px;
+		align-self: center;
+		justify-content: space-between;
+	`;
+
+	const TitleText = styled.Text`
+		color: black;
+		font-size: ${moderateScale(17)}px;
+		font-family: System;
+		font-weight: bold;
+		margin-left: 10px;
+		align-self: center;
+	`;
+
+	const SubtitleText = styled.Text`
+		color: black;
+		font-size: ${moderateScale(17)}px;
+		font-family: System;
+		font-weight: bold;
+		margin-left: 10px;
+		align-self: center;
+	`;
+
+	return (
+		<Container>
+			<InnerContainer>
+				<TitleText>
+					{`${index}. `}{" "}
+					{name.charAt(0).toUpperCase() + name.slice(1)}
+				</TitleText>
+				<SubtitleText>{score} pt</SubtitleText>
+			</InnerContainer>
+		</Container>
+	);
+}
+
+function Item({ index, name, score }) {
+	var bgColor;
+	if (index === 1) {
+		bgColor = "background-color: #F1CA89;";
+	} else if (index === 2) {
+		bgColor = "background-color: #FEFBF3;";
+	} else if (index === 3) {
+		bgColor = "background-color: #DEBA9D;";
+	} else {
+		bgColor = "background-color: #F0D9FF";
+	}
+
+	const Container = styled.View`
+		background-color: #f2e1c1;
+		display: flex;
+		border-radius: 10px;
+		width: ${moderateScale(320)}px;
+		height: ${moderateScale(46)}px;
+		margin-top: ${verticalScale(14)}px;
+		padding: 5px;
+		justify-content: center;
+		align-content: center;
+		align-self: center;
+	`;
+
+	const InnerContainer = styled.View`
+		display: flex;
+		flex-direction: row;
+		border-radius: 10px;
+		width: ${moderateScale(314)}px;
+		height: ${moderateScale(40)}px;
+		padding: 5px;
+		${bgColor}
 		padding-right: 30px;
 		padding-left: 10px;
 		align-self: center;
@@ -239,7 +327,7 @@ function TeamTab() {
 		<BottomSheetFlatList
 			data={leaderboard.t}
 			renderItem={({ item, index }) => (
-				<Item index={index + 1} name={item[0]} score={item[1]} />
+				<Item_Team index={index + 1} name={item[0]} score={item[1]} />
 			)}
 			keyExtractor={(items, index) => {
 				return index.toString();
