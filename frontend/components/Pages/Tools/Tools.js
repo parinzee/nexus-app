@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ListItem } from "react-native-elements";
@@ -9,6 +9,8 @@ import { verticalScale, moderateScale } from "react-native-size-matters";
 import useStoreInfo from "../../store";
 
 export default function Tools({ navigation, route }) {
+	const clicker = useStoreInfo((state) => state.clicker);
+	const updateStore = useStoreInfo((state) => state.setDeviceInfo);
 	try {
 		const { navigateTo } = route.params;
 		setTimeout(() => {
@@ -17,80 +19,150 @@ export default function Tools({ navigation, route }) {
 	} catch {}
 	const grade = useStoreInfo((state) => state.grade);
 	const honors = useStoreInfo((state) => state.honors);
-	const Destinations = [
-		{
-			title: "Popcat Event 🏆",
-			icon: (
-				<FontAwesome5
-					name="cat"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "PopCat",
-			gradient: true,
-		},
-		{
-			title: "Grade Calculator (4.00/4.50)",
-			icon: (
-				<FontAwesome5
-					name="calculator"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "Grade Calculator",
-			gradient: false,
-		},
-		{
-			title: "My Tasks",
-			icon: (
-				<FontAwesome5
-					name="clipboard-list"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "My Tasks",
-			gradient: false,
-		},
-		{
-			title: "Tic Tac Toe",
-			icon: (
-				<FontAwesome5
-					name="gamepad"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "Tic Tac Toe",
-			gradient: false,
-		},
-		{
-			title: "Clicker (Stress Reliever)",
-			icon: (
-				<FontAwesome5
-					name="hand-pointer"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "Clicker",
-			gradient: false,
-		},
-		{
-			title: "Contact Us",
-			icon: (
-				<FontAwesome5
-					name="question-circle"
-					size={moderateScale(24)}
-					color="white"
-				/>
-			),
-			destination: "Contact Us",
-			gradient: false,
-		},
-	];
+	if (clicker != true) {
+		var Destinations = [
+			{
+				title: "Grade Calculator (4.00/4.50)",
+				icon: (
+					<FontAwesome5
+						name="calculator"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Grade Calculator",
+				gradient: false,
+			},
+			{
+				title: "My Tasks",
+				icon: (
+					<FontAwesome5
+						name="clipboard-list"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "My Tasks",
+				gradient: false,
+			},
+			{
+				title: "Tic Tac Toe",
+				icon: (
+					<FontAwesome5
+						name="gamepad"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Tic Tac Toe",
+				gradient: false,
+			},
+			{
+				title: "Clicker (Stress Reliever)",
+				icon: (
+					<FontAwesome5
+						name="hand-pointer"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Clicker",
+				gradient: false,
+			},
+			{
+				title: "Contact Us",
+				icon: (
+					<FontAwesome5
+						name="question-circle"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Contact Us",
+				gradient: false,
+			},
+		];
+	} else {
+		var Destinations = [
+			{
+				title: "Popcat Event 🏆",
+				icon: (
+					<FontAwesome5
+						name="cat"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "PopCat",
+				gradient: true,
+			},
+			{
+				title: "Grade Calculator (4.00/4.50)",
+				icon: (
+					<FontAwesome5
+						name="calculator"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Grade Calculator",
+				gradient: false,
+			},
+			{
+				title: "My Tasks",
+				icon: (
+					<FontAwesome5
+						name="clipboard-list"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "My Tasks",
+				gradient: false,
+			},
+			{
+				title: "Tic Tac Toe",
+				icon: (
+					<FontAwesome5
+						name="gamepad"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Tic Tac Toe",
+				gradient: false,
+			},
+			{
+				title: "Clicker (Stress Reliever)",
+				icon: (
+					<FontAwesome5
+						name="hand-pointer"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Clicker",
+				gradient: false,
+			},
+			{
+				title: "Contact Us",
+				icon: (
+					<FontAwesome5
+						name="question-circle"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "Contact Us",
+				gradient: false,
+			},
+		];
+	}
+
+	useEffect(() => {
+		console.log(clicker);
+		updateStore();
+	}, []);
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;

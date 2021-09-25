@@ -173,11 +173,6 @@ async def listverse():
     return listItems("verse")
 
 
-@app.get("/")
-async def listItem():
-    return {"Clicker": False}
-
-
 @app.websocket("/popcat/")
 async def popcat_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
