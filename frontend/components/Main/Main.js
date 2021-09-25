@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ActivityIndicator, Modal } from "react-native";
 import { moderateScale } from "react-native-size-matters";
+import useStoreInfo from "../store";
 
 const requestNotificationsPermission = async () => {
 	const { status: existingStatus } =
@@ -23,10 +24,12 @@ const requestNotificationsPermission = async () => {
 };
 
 export default function Main({ navigation }) {
-	const [name, setName] = useState();
+	const name = useStoreInfo((state) => state.name);
+	const deviceID = useStoreInfo((state) => state.deviceID);
+	const teacher = useStoreInfo((state) => state.teacher);
+	const teamColor = useStoreInfo((state) => state.team);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-	const [teacher, setTeacher] = useState();
 	const OutContainer = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -75,8 +78,6 @@ export default function Main({ navigation }) {
 
 	useEffect(() => {
 		async function getData() {
-			setName(JSON.parse(await AsyncStorage.getItem("@name")));
-			setTeacher(JSON.parse(await AsyncStorage.getItem("@teacher")));
 			const yeet = await axios
 				.get("https://nbcis.herokuapp.com/")
 				.then((response) => {
@@ -93,11 +94,6 @@ export default function Main({ navigation }) {
 			}
 		}
 		async function telemetry(pushToken) {
-			const deviceID = JSON.parse(
-				await AsyncStorage.getItem("@deviceID")
-			);
-			const name = JSON.parse(await AsyncStorage.getItem("@name"));
-			const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 			const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
 			await axios
 				.post("https://nbcis.herokuapp.com/insertUser/", {

@@ -39,6 +39,7 @@ import { Asset } from "expo-asset";
 import { useState, useEffect } from "react";
 import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useStoreInfo from "./components/store";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
@@ -188,6 +189,7 @@ const MainTab = () => {
 };
 
 export default function App() {
+	const initStore = useStoreInfo((state) => state.setDeviceInfo);
 	const linking = {
 		prefixes: [prefix],
 	};
@@ -225,28 +227,28 @@ export default function App() {
 		Notifications.addNotificationResponseReceivedListener((response) => {
 			handleNewNotification(response.notification.request.content.data);
 		});
-		async function genDeviceID() {
-			const deviceID = await AsyncStorage.getItem("@deviceID");
-			if (deviceID === null) {
-				const generateDeviceID = () =>
-					Math.random().toString(20).substr(2, 10);
-				await AsyncStorage.setItem(
-					"@deviceID",
-					JSON.stringify(generateDeviceID())
-				);
-			}
-		}
-		async function checkFirstTime() {
-			const value = await AsyncStorage.getItem("@firstTime");
-			setFirstTime(value === null ? true : false);
-		}
-		genDeviceID();
-		checkFirstTime();
 	}, []);
 
+	async function genDeviceID() {
+		const deviceID = await AsyncStorage.getItem("@deviceID");
+		if (deviceID === null) {
+			const generateDeviceID = () =>
+				Math.random().toString(20).substr(2, 10);
+			await AsyncStorage.setItem(
+				"@deviceID",
+				JSON.stringify(generateDeviceID())
+			);
+		}
+	}
+	async function checkFirstTime() {
+		const value = await AsyncStorage.getItem("@firstTime");
+		setFirstTime(value === null ? true : false);
+	}
+
 	const preload = async () => {
+		initStore();
 		const imageAssets = fetchImages();
-		await Promise.all([imageAssets]);
+		await Promise.all([imageAssets, genDeviceID(), checkFirstTime()]);
 	};
 
 	if (loading || !fontsLoaded) {

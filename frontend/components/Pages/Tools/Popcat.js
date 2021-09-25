@@ -5,15 +5,16 @@ import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import useStoreInfo from "../../store";
 import create from "zustand";
 
 const useStore = create((set) => ({
 	enabled: true,
 	checkStatus: () => {
 		const curr = new Date();
-		const due = new Date(2021, 8, 30, 14);
+		const due = new Date(2021, 8, 30);
 		if (curr > due) {
 			set({ enabled: false });
 		}
@@ -45,7 +46,7 @@ export default function PopCat() {
 
 	return status === false ? (
 		<Container>
-			<LeaderBoard WS={WS} snap={["100%, 100%"]} />
+			<LeaderBoard WS={WS} snap={["100%, 100%"]} end={true} />
 		</Container>
 	) : (
 		<Container>
@@ -121,6 +122,9 @@ function Cat({ WS }) {
 }
 
 function Counter({ clicks, WS }) {
+	const deviceID = useStoreInfo((state) => state.deviceID);
+	const name = useStoreInfo((state) => state.name);
+	const team = useStoreInfo((state) => state.team);
 	const CounterText = styled.Text`
 		font-family: System;
 		font-size: ${moderateScale(50)}px;
@@ -135,11 +139,9 @@ function Counter({ clicks, WS }) {
 			try {
 				WS.send(
 					JSON.stringify({
-						deviceID: JSON.parse(
-							await AsyncStorage.getItem("@deviceID")
-						),
-						name: JSON.parse(await AsyncStorage.getItem("@name")),
-						team: JSON.parse(await AsyncStorage.getItem("@team")),
+						deviceID: deviceID,
+						name: name,
+						team: team,
 						clicks: clicks,
 					})
 				);
@@ -155,13 +157,20 @@ function Counter({ clicks, WS }) {
 	return <CounterText>{clicks}</CounterText>;
 }
 
-function LeaderBoard({ WS, snap }) {
+function LeaderBoard({ WS, snap, end }) {
 	const snapPoints = useMemo(() => snap, []);
 	useEffect(() => {
 		WS.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			leaderboard_global = data;
 		};
+		if (end === true) {
+			Alert.alert(
+				"Popcat Has Ended!",
+				"Thank you for your participation, Popcat has ended!",
+				[{ text: "OK" }]
+			);
+		}
 	}, []);
 	return (
 		<BottomSheet
@@ -247,13 +256,13 @@ function Item_Team({ index, name, score }) {
 function Item({ index, name, score }) {
 	var bgColor;
 	if (index === 1) {
-		bgColor = "background-color: #F1CA89;";
+		bgColor = "background-color: #f8d62c;";
 	} else if (index === 2) {
-		bgColor = "background-color: #FEFBF3;";
+		bgColor = "background-color: #aab0b3;";
 	} else if (index === 3) {
-		bgColor = "background-color: #DEBA9D;";
+		bgColor = "background-color: #b9722d;";
 	} else {
-		bgColor = "background-color: #F0D9FF";
+		bgColor = "background-color: #fef9e3";
 	}
 
 	const Container = styled.View`

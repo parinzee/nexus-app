@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ListItem } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Header from "../Header";
 import { verticalScale, moderateScale } from "react-native-size-matters";
+import useStoreInfo from "../../store";
 
 export default function Tools({ navigation, route }) {
 	try {
@@ -15,8 +15,8 @@ export default function Tools({ navigation, route }) {
 			navigation.navigate(navigateTo, { grade, honors });
 		}, 400);
 	} catch {}
-	const [grade, setGrade] = useState(0);
-	const [honors, setHonors] = useState(false);
+	const grade = useStoreInfo((state) => state.grade);
+	const honors = useStoreInfo((state) => state.honors);
 	const Destinations = [
 		{
 			title: "Popcat Event 🏆",
@@ -101,13 +101,6 @@ export default function Tools({ navigation, route }) {
 		margin-top: ${verticalScale(30)}px;
 	`;
 
-	useEffect(() => {
-		async function getGrade() {
-			setGrade(JSON.parse(await AsyncStorage.getItem("@grade")));
-			setHonors(JSON.parse(await AsyncStorage.getItem("@honors")));
-		}
-		getGrade();
-	}, []);
 	return (
 		<Container>
 			<Header text="Tools" fontSize="35" />

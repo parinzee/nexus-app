@@ -5,8 +5,10 @@ import { verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome5 } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useStoreInfo from "../store";
 
 export default function Screen4({ navigation }) {
+	const updateStore = useStoreInfo((state) => state.setDeviceInfo);
 	const Container = styled.View`
 		flex: 1;
 		flex-direction: column;
@@ -39,6 +41,7 @@ export default function Screen4({ navigation }) {
 
 	const handlePress = async () => {
 		await AsyncStorage.setItem("@firstTime", JSON.stringify(false));
+		await updateStore();
 		navigation.navigate("MainTab");
 	};
 
