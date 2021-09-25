@@ -93,7 +93,8 @@ async def push(token: str, title: str, message: str, itemType: itemTypes = None)
 
 @app.post("/pushNotificationAll/")
 async def pushall(title: str, message: str):
-    send_message(listPushTokens(), title, message, data=None)
+    for pushTokens in splitArr(listPushTokens(), 10):
+        send_message(pushTokens, title, message)
     return "Success"
 
 

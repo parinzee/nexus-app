@@ -142,7 +142,6 @@ class PushMessage(
     """
 
     def get_payload(self):
-
         # There is only one required field.
         payload = {
             "to": self.to,
@@ -400,22 +399,7 @@ class PushClient(object):
         # and 5xx errors.
         response.raise_for_status()
 
-        # At this point, we know it's a 200 and the response format is correct.
-        # Now let's parse the responses(push_tickets) per push notification.
-        push_tickets = []
-        for i, push_ticket in enumerate(response_data["data"]):
-            push_tickets.append(
-                PushTicket(
-                    push_message=push_messages[i],
-                    # If there is no status, assume error.
-                    status=push_ticket.get("status", PushTicket.ERROR_STATUS),
-                    message=push_ticket.get("message", ""),
-                    details=push_ticket.get("details", None),
-                    id=push_ticket.get("id", ""),
-                )
-            )
-
-        return push_tickets
+        return "DUMMY RETURN"
 
     def publish(self, push_message):
         """Sends a single push notification
