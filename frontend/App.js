@@ -39,7 +39,6 @@ import { Asset } from "expo-asset";
 import { useState, useEffect } from "react";
 import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
@@ -47,6 +46,14 @@ const Stack = createStackNavigator();
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: true,
+	}),
+});
 
 const handleNewNotification = async (data) => {
 	try {

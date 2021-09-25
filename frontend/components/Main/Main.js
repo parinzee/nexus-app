@@ -8,14 +8,6 @@ import axios from "axios";
 import { ActivityIndicator, Modal } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 
-Notifications.setNotificationHandler({
-	handleNotification: async () => ({
-		shouldShowAlert: true,
-		shouldPlaySound: true,
-		shouldSetBadge: true,
-	}),
-});
-
 const requestNotificationsPermission = async () => {
 	const { status: existingStatus } =
 		await Notifications.getPermissionsAsync();
@@ -131,7 +123,7 @@ export default function Main({ navigation }) {
 				settings.ios?.status ===
 					Notifications.IosAuthorizationStatus.EPHEMERAL
 			) {
-				const allowedNotifs = true;
+				var allowedNotifs = true;
 			}
 			if (status === null) {
 				const result = await requestNotificationsPermission();

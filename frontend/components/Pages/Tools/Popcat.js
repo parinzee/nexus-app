@@ -7,12 +7,28 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import create from "zustand";
+
+const useStore = create((set) => ({
+	enabled: true,
+	checkStatus: () => {
+		const curr = new Date();
+		const due = new Date(2021, 8, 30, 14);
+		if (curr > due) {
+			set({ enabled: false });
+		}
+	},
+}));
 
 const Tab = createMaterialTopTabNavigator();
 var leaderboard_global = {};
-var WS = new WebSocket("ws://nbcis.herokuapp.com/popcat/");
 
 export default function PopCat() {
+	const [WS, setWS] = useState(
+		new WebSocket("ws://nbcis.herokuapp.com/popcat/")
+	);
+	const status = useStore((state) => state.enabled);
+	const checkStatus = useStore((state) => state.checkStatus);
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -21,15 +37,20 @@ export default function PopCat() {
 	`;
 
 	useEffect(() => {
+		checkStatus();
 		return () => {
 			WS.close();
 		};
-	});
+	}, []);
 
-	return (
+	return status === false ? (
+		<Container>
+			<LeaderBoard WS={WS} snap={["100%, 100%"]} />
+		</Container>
+	) : (
 		<Container>
 			<Cat WS={WS} />
-			<LeaderBoard WS={WS} />
+			<LeaderBoard WS={WS} snap={["20%", "70%"]} />
 		</Container>
 	);
 }
@@ -134,8 +155,8 @@ function Counter({ clicks, WS }) {
 	return <CounterText>{clicks}</CounterText>;
 }
 
-function LeaderBoard() {
-	const snapPoints = useMemo(() => ["15%", "70%"], []);
+function LeaderBoard({ WS, snap }) {
+	const snapPoints = useMemo(() => snap, []);
 	useEffect(() => {
 		WS.onmessage = (event) => {
 			const data = JSON.parse(event.data);
@@ -295,8 +316,12 @@ function Item({ index, name, score }) {
 function IndividualTab() {
 	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
 	const leaderboard = leaderboard_global;
+	const checkStatus = useStore((state) => state.checkStatus);
 	useEffect(() => {
-		setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+		setTimeout(() => {
+			setFakeCurrentDate(new Date());
+			checkStatus();
+		}, 1000);
 	}, [fakeCurrentDate]);
 	return leaderboard != {} ? (
 		<BottomSheetFlatList
