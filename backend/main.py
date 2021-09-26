@@ -79,6 +79,11 @@ def splitArr(arr: list, numToSplit: int):
     return masterList
 
 
+@app.get("/")
+def get():
+    return ""
+
+
 @app.post("/pushNotification/")
 async def push(token: str, title: str, message: str, itemType: itemTypes = None):
     if itemType == itemTypes.ANNOUNCEMENTS:
