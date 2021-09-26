@@ -123,8 +123,8 @@ function Cat({ WS }) {
 
 function Counter({ clicks, WS }) {
 	const deviceID = useStoreInfo((state) => state.deviceID);
-	const name = useStoreInfo((state) => state.name);
 	const team = useStoreInfo((state) => state.team);
+	const name = useStoreInfo((state) => state.name);
 	const CounterText = styled.Text`
 		font-family: System;
 		font-size: ${moderateScale(50)}px;
@@ -135,7 +135,7 @@ function Counter({ clicks, WS }) {
 	`;
 
 	const updateCounts = async () => {
-		if (clicks != 0) {
+		if (clicks != 0 && typeof name === "string") {
 			try {
 				WS.send(
 					JSON.stringify({
