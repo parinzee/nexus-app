@@ -81,7 +81,7 @@ def splitArr(arr: list, numToSplit: int):
 
 @app.get("/")
 def get():
-    return ""
+    return {"Status": True}
 
 
 @app.post("/pushNotification/")
