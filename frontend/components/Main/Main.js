@@ -77,7 +77,7 @@ export default function Main({ navigation }) {
 	useEffect(() => {
 		async function getData() {
 			const yeet = await axios
-				.get("https://nbcis.herokuapp.com/")
+				.get("https://nbcis.herokuapp.com/scores")
 				.then((response) => {
 					return response.data;
 				})

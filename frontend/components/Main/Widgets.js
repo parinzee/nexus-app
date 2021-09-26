@@ -177,7 +177,7 @@ const NewsWidget = ({ navigation }) => {
 		flex-direction: column;
 		background-color: black;
 		border-radius: 20px;
-		width: ${moderateScale(320)}px;
+		width: ${moderateScale(325)}px;
 		height: ${windowHeight > 600
 			? verticalScale(120)
 			: verticalScale(150)}px;
@@ -276,7 +276,7 @@ const EventsWidget = ({ navigation }) => {
 		flex-direction: column;
 		background-color: black;
 		border-radius: 20px;
-		width: ${moderateScale(320)}px;
+		width: ${moderateScale(325)}px;
 		height: ${windowHeight > 600
 			? verticalScale(120)
 			: verticalScale(150)}px;
