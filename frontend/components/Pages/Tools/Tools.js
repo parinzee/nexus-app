@@ -160,7 +160,6 @@ export default function Tools({ navigation, route }) {
 	}
 
 	useEffect(() => {
-		console.log(clicker);
 		updateStore();
 	}, []);
 	const Container = styled.View`

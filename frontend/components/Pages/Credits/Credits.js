@@ -57,7 +57,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Version</FrontText>
-				<BackText>1.2.6</BackText>
+				<BackText>2.0.0</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Created</FrontText>

@@ -25,7 +25,6 @@ const requestNotificationsPermission = async () => {
 
 export default function Main({ navigation }) {
 	const name = useStoreInfo((state) => state.name);
-	const deviceID = useStoreInfo((state) => state.deviceID);
 	const teacher = useStoreInfo((state) => state.teacher);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
@@ -93,13 +92,17 @@ export default function Main({ navigation }) {
 			}
 		}
 		async function telemetry(pushToken) {
+			const deviceID = JSON.parse(
+				await AsyncStorage.getItem("@deviceID")
+			);
+			const name = JSON.parse(await AsyncStorage.getItem("@name"));
 			const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
 			const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
 			await axios
 				.post("https://nbcis.herokuapp.com/insertUser/", {
 					deviceID: deviceID,
 					name: name,
-					teamColor: `${teamColor}`,
+					teamColor: teamColor,
 					pushToken: pushToken,
 					gpa: gpa,
 				})
