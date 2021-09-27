@@ -56,12 +56,13 @@ class ConnectionManager:
 
     async def broadcast(self, message: dict):
         for connection in self.active_connections:
-            await connection.send_json(message)
+            try:
+                await connection.send_json(message)
+            except:
+                continue
 
     async def broadcast_leaderboard(self):
-        while self.active_connections != []:
-            await self.broadcast(await get_leaderboard())
-            await asyncio.sleep(3)
+        await self.broadcast(await get_leaderboard())
 
 
 ConnMan = ConnectionManager()
@@ -181,11 +182,11 @@ async def listverse():
 @app.websocket("/popcat/")
 async def popcat_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
-    asyncio.create_task(ConnMan.broadcast_leaderboard())
     try:
         while True:
             data = await websocket.receive_json()
             await increment_score(data)
+            await ConnMan.broadcast_leaderboard()
     except WebSocketDisconnect:
         ConnMan.disconnect(websocket)
 
