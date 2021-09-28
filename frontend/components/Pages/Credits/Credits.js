@@ -57,7 +57,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Version</FrontText>
-				<BackText>1.2.6</BackText>
+				<BackText>1.2.7</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Created</FrontText>
@@ -74,7 +74,9 @@ export default function Credits() {
 			<Button
 				title="Reset Data"
 				type="outline"
-				onPress={() => AsyncStorage.clear()}
+				onPress={() => {
+					AsyncStorage.clear();
+				}}
 				containerStyle={{ marginTop: 100, paddingHorizontal: 20 }}
 			/>
 		</Container>

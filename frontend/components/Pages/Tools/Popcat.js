@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components/native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
-import { Audio } from "expo-av";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -74,15 +73,8 @@ function Cat({ WS }) {
 		flex-direction: column;
 	`;
 
-	async function playSound() {
-		const { sound } = await Audio.Sound.createAsync(
-			require("../../../assets/click.mp3")
-		);
-		sound.playAsync();
-	}
 	const onPress = async () => {
 		setClicked(true);
-		playSound();
 		setTimeout(() => {
 			setClicked(false);
 			setClicks(clicks + 1);
@@ -91,7 +83,6 @@ function Cat({ WS }) {
 
 	const onLongPress = async () => {
 		setClicked(true);
-		playSound();
 		setTimeout(() => {
 			setClicked(false);
 			setClicks(clicks + 1);
@@ -324,20 +315,19 @@ function Item({ index, name, score }) {
 
 function IndividualTab() {
 	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
-	const leaderboard = leaderboard_global;
 	const checkStatus = useStore((state) => state.checkStatus);
 	useEffect(() => {
 		const ID = setTimeout(() => {
 			setFakeCurrentDate(new Date());
 			checkStatus();
-		}, 1000);
+		}, 3000);
 		return () => {
 			clearTimeout(ID);
 		};
 	}, [fakeCurrentDate]);
-	return leaderboard != {} ? (
+	return leaderboard_global != {} ? (
 		<BottomSheetFlatList
-			data={leaderboard.i}
+			data={leaderboard_global.i}
 			renderItem={({ item, index }) => (
 				<Item index={index + 1} name={item[0]} score={item[1]} />
 			)}
@@ -350,22 +340,21 @@ function IndividualTab() {
 			}}
 		/>
 	) : (
-		<View></View>
+		<View style={{ height: 800 }}></View>
 	);
 }
 
 function TeamTab() {
 	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
-	const leaderboard = leaderboard_global;
 	useEffect(() => {
-		const ID = setTimeout(() => setFakeCurrentDate(new Date()), 1000);
+		const ID = setTimeout(() => setFakeCurrentDate(new Date()), 3000);
 		return () => {
 			clearTimeout(ID);
 		};
 	}, [fakeCurrentDate]);
-	return leaderboard != {} ? (
+	return leaderboard_global != {} ? (
 		<BottomSheetFlatList
-			data={leaderboard.t}
+			data={leaderboard_global.t}
 			renderItem={({ item, index }) => (
 				<Item_Team index={index + 1} name={item[0]} score={item[1]} />
 			)}
@@ -378,7 +367,7 @@ function TeamTab() {
 			}}
 		/>
 	) : (
-		<View></View>
+		<View style={{ height: 800 }}></View>
 	);
 }
 

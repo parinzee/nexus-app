@@ -30,6 +30,8 @@ async def get_leaderboard():
     individualLeaderboard = await r.zrange("individual", 0, -1, True, True)
 
     return {
-        "i": list(map(lambda x: [x[0].split(":")[1], x[1]], individualLeaderboard)),
+        "i": list(map(lambda x: [x[0].split(":")[1], x[1]], individualLeaderboard))[
+            0:50
+        ],
         "t": teamLeaderboard,
     }
