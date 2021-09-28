@@ -86,7 +86,7 @@ def get():
 
 
 @app.post("/pushNotification/")
-async def push(token: str, title: str, message: str, itemType: itemTypes = None):
+async def push(token: str, title: str, message: str, itemType: itemTypes):
     if itemType == itemTypes.ANNOUNCEMENTS:
         page = {"Link": "MainTab/News"}
     elif itemType == itemTypes.EVENTS:
@@ -98,9 +98,15 @@ async def push(token: str, title: str, message: str, itemType: itemTypes = None)
 
 
 @app.post("/pushNotificationAll/")
-async def pushall(title: str, message: str):
+async def pushall(title: str, message: str, itemType: itemTypes):
+    if itemType == itemTypes.ANNOUNCEMENTS:
+        page = {"Link": "MainTab/News"}
+    elif itemType == itemTypes.EVENTS:
+        page = {"Link": "MainTab/Team Color"}
+    else:
+        page = None
     for pushTokens in splitArr(listPushTokens(), 10):
-        send_message(pushTokens, title, message)
+        send_message(pushTokens, title, message, data=page)
     return "Success"
 
 
@@ -183,6 +189,7 @@ async def listverse():
 async def popcat_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
     try:
+        await ConnMan.broadcast_leaderboard()
         while True:
             data = await websocket.receive_json()
             await increment_score(data)
