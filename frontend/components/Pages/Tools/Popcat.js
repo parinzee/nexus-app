@@ -13,7 +13,7 @@ const useStore = create((set) => ({
 	enabled: true,
 	checkStatus: () => {
 		const curr = new Date();
-		const due = new Date(2021, 8, 30);
+		const due = new Date(2021, 8, 31);
 		if (curr > due) {
 			set({ enabled: false });
 		}
@@ -347,7 +347,9 @@ function IndividualTab() {
 function TeamTab() {
 	const [fakeCurrentDate, setFakeCurrentDate] = useState("");
 	useEffect(() => {
-		const ID = setTimeout(() => setFakeCurrentDate(new Date()), 3000);
+		const ID = setTimeout(() => {
+			setFakeCurrentDate(new Date());
+		}, 3000);
 		return () => {
 			clearTimeout(ID);
 		};

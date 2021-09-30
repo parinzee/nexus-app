@@ -40,6 +40,7 @@ import { useState, useEffect } from "react";
 import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStoreInfo from "./components/store";
+import * as Sentry from "sentry-expo";
 enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
@@ -58,13 +59,6 @@ Notifications.setNotificationHandler({
 
 const handleNewNotification = async (data) => {
 	try {
-		// const newNotification = {
-		// 	id: notificationObject.messageId,
-		// 	date: notificationObject.sentTime,
-		// 	title: notificationObject.data.title,
-		// 	body: notificationObject.data.message,
-		// 	data: JSON.parse(notificationObject.data.body),
-		// };
 		Linking.openURL(prefix + data.Link);
 		await Notifications.setBadgeCountAsync(1);
 	} catch (error) {
@@ -83,6 +77,12 @@ TaskManager.defineTask(
 );
 
 Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
+
+Sentry.init({
+	dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
+	enableInExpoDevelopment: true,
+	debug: true,
+});
 
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 	const progress = Animated.add(

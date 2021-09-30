@@ -63,6 +63,9 @@ def insertUser(deviceID: str, name: str, teamColor: str, pushToken: str, gpa: fl
         );"""
     )
 
+    if pushToken != None:
+        cur.execute("DELETE from users WHERE pushToken=%s;", [pushToken])
+
     # Fix by creating device key
     cur.execute(
         """INSERT INTO users(deviceID, name, teamColor, pushToken, gpa) 

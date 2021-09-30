@@ -8,6 +8,7 @@ import axios from "axios";
 import { ActivityIndicator, Modal } from "react-native";
 import { moderateScale } from "react-native-size-matters";
 import useStoreInfo from "../store";
+import * as Sentry from "sentry-expo";
 
 const requestNotificationsPermission = async () => {
 	const { status: existingStatus } =
@@ -106,7 +107,7 @@ export default function Main({ navigation }) {
 					pushToken: pushToken,
 					gpa: gpa,
 				})
-				.catch((err) => console.log(err.response.data));
+				.catch((err) => Sentry.Native.captureException(err));
 		}
 		async function notifications() {
 			const status = JSON.parse(
