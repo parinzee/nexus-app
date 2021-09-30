@@ -81,7 +81,7 @@ Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 Sentry.init({
 	dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
 	enableInExpoDevelopment: true,
-	debug: true,
+	debug: false,
 });
 
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
