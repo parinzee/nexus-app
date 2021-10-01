@@ -16,7 +16,7 @@ This is a *complete full stack **react native - python fastapi** application*
 - Backend:
   - **Fastapi** (Python)
   - **Postgres SQL**: Storing list of users
-  - **Redis**: Storing clicks for real time leaderboard for the Popcat 
+  - **Redis**: Storing clicks for real time leaderboard for the [Popcat]( 
   - **Websockets**: Real-time communication with frontend to send leaderboard and recieve clicks. ***This was made specifically for the Popcat Event***
 
 # Architecture/Organization
@@ -36,3 +36,12 @@ File structure same as any expo/react native and most names are self-explanatory
 - **Main**: These are the screens/components that related to the main screen, this is the screen that the users to presented to on every entry into the app.
 - **Pages**: Other screens that the users can navigate to. The names in here are self-explanatory.
 
+# Popcat Event
+## What is it
+Was an event that involved playing a clicker type of game, person/team with highest clicks win.
+
+## Architecture
+- Stores leaderboard using a ```redis zset```.
+- Clicks and leaderboards are updated ***in real-time*** utilizing **websockets**.
+
+See ```frontend/components/Pages/Tools/Popcat.js``` for further details.
