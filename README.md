@@ -4,6 +4,8 @@ This is a _*complete full stack react native - python fastapi application*_
 # Techstack
 - Frontend:
   - React Native (Expo)
+  - Zustand: State management
+  - Sentry: Error Reporting
 
 - Backend:
   - Fastapi (Python)
