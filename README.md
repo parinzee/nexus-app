@@ -16,7 +16,7 @@ This is a *complete full stack **react native - python fastapi** application*
 - Backend:
   - **Fastapi** (Python)
   - **Postgres SQL**: Storing list of users
-  - **Redis**: Storing clicks for real time leaderboard for the [Popcat]( 
+  - **Redis**: Storing clicks for real time leaderboard for the [Popcat](https://github.com/Parinz/nexus-app#popcat-event)
   - **Websockets**: Real-time communication with frontend to send leaderboard and recieve clicks. ***This was made specifically for the Popcat Event***
 
 # Architecture/Organization
