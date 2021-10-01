@@ -6,6 +6,7 @@ This is a _*complete full stack react native - python fastapi application*_
   - React Native (Expo)
   - Zustand: State management
   - Sentry: Error Reporting
+  - Styled-components: CSS-in-JS completely custom components built from the ground up.
 
 - Backend:
   - Fastapi (Python)
