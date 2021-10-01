@@ -1,15 +1,38 @@
+![ShieldsBadge](https://img.shields.io/badge/Version-1.2.8-brightgreen?style=for-the-badge)
+![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green?style=for-the-badge)
+
 # What is this?
-This is a _*complete full stack react native - python fastapi application*_
+This is a *complete full stack **react native - python fastapi** application*
 
 # Techstack
 - Frontend:
-  - React Native (Expo)
-  - Zustand: State management
-  - Sentry: Error Reporting
-  - Styled-components: CSS-in-JS completely custom components built from the ground up.
+  - **React Native** (Expo)
+  - **Zustand**: State management
+  - **Sentry**: Error Reporting
+  - **Styled-components**: CSS-in-JS completely custom components built from the ground up.
+  - **React Navigation v5**: Navigation and deep linking
+
 
 - Backend:
-  - Fastapi (Python)
-  - Postgres SQL: Storing list of users
-  - Redis: Storing clicks for real time leaderboard for the Popcat 
-  - Websockets: Real-time communication with frontend to send leaderboard and revive clicks.
+  - **Fastapi** (Python)
+  - **Postgres SQL**: Storing list of users
+  - **Redis**: Storing clicks for real time leaderboard for the Popcat 
+  - **Websockets**: Real-time communication with frontend to send leaderboard and recieve clicks. ***This was made specifically for the Popcat Event***
+
+# Architecture/Organization
+Code is split into two parts, the *backend* and the *frontend*.
+
+## Backend
+- **sqlwrapper.py**: Wrapper that exposes python function to get data from _Postgres Database_
+- **rediswrapper.py**: Same as above, except for redis.
+- **exponent_server_sdk.py**: Taken from the exponent sdk package. Not pip installed because some changes had to be made in order to support my use case.
+- **notificationSender.py**: Wraps around the server sdk above to send **push notifications** to users.
+- **main.py**: Main fastapi endpoint which uses all of the functions above. _Websocket handling is also right here._
+
+## Frontend
+File structure same as any expo/react native and most names are self-explanatory, so I'll only be going into the _components_ folder.
+- **store.js**: Zustand context manager.
+- **FirstTime**: Listed accordingly, they are the first pages that the users are presented to in order to sign up.
+- **Main**: These are the screens/components that related to the main screen, this is the screen that the users to presented to on every entry into the app.
+- **Pages**: Other screens that the users can navigate to. The names in here are self-explanatory.
+
