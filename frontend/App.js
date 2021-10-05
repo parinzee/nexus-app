@@ -29,6 +29,7 @@ import Screen3 from "./components/FirstTime/Screen3";
 import Screen4 from "./components/FirstTime/Screen4";
 import GPA4 from "./components/Pages/Tools/GPA4";
 import PopCat from "./components/Pages/Tools/Popcat";
+import Popcat_Leaderboard from "./components/Pages/Tools/PopcatLeaderboard";
 import Todo from "./components/Pages/Tools/Todo";
 import Clicker from "./components/Pages/Tools/Clicker";
 import TicTacToe from "./components/Pages/Tools/TicTacToe";
@@ -323,6 +324,13 @@ export default function App() {
 					<Stack.Screen
 						name="PopCat"
 						component={PopCat}
+						options={{
+							headerShown: true,
+						}}
+					/>
+					<Stack.Screen
+						name="PopCat Leaderboard"
+						component={Popcat_Leaderboard}
 						options={{
 							headerShown: true,
 						}}

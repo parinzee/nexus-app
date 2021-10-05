@@ -184,11 +184,16 @@ async def listverse():
     return listItems("verse")
 
 
+@app.get("/popcat/leaderboard/")
+async def get_popcat_leaderboard():
+    return await get_leaderboard()
+
+
 @app.websocket("/popcat/")
 async def popcat_ws(websocket: WebSocket):
     await ConnMan.connect(websocket)
     try:
-        await ConnMan.broadcast_leaderboard()
+        await websocket.send_json(await get_leaderboard())
         while True:
             data = await websocket.receive_json()
             await increment_score(data)

@@ -85,7 +85,7 @@ export default function Tools({ navigation, route }) {
 	} else {
 		var Destinations = [
 			{
-				title: "Popcat Event 🏆",
+				title: "Popcat Event Results",
 				icon: (
 					<FontAwesome5
 						name="cat"
@@ -93,8 +93,8 @@ export default function Tools({ navigation, route }) {
 						color="white"
 					/>
 				),
-				destination: "PopCat",
-				gradient: true,
+				destination: "PopCat Leaderboard",
+				gradient: false,
 			},
 			{
 				title: "Grade Calculator (4.00/4.50)",
