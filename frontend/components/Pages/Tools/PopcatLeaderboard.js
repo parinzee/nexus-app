@@ -170,7 +170,7 @@ function IndividualTab() {
 			}}
 			scrollEnabled={true}
 			style={{
-				backgroundColor: "#252525",
+				backgroundColor: "#121212",
 			}}
 		/>
 	) : (
@@ -200,7 +200,7 @@ function TeamTab() {
 			}}
 			scrollEnabled={true}
 			style={{
-				backgroundColor: "#252525",
+				backgroundColor: "#121212",
 			}}
 		/>
 	) : (
@@ -215,7 +215,7 @@ export default function Popcat_Leaderboard() {
 				screenOptions={{ safeAreaInsets: { top: 0 } }}
 				tabBarOptions={{
 					indicatorStyle: { backgroundColor: "white" },
-					style: { backgroundColor: "#252525" },
+					style: { backgroundColor: "#121212" },
 					labelStyle: { color: "white" },
 				}}
 			>

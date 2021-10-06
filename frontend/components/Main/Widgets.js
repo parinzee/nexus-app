@@ -653,7 +653,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 			>
 				<BibleVerseWidget navigation={navigation} />
 				{teacher ? null : <GPAWidget navigation={navigation} />}
-				<TeamColorWidget navigation={navigation} />
+				{teacher ? null : <TeamColorWidget navigation={navigation} />}
 				<NewsWidget navigation={navigation} />
 				<EventsWidget navigation={navigation} />
 				<TaskWidget navigation={navigation} />

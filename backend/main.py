@@ -32,6 +32,7 @@ class teamColors(Enum):
     GREEN = "green"
     BLUE = "blue"
     YELLOW = "yellow"
+    NONE = "none"
 
 
 class user(BaseModel):

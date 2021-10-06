@@ -85,18 +85,6 @@ export default function Tools({ navigation, route }) {
 	} else {
 		var Destinations = [
 			{
-				title: "Popcat Event Results",
-				icon: (
-					<FontAwesome5
-						name="cat"
-						size={moderateScale(24)}
-						color="white"
-					/>
-				),
-				destination: "PopCat Leaderboard",
-				gradient: false,
-			},
-			{
 				title: "Grade Calculator (4.00/4.50)",
 				icon: (
 					<FontAwesome5
@@ -142,6 +130,18 @@ export default function Tools({ navigation, route }) {
 					/>
 				),
 				destination: "Clicker",
+				gradient: false,
+			},
+			{
+				title: "Popcat Event Results",
+				icon: (
+					<FontAwesome5
+						name="cat"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "PopCat Leaderboard",
 				gradient: false,
 			},
 			{

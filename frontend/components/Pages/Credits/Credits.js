@@ -57,7 +57,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Version</FrontText>
-				<BackText>1.2.8</BackText>
+				<BackText>1.3.0</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Created</FrontText>
@@ -65,7 +65,7 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Last Updated</FrontText>
-				<BackText>Oct 1 2021</BackText>
+				<BackText>Oct 8 2021</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Special Thanks</FrontText>

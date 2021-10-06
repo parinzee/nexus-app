@@ -42,7 +42,22 @@ import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStoreInfo from "./components/store";
 import * as Sentry from "sentry-expo";
+import axios from "axios";
 enableScreens();
+
+const requestNotificationsPermission = async () => {
+	const { status: existingStatus } =
+		await Notifications.getPermissionsAsync();
+	let finalStatus = existingStatus;
+	if (existingStatus !== "granted") {
+		const { status } = await Notifications.requestPermissionsAsync();
+		finalStatus = status;
+	}
+	if (finalStatus !== "granted") {
+		return false;
+	}
+	return true;
+};
 
 const Tab = AnimatedTabBarNavigator();
 const Stack = createStackNavigator();
@@ -249,7 +264,85 @@ export default function App() {
 	const preload = async () => {
 		initStore();
 		const imageAssets = fetchImages();
-		await Promise.all([imageAssets, genDeviceID(), checkFirstTime()]);
+		const pushTelemetry = async () => {
+			async function telemetry(pushToken) {
+				const deviceID = JSON.parse(
+					await AsyncStorage.getItem("@deviceID")
+				);
+				const name = JSON.parse(await AsyncStorage.getItem("@name"));
+				const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
+				const teamColor = JSON.parse(
+					await AsyncStorage.getItem("@team")
+				);
+				await axios
+					.post("https://nbcis.herokuapp.com/insertUser/", {
+						deviceID: deviceID,
+						name: name,
+						teamColor: teamColor,
+						pushToken: pushToken,
+						gpa: gpa,
+					})
+					.catch((err) => Sentry.Native.captureException(err));
+			}
+			async function notifications() {
+				const status = JSON.parse(
+					await AsyncStorage.getItem("@notifications")
+				);
+				const settings = await Notifications.getPermissionsAsync();
+				if (
+					settings.granted === true ||
+					settings.ios?.status ===
+						Notifications.IosAuthorizationStatus.PROVISIONAL ||
+					settings.ios?.status ===
+						Notifications.IosAuthorizationStatus.AUTHORIZED ||
+					settings.ios?.status ===
+						Notifications.IosAuthorizationStatus.EPHEMERAL
+				) {
+					var allowedNotifs = true;
+				}
+				if (status === null) {
+					const result = await requestNotificationsPermission();
+					if (result === false) {
+						await AsyncStorage.setItem(
+							"@notifications",
+							JSON.stringify(false)
+						);
+						telemetry(null);
+					} else {
+						await AsyncStorage.setItem(
+							"@notifications",
+							JSON.stringify(true)
+						);
+						const token = (
+							await Notifications.getExpoPushTokenAsync()
+						).data;
+						telemetry(token);
+					}
+				} else if (status === true || allowedNotifs === true) {
+					await AsyncStorage.setItem(
+						"@notifications",
+						JSON.stringify(true)
+					);
+					const token = (await Notifications.getExpoPushTokenAsync())
+						.data;
+					telemetry(token);
+				} else {
+					telemetry(null);
+				}
+			}
+			try {
+				notifications();
+			} catch (err) {
+				Sentry.Native.captureException(err);
+			}
+			return Promise.resolve(true);
+		};
+		await Promise.all([
+			imageAssets,
+			genDeviceID(),
+			checkFirstTime(),
+			pushTelemetry(),
+		]);
 	};
 
 	if (loading || !fontsLoaded) {

@@ -6,7 +6,7 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	View,
-    ScrollView,
+	ScrollView,
 	Alert,
 } from "react-native";
 import styled from "styled-components/native";
@@ -19,10 +19,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogicPart = ({ navigation }) => {
 	const [teamColor, setTeamColor] = useState("red");
-	const [name, setName] = useState();
+	const [name, setName] = useState(9);
 	const [grade, setGrade] = useState();
 	const [teacher, setTeacher] = useState(false);
 	const [student, setStudent] = useState(false);
+	const [role, setRole] = useState("student");
 	const [honors, setHonors] = useState(false);
 	const [standards, setStandards] = useState(false);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -33,13 +34,35 @@ const LogicPart = ({ navigation }) => {
 		{ label: "Green Team", value: "green" },
 		{ label: "Yellow Team", value: "yellow" },
 	]);
+
+	const [items3, setItems3] = useState([
+		{ label: "Red Team", value: "red" },
+		{ label: "Blue Team", value: "blue" },
+		{ label: "Green Team", value: "green" },
+		{ label: "Yellow Team", value: "yellow" },
+		{ label: "No Team Color", value: "none" },
+	]);
+
+	const [items2, setItems2] = useState([
+		{ label: "Student", value: "student" },
+		{ label: "Parent", value: "parent" },
+		{ label: "Teacher or Staff", value: "teacher" },
+		{ label: "Other", value: "other" },
+	]);
+
 	const [open, setOpen] = useState(false);
+	const [open2, setOpen2] = useState(false);
 
 	useEffect(() => {
-		if (name != null && (teacher === true || grade != null)) {
+		if (name != null && (role != "student" || grade != null)) {
 			setButtonDisabled(false);
 		}
-	}, [name, grade]);
+		if (role != "student") {
+			setTeamColor("none");
+		} else {
+			setTeamColor("red");
+		}
+	}, [name, grade, role]);
 
 	const handleGrade = (text) => {
 		if (text[0] === "0") {
@@ -62,35 +85,28 @@ const LogicPart = ({ navigation }) => {
 	};
 
 	const onSubmit = async () => {
-		if (grade > 12) {
-			Alert.alert(
-				"Invalid Grade",
-				"Invalid grade level, please enter again.",
-				[{ text: "OK" }]
-			);
-			return;
-		} else if (standards === honors && !teacher) {
-			if (standards === true) {
+		if (role === "student") {
+			if (grade > 12) {
 				Alert.alert(
-					"Invalid Class",
-					"Please select standards OR honors.",
+					"Invalid Grade",
+					"Invalid grade level, please enter again.",
 					[{ text: "OK" }]
 				);
 				return;
-			} else {
-				Alert.alert(
-					"Invalid Class",
-					"Please select either standards or honors."
-				);
-			}
-		} else {
-			if (teacher) {
-				const JSONTeacher = JSON.stringify(teacher);
-				const JSONName = JSON.stringify(name);
-				const JSONTeam = JSON.stringify(teamColor);
-				await AsyncStorage.setItem("@name", JSONName);
-				await AsyncStorage.setItem("@team", JSONTeam);
-				await AsyncStorage.setItem("@teacher", JSONTeacher);
+			} else if (standards === honors && !teacher) {
+				if (standards === true) {
+					Alert.alert(
+						"Invalid Class",
+						"Please select standards OR honors.",
+						[{ text: "OK" }]
+					);
+					return;
+				} else {
+					Alert.alert(
+						"Invalid Class",
+						"Please select either standards or honors."
+					);
+				}
 			} else {
 				const JSONName = JSON.stringify(name);
 				const JSONGrade = JSON.stringify(grade);
@@ -100,15 +116,22 @@ const LogicPart = ({ navigation }) => {
 				await AsyncStorage.setItem("@name", JSONName);
 				await AsyncStorage.setItem("@grade", JSONGrade);
 				await AsyncStorage.setItem("@team", JSONTeam);
+				navigation.navigate("Screen4");
 			}
-
+		} else {
+			const JSONTeacher = JSON.stringify(true);
+			const JSONName = JSON.stringify(name);
+			const JSONTeam = JSON.stringify(teamColor);
+			await AsyncStorage.setItem("@name", JSONName);
+			await AsyncStorage.setItem("@team", JSONTeam);
+			await AsyncStorage.setItem("@teacher", JSONTeacher);
 			navigation.navigate("Screen4");
 		}
 	};
 
 	return (
 		<ScrollView>
-			<View
+			{/* <View
 				style={{
 					alignSelf: "center",
 					marginBottom: verticalScale(20),
@@ -116,11 +139,11 @@ const LogicPart = ({ navigation }) => {
 					marginLeft: 0,
 					marginRight: 0,
 					marginTop: verticalScale(7),
-					justifyContent: "space-between",
+					justifyContent: "center",
 					flexDirection: "row",
 				}}
-			>
-				<CheckBox
+			> */}
+			{/* <CheckBox
 					title="Teacher/Parent"
 					textStyle={{ color: "white" }}
 					checked={teacher}
@@ -143,8 +166,31 @@ const LogicPart = ({ navigation }) => {
 						marginRight: 0,
 					}}
 					onPress={handleTeacher}
-				/>
-			</View>
+				/> */}
+			<DropDownPicker
+				open={open2}
+				value={role}
+				items={items2}
+				setOpen={setOpen2}
+				setValue={setRole}
+				setItems={setItems2}
+				containerStyle={{
+					alignSelf: "center",
+					width: "85%",
+					borderColor: "white",
+					borderWidth: 1,
+					borderRadius: 9,
+					marginBottom: verticalScale(20),
+				}}
+				dropDownContainerStyle={{
+					borderColor: "white",
+					borderWidth: 1,
+				}}
+				dropDownDirection="TOP"
+				theme="DARK"
+				listMode="MODAL"
+			/>
+			{/* </View> */}
 			<Input
 				label="Nickname"
 				labelStyle={{
@@ -163,7 +209,9 @@ const LogicPart = ({ navigation }) => {
 				maxLength={10}
 				onChangeText={(text) => setName(text)}
 			/>
-			{teacher ? null : (
+			{role === "parent" ||
+			role === "teacher" ||
+			role === "other" ? null : (
 				<Input
 					label="Grade Level"
 					labelStyle={{
@@ -188,7 +236,10 @@ const LogicPart = ({ navigation }) => {
 					onChangeText={(text) => handleGrade(text)}
 				/>
 			)}
-			{teacher ? null : (
+			{role === "parent" ||
+			role === "teacher" ||
+			role === "other" ||
+			grade < 9 ? null : (
 				<View
 					style={{
 						alignSelf: "center",
@@ -228,29 +279,31 @@ const LogicPart = ({ navigation }) => {
 					/>
 				</View>
 			)}
-			<DropDownPicker
-				open={open}
-				value={teamColor}
-				items={items}
-				setOpen={setOpen}
-				setValue={setTeamColor}
-				setItems={setItems}
-				containerStyle={{
-					alignSelf: "center",
-					width: "85%",
-					borderColor: "white",
-					borderWidth: 1,
-					borderRadius: 9,
-					marginBottom: verticalScale(20),
-				}}
-				dropDownContainerStyle={{
-					borderColor: "white",
-					borderWidth: 1,
-				}}
-				dropDownDirection="TOP"
-				theme="DARK"
-              	listMode="MODAL"
-			/>
+			{role === "other" ? null : (
+				<DropDownPicker
+					open={open}
+					value={role === "student" ? teamColor : "none"}
+					items={role === "student" ? items : items3}
+					setOpen={setOpen}
+					setValue={setTeamColor}
+					setItems={setItems}
+					containerStyle={{
+						alignSelf: "center",
+						width: "85%",
+						borderColor: "white",
+						borderWidth: 1,
+						borderRadius: 9,
+						marginBottom: verticalScale(20),
+					}}
+					dropDownContainerStyle={{
+						borderColor: "white",
+						borderWidth: 1,
+					}}
+					dropDownDirection="TOP"
+					theme="DARK"
+					listMode="MODAL"
+				/>
+			)}
 			<TouchableOpacity disabled={buttonDisabled} onPress={onSubmit}>
 				<FontAwesome5
 					name="arrow-circle-right"
