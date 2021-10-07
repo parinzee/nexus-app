@@ -264,6 +264,7 @@ export default function App() {
 	const preload = async () => {
 		initStore();
 		const imageAssets = fetchImages();
+		const value = await AsyncStorage.getItem("@firstTime");
 		const pushTelemetry = async () => {
 			async function telemetry(pushToken) {
 				const deviceID = JSON.parse(
@@ -330,10 +331,12 @@ export default function App() {
 					telemetry(null);
 				}
 			}
-			try {
-				notifications();
-			} catch (err) {
-				Sentry.Native.captureException(err);
+			if (value != null) {
+				try {
+					notifications();
+				} catch (err) {
+					Sentry.Native.captureException(err);
+				}
 			}
 			return Promise.resolve(true);
 		};

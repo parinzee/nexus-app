@@ -12,6 +12,7 @@ import axios from "axios";
 import Todo from "../Pages/Tools/Todo";
 import { Button } from "react-native-elements";
 import { FontAwesome5 } from "@expo/vector-icons";
+import FootNote from "../Pages/Footnote";
 
 const dataSort = (a, b) => {
 	const [monthA, dateA] = a[2].split("--")[1].split("/");
@@ -239,9 +240,7 @@ const NewsWidget = ({ navigation }) => {
 						<TitleText>{latestNews[1]}</TitleText>
 					</TitleContainer>
 					<SubtitleText>{latestNews[2].split("--")[0]}</SubtitleText>
-					<DateText>
-						Posted on {latestNews[2].split("--")[1]}
-					</DateText>
+					<DateText>Posted {latestNews[2].split("--")[1]}</DateText>
 				</Container>
 			) : (
 				<View />
@@ -338,9 +337,7 @@ const EventsWidget = ({ navigation }) => {
 						<TitleText>{latestNews[1]}</TitleText>
 					</TitleContainer>
 					<SubtitleText>{latestNews[2].split("--")[0]}</SubtitleText>
-					<DateText>
-						Posted on {latestNews[2].split("--")[1]}
-					</DateText>
+					<DateText>Posted {latestNews[2].split("--")[1]}</DateText>
 				</Container>
 			) : (
 				<View />
@@ -657,6 +654,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
 				<NewsWidget navigation={navigation} />
 				<EventsWidget navigation={navigation} />
 				<TaskWidget navigation={navigation} />
+				<FootNote />
 				<ClearFix />
 			</AnotherContainer>
 		</Container>

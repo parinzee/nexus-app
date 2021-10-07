@@ -71,7 +71,7 @@ const Item = ({ eventName, eventDesc, mainColor }) => {
 				<TitleText>{eventName}</TitleText>
 			</TitleContainer>
 			<SubtitleText>{eventDesc.split("--")[0]}</SubtitleText>
-			<DateText>Posted on {eventDesc.split("--")[1]}</DateText>
+			<DateText>Posted {eventDesc.split("--")[1]}</DateText>
 		</Container>
 	);
 };

@@ -19,11 +19,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogicPart = ({ navigation }) => {
 	const [teamColor, setTeamColor] = useState("red");
-	const [name, setName] = useState(9);
+	const [name, setName] = useState();
 	const [grade, setGrade] = useState();
 	const [teacher, setTeacher] = useState(false);
 	const [student, setStudent] = useState(false);
-	const [role, setRole] = useState("student");
+	const [role, setRole] = useState(null);
 	const [honors, setHonors] = useState(false);
 	const [standards, setStandards] = useState(false);
 	const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -189,131 +189,143 @@ const LogicPart = ({ navigation }) => {
 				dropDownDirection="TOP"
 				theme="DARK"
 				listMode="MODAL"
+				placeholder="Choose your identity"
 			/>
 			{/* </View> */}
-			<Input
-				label="Nickname"
-				labelStyle={{
-					marginLeft: moderateScale(20),
-					color: "white",
-				}}
-				placeholder="John"
-				leftIcon={
-					<FontAwesome5 name="address-book" size={24} color="white" />
-				}
-				inputContainerStyle={{
-					marginLeft: moderateScale(20),
-					marginRight: moderateScale(20),
-				}}
-				inputStyle={{ color: "white" }}
-				maxLength={10}
-				onChangeText={(text) => setName(text)}
-			/>
-			{role === "parent" ||
-			role === "teacher" ||
-			role === "other" ? null : (
-				<Input
-					label="Grade Level"
-					labelStyle={{
-						marginLeft: moderateScale(20),
-						color: "white",
-					}}
-					placeholder="7"
-					leftIcon={
-						<FontAwesome5
-							name="address-card"
-							size={24}
-							color="white"
+			{role === null ? null : (
+				<View>
+					<Input
+						label="Nickname"
+						labelStyle={{
+							marginLeft: moderateScale(20),
+							color: "white",
+						}}
+						placeholder="John"
+						leftIcon={
+							<FontAwesome5
+								name="address-book"
+								size={24}
+								color="white"
+							/>
+						}
+						inputContainerStyle={{
+							marginLeft: moderateScale(20),
+							marginRight: moderateScale(20),
+						}}
+						inputStyle={{ color: "white" }}
+						maxLength={10}
+						onChangeText={(text) => setName(text)}
+					/>
+					{role === "parent" ||
+					role === "teacher" ||
+					role === "other" ? null : (
+						<Input
+							label="Grade Level"
+							labelStyle={{
+								marginLeft: moderateScale(20),
+								color: "white",
+							}}
+							placeholder="7"
+							leftIcon={
+								<FontAwesome5
+									name="address-card"
+									size={24}
+									color="white"
+								/>
+							}
+							inputContainerStyle={{
+								marginRight: moderateScale(20),
+								marginLeft: moderateScale(20),
+							}}
+							maxLength={2}
+							inputStyle={{ color: "white" }}
+							keyboardType="numeric"
+							onChangeText={(text) => handleGrade(text)}
 						/>
-					}
-					inputContainerStyle={{
-						marginRight: moderateScale(20),
-						marginLeft: moderateScale(20),
-					}}
-					maxLength={2}
-					inputStyle={{ color: "white" }}
-					keyboardType="numeric"
-					onChangeText={(text) => handleGrade(text)}
-				/>
-			)}
-			{role === "parent" ||
-			role === "teacher" ||
-			role === "other" ||
-			grade < 9 ? null : (
-				<View
-					style={{
-						alignSelf: "center",
-						marginBottom: verticalScale(10),
-						width: "85%",
-						marginLeft: 0,
-						marginRight: 0,
-						justifyContent: "space-between",
-						flexDirection: "row",
-					}}
-				>
-					<CheckBox
-						title="Honors"
-						textStyle={{ color: "white" }}
-						checked={honors}
-						containerStyle={{
-							backgroundColor: "#292d3e",
-							alignSelf: "center",
-							width: "45%",
-							marginBottom: verticalScale(10),
-							marginLeft: 0,
-						}}
-						onPress={handleHonors}
-					/>
-					<CheckBox
-						title="Standards"
-						textStyle={{ color: "white" }}
-						checked={standards}
-						containerStyle={{
-							backgroundColor: "#292d3e",
-							alignSelf: "center",
-							width: "44%",
-							marginBottom: verticalScale(10),
-							marginRight: 0,
-						}}
-						onPress={handleStandards}
-					/>
+					)}
+					{role === "parent" ||
+					role === "teacher" ||
+					role === "other" ||
+					grade < 9 ? null : (
+						<View
+							style={{
+								alignSelf: "center",
+								marginBottom: verticalScale(10),
+								width: "85%",
+								marginLeft: 0,
+								marginRight: 0,
+								justifyContent: "space-between",
+								flexDirection: "row",
+							}}
+						>
+							<CheckBox
+								title="Honors"
+								textStyle={{ color: "white" }}
+								checked={honors}
+								containerStyle={{
+									backgroundColor: "#292d3e",
+									alignSelf: "center",
+									width: "45%",
+									marginBottom: verticalScale(10),
+									marginLeft: 0,
+								}}
+								onPress={handleHonors}
+							/>
+							<CheckBox
+								title="Standards"
+								textStyle={{ color: "white" }}
+								checked={standards}
+								containerStyle={{
+									backgroundColor: "#292d3e",
+									alignSelf: "center",
+									width: "44%",
+									marginBottom: verticalScale(10),
+									marginRight: 0,
+								}}
+								onPress={handleStandards}
+							/>
+						</View>
+					)}
+					{role === "other" ? null : (
+						<DropDownPicker
+							open={open}
+							value={role === "student" ? teamColor : "none"}
+							items={role === "student" ? items : items3}
+							setOpen={setOpen}
+							setValue={setTeamColor}
+							setItems={setItems}
+							containerStyle={{
+								alignSelf: "center",
+								width: "85%",
+								borderColor: "white",
+								borderWidth: 1,
+								borderRadius: 9,
+								marginBottom: verticalScale(20),
+							}}
+							dropDownContainerStyle={{
+								borderColor: "white",
+								borderWidth: 1,
+							}}
+							dropDownDirection="TOP"
+							theme="DARK"
+							listMode="MODAL"
+						/>
+					)}
+					<TouchableOpacity
+						disabled={buttonDisabled}
+						onPress={onSubmit}
+					>
+						<FontAwesome5
+							name="arrow-circle-right"
+							size={50}
+							color={buttonDisabled ? "grey" : "white"}
+							style={{
+								alignSelf: "center",
+							}}
+						/>
+					</TouchableOpacity>
 				</View>
 			)}
-			{role === "other" ? null : (
-				<DropDownPicker
-					open={open}
-					value={role === "student" ? teamColor : "none"}
-					items={role === "student" ? items : items3}
-					setOpen={setOpen}
-					setValue={setTeamColor}
-					setItems={setItems}
-					containerStyle={{
-						alignSelf: "center",
-						width: "85%",
-						borderColor: "white",
-						borderWidth: 1,
-						borderRadius: 9,
-						marginBottom: verticalScale(20),
-					}}
-					dropDownContainerStyle={{
-						borderColor: "white",
-						borderWidth: 1,
-					}}
-					dropDownDirection="TOP"
-					theme="DARK"
-					listMode="MODAL"
-				/>
-			)}
-			<TouchableOpacity disabled={buttonDisabled} onPress={onSubmit}>
-				<FontAwesome5
-					name="arrow-circle-right"
-					size={50}
-					color={buttonDisabled ? "grey" : "white"}
-					style={{
-						alignSelf: "center",
-					}}
-				/>
-			</TouchableOpacity>
 		</ScrollView>
 	);
 };

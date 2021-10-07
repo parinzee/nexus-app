@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 export default function Credits() {
 	const Container = styled.View`
@@ -40,24 +41,37 @@ export default function Credits() {
 		font-family: System;
 		font-size: ${moderateScale(13)}px;
 	`;
+
+	const handleReset = async () => {
+		const deviceID = await AsyncStorage.getItem("@deviceID");
+		await AsyncStorage.clear();
+		await AsyncStorage.setItem("@deviceID", deviceID);
+		Alert.alert("Data has been reset.", "Please re-launch the app", [
+			{ text: "OK" },
+		]);
+	};
 	return (
 		<Container>
 			<Title>Information</Title>
 			<InfoTextContainer>
-				<FrontText>Publisher</FrontText>
-				<BackText>NEXUS Student Council</BackText>
+				<FrontText>Copyright</FrontText>
+				<BackText>© 2021 Parinthapat Pengpun</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
-				<FrontText>Copyright</FrontText>
-				<BackText>© Parinthapat Pengpun 2021-2022</BackText>
+				<FrontText>News Source</FrontText>
+				<BackText>Bangkok Christian Inter. School</BackText>
+			</InfoTextContainer>
+			<InfoTextContainer>
+				<FrontText>App Publisher</FrontText>
+				<BackText>NEXUS Student Council</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>App Developer</FrontText>
 				<BackText>Parinthapat Pengpun</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
-				<FrontText>Version</FrontText>
-				<BackText>1.3.0</BackText>
+				<FrontText>Special Thanks</FrontText>
+				<BackText>NEXUS Members</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Created</FrontText>
@@ -65,11 +79,11 @@ export default function Credits() {
 			</InfoTextContainer>
 			<InfoTextContainer>
 				<FrontText>Last Updated</FrontText>
-				<BackText>Oct 8 2021</BackText>
+				<BackText>Oct 10 2021</BackText>
 			</InfoTextContainer>
 			<InfoTextContainer>
-				<FrontText>Special Thanks</FrontText>
-				<BackText>NEXUS Members</BackText>
+				<FrontText>Version</FrontText>
+				<BackText>1.3.0</BackText>
 			</InfoTextContainer>
 			<Button
 				title="Reset Data"

@@ -7,6 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Header from "../Header";
 import { verticalScale, moderateScale } from "react-native-size-matters";
 import useStoreInfo from "../../store";
+import FootNote from "../Footnote";
 
 export default function Tools({ navigation, route }) {
 	const clicker = useStoreInfo((state) => state.clicker);
@@ -223,6 +224,7 @@ export default function Tools({ navigation, route }) {
 					</TouchableOpacity>
 				))}
 			</BottomContainer>
+			<FootNote />
 		</Container>
 	);
 }

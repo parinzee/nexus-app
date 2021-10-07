@@ -32,7 +32,7 @@
     },
     "android": {
       "package": "com.parin.nexus",
-      "versionCode": 10
+      "versionCode": 11
     },
     "web": {
       "favicon": "./assets/adaptive-icon.png"
