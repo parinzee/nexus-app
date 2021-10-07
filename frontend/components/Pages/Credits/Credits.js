@@ -89,7 +89,7 @@ export default function Credits() {
 				title="Reset Data"
 				type="outline"
 				onPress={() => {
-					AsyncStorage.clear();
+					handleReset();
 				}}
 				containerStyle={{ marginTop: 100, paddingHorizontal: 20 }}
 			/>
