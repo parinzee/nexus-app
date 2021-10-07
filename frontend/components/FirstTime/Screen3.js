@@ -93,7 +93,7 @@ const LogicPart = ({ navigation }) => {
 					[{ text: "OK" }]
 				);
 				return;
-			} else if (standards === honors && !teacher) {
+			} else if (standards === honors && !teacher && grade >= 9) {
 				if (standards === true) {
 					Alert.alert(
 						"Invalid Class",
