@@ -7,28 +7,29 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { View, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import useStoreInfo from "../../store";
-import create from "zustand";
+import { Audio } from "expo-av";
+// import create from "zustand";
 
-const useStore = create((set) => ({
-	enabled: true,
-	checkStatus: () => {
-		const curr = new Date();
-		const due = new Date(2021, 8, 31);
-		if (curr > due) {
-			set({ enabled: false });
-		}
-	},
-}));
+// const useStore = create((set) => ({
+// 	enabled: true,
+// 	checkStatus: () => {
+// 		const curr = new Date();
+// 		const due = new Date(2021, 8, 31);
+// 		if (curr > due) {
+// 			set({ enabled: false });
+// 		}
+// 	},
+// }));
 
 const Tab = createMaterialTopTabNavigator();
 var leaderboard_global = {};
 
 export default function PopCat() {
-	const [WS, setWS] = useState(
-		new WebSocket("ws://nbcis.herokuapp.com/popcat/")
-	);
-	const status = useStore((state) => state.enabled);
-	const checkStatus = useStore((state) => state.checkStatus);
+	// const [WS, setWS] = useState(
+	// 	new WebSocket("ws://nbcis.herokuapp.com/popcat/")
+	// );
+	// const status = useStore((state) => state.enabled);
+	// const checkStatus = useStore((state) => state.checkStatus);
 	const Container = styled.View`
 		flex: 1;
 		background-color: #121212;
@@ -36,26 +37,32 @@ export default function PopCat() {
 		align-items: center;
 	`;
 
-	useEffect(() => {
-		checkStatus();
-		return () => {
-			WS.close();
-		};
-	}, []);
+	// useEffect(() => {
+	// 	checkStatus();
+	// 	return () => {
+	// 		WS.close();
+	// 	};
+	// }, []);
 
-	return status === false ? (
+	// return status === false ? (
+	// 	<Container>
+	// 		<LeaderBoard WS={WS} snap={["100%, 100%"]} end={true} />
+	// 	</Container>
+	// ) : (
+	// 	<Container>
+	// 		<Cat WS={WS} />
+	// 		<LeaderBoard WS={WS} snap={["20%", "70%"]} />
+	// 	</Container>
+	// );
+	return (
 		<Container>
-			<LeaderBoard WS={WS} snap={["100%, 100%"]} end={true} />
-		</Container>
-	) : (
-		<Container>
-			<Cat WS={WS} />
-			<LeaderBoard WS={WS} snap={["20%", "70%"]} />
+			<Cat />
 		</Container>
 	);
 }
 
-function Cat({ WS }) {
+// function Cat({ WS }) {
+function Cat() {
 	const [clicked, setClicked] = useState(false);
 	const [clicks, setClicks] = useState(0);
 	const imgsrc = [
@@ -73,12 +80,20 @@ function Cat({ WS }) {
 		flex-direction: column;
 	`;
 
+	async function playSound() {
+		const { sound } = await Audio.Sound.createAsync(
+			require("../../../assets/click.mp3")
+		);
+		sound.playAsync();
+	}
+
 	const onPress = async () => {
 		setClicked(true);
 		setTimeout(() => {
 			setClicked(false);
 			setClicks(clicks + 1);
 		}, 40);
+		playSound();
 	};
 
 	const onLongPress = async () => {
@@ -87,12 +102,19 @@ function Cat({ WS }) {
 			setClicked(false);
 			setClicks(clicks + 1);
 		}, 400);
+		playSound();
 	};
 
 	const loadCounts = async () => {
 		const counts = JSON.parse(await AsyncStorage.getItem("@popcat"));
 		if (counts != null) {
 			setClicks(counts);
+		} else {
+			Alert.alert(
+				"Turn off Battery Saver or Low Power Mode",
+				"For the best experience, please ensure Battery Saver or Low Power Mode is off.",
+				[{ text: "OK" }]
+			);
 		}
 	};
 
@@ -106,16 +128,18 @@ function Cat({ WS }) {
 			onLongPress={onLongPress}
 			delayLongPress={200}
 		>
-			<Counter clicks={clicks} WS={WS} />
+			{/* <Counter clicks={clicks} WS={WS} /> */}
+			<Counter clicks={clicks} />
 			<Cat source={clicked === false ? imgsrc[0] : imgsrc[1]} />
 		</Pressable>
 	);
 }
 
-function Counter({ clicks, WS }) {
-	const deviceID = useStoreInfo((state) => state.deviceID);
-	const team = useStoreInfo((state) => state.team);
-	const name = useStoreInfo((state) => state.name);
+// function Counter({ clicks, WS }) {
+function Counter({ clicks }) {
+	// const deviceID = useStoreInfo((state) => state.deviceID);
+	// const team = useStoreInfo((state) => state.team);
+	// const name = useStoreInfo((state) => state.name);
 	const CounterText = styled.Text`
 		font-family: System;
 		font-size: ${moderateScale(50)}px;
@@ -126,17 +150,20 @@ function Counter({ clicks, WS }) {
 	`;
 
 	const updateCounts = async () => {
-		if (clicks != 0 && typeof name === "string") {
-			try {
-				WS.send(
-					JSON.stringify({
-						deviceID: deviceID,
-						name: name,
-						team: team,
-						clicks: clicks,
-					})
-				);
-			} catch {}
+		// if (clicks != 0 && typeof name === "string") {
+		// 	try {
+		// 		WS.send(
+		// 			JSON.stringify({
+		// 				deviceID: deviceID,
+		// 				name: name,
+		// 				team: team,
+		// 				clicks: clicks,
+		// 			})
+		// 		);
+		// 	} catch {}
+		// 	await AsyncStorage.setItem("@popcat", JSON.stringify(clicks));
+		// }
+		if (clicks != 0) {
 			await AsyncStorage.setItem("@popcat", JSON.stringify(clicks));
 		}
 	};

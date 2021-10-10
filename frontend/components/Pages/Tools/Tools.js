@@ -122,7 +122,19 @@ export default function Tools({ navigation, route }) {
 				gradient: false,
 			},
 			{
-				title: "Clicker (Stress Reliever)",
+				title: "Popcat Game (Relaxation)",
+				icon: (
+					<FontAwesome5
+						name="cat"
+						size={moderateScale(24)}
+						color="white"
+					/>
+				),
+				destination: "PopCat",
+				gradient: false,
+			},
+			{
+				title: "Clicker (Relaxation)",
 				icon: (
 					<FontAwesome5
 						name="hand-pointer"
@@ -134,10 +146,10 @@ export default function Tools({ navigation, route }) {
 				gradient: false,
 			},
 			{
-				title: "Popcat Event Results",
+				title: "Popcat Event Results (27-30 Sep)",
 				icon: (
 					<FontAwesome5
-						name="cat"
+						name="chart-bar"
 						size={moderateScale(24)}
 						color="white"
 					/>
