@@ -19,6 +19,9 @@ from sqlwrapper import (
     listUsers,
 )
 
+from markdown import markdown
+from bs4 import BeautifulSoup
+
 app = FastAPI()
 
 
@@ -68,6 +71,18 @@ class ConnectionManager:
 ConnMan = ConnectionManager()
 
 
+def stripMarkdown(text: str) -> str:
+
+    # md -> html -> text since BeautifulSoup can extract text cleanly
+    html = markdown(text)
+
+    # extract text
+    soup = BeautifulSoup(html, "html.parser")
+    text = "".join(soup.findAll(text=True))
+
+    return text
+
+
 def splitArr(arr: list, numToSplit: int):
     masterList = []
     tempList = []
@@ -113,13 +128,16 @@ async def pushall(title: str, message: str, itemType: itemTypes):
 @app.post("/insertItem/")
 def insert(eventName: str, eventDesc: str, itemType: itemTypes, notify: bool):
     insertItem(eventName, eventDesc, itemType.value)
+    strippedEventDesc = stripMarkdown(eventDesc)
     if notify:
         if itemType == itemTypes.ANNOUNCEMENTS:
             page = {"Link": "MainTab/News"}
         else:
             page = {"Link": "MainTab/Team Color"}
         for pushTokens in splitArr(listPushTokens(), 10):
-            send_message(pushTokens, eventName, eventDesc.split("--")[0], data=page)
+            send_message(
+                pushTokens, eventName, strippedEventDesc.split("--")[0], data=page
+            )
     return "Success"
 
 
