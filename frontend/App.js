@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import AppLoading from "expo-app-loading";
 import * as Notifications from "expo-notifications";
 import * as Linking from "expo-linking";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
   OpenSans_800ExtraBold,
@@ -42,21 +42,24 @@ import { enableScreens } from "react-native-screens";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStoreInfo from "./components/store";
 import * as Sentry from "sentry-expo";
-import axios from "axios";
-enableScreens();
+import { telemetry } from "./utils/telemetry";
+Sentry.init({
+  dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
+  enableInExpoDevelopment: true,
+  debug: false,
+});
 
-const requestNotificationsPermission = async () => {
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
+const prefix = Linking.createURL("/");
+const handleNewNotification = async (data) => {
+  try {
+    Linking.openURL(prefix + data.Link);
+    await Notifications.setBadgeCountAsync(1);
+  } catch (error) {
+    console.error(error);
   }
-  if (finalStatus !== "granted") {
-    return false;
-  }
-  return true;
 };
+
+enableScreens();
 
 const Tab = AnimatedTabBarNavigator();
 const Stack = createStackNavigator();
@@ -72,17 +75,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const handleNewNotification = async (data) => {
-  try {
-    Linking.openURL(prefix + data.Link);
-    await Notifications.setBadgeCountAsync(1);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
-const prefix = Linking.createURL("/");
 
 TaskManager.defineTask(
   BACKGROUND_NOTIFICATION_TASK,
@@ -93,11 +86,207 @@ TaskManager.defineTask(
 
 Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK);
 
-Sentry.init({
-  dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
-  enableInExpoDevelopment: true,
-  debug: false,
-});
+export default function App() {
+  const initStore = useStoreInfo((state) => state.setDeviceInfo);
+  const linking = {
+    prefixes: [prefix],
+  };
+
+  const [appIsReady, setAppIsReady] = useState(true);
+  const [initialRoute, setInitialRoute] = useState("Screen1");
+
+  let [fontsLoaded] = useFonts({
+    Now: require("./assets/fonts/NowAlt-Medium.otf"),
+    Momcake: require("./assets/fonts/Momcake.otf"),
+    OpenSans_800ExtraBold,
+    OpenSans_300Light,
+    OpenSans_400Regular,
+    Comfortaa_400Regular,
+    Comfortaa_700Bold,
+  });
+
+  const fetchImages = () => {
+    const images = [
+      require("./assets/nexus-logo.png"),
+      require("./assets/valley.jpg"),
+      require("./assets/click.mp3"),
+      require("./assets/Cat-Open.png"),
+      require("./assets/Cat-Closed.png"),
+    ];
+
+    const cacheImages = images.map((image) => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+
+    return Promise.all(cacheImages);
+  };
+
+  useEffect(() => {
+    Notifications.addNotificationResponseReceivedListener((response) => {
+      handleNewNotification(response.notification.request.content.data);
+    });
+    prepare();
+  }, []);
+
+  async function genDeviceID() {
+    const deviceID = await AsyncStorage.getItem("@deviceID");
+    if (deviceID === null) {
+      const generateDeviceID = () => Math.random().toString(20).substr(2, 10);
+      await AsyncStorage.setItem(
+        "@deviceID",
+        JSON.stringify(generateDeviceID())
+      );
+    }
+  }
+
+  async function checkFirstTime() {
+    const value = await AsyncStorage.getItem("@firstTime");
+    if (value != null) {
+      setInitialRoute("MainTab");
+    }
+  }
+
+  const preload = async () => {
+    initStore();
+    await checkFirstTime();
+    const imageAssets = fetchImages();
+    const deviceId = genDeviceID();
+    await Promise.all([imageAssets, deviceId]);
+  };
+
+  async function prepare() {
+    try {
+      await SplashScreen.preventAutoHideAsync();
+      await preload();
+      await SplashScreen.hideAsync();
+      setAppIsReady(true);
+      await telemetry();
+    } catch (e) {
+      console.warn(e);
+      setAppIsReady(true);
+      await SplashScreen.hideAsync();
+      await telemetry();
+    }
+  }
+
+  if (!appIsReady || !fontsLoaded) {
+    return <StatusBar style="light" />;
+  }
+
+  return (
+    <NavigationContainer linking={linking}>
+      <Stack.Navigator
+        initialRouteName={initialRoute}
+        detachInactiveScreens={true}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#121212",
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            color: "white",
+          },
+          cardStyleInterpolator: forSlide,
+        }}
+      >
+        <Stack.Screen
+          name="Screen1"
+          component={Screen1}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen2"
+          component={Screen2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen3"
+          component={Screen3}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen4"
+          component={Screen4}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MainTab"
+          component={MainTab}
+          options={{
+            headerShown: false,
+            title: "Home",
+            headerTitle: "Home",
+          }}
+        />
+        <Stack.Screen
+          name="Verse Of The Week"
+          component={Verse}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Grade Calculator"
+          component={GPA4}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="PopCat"
+          component={PopCat}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="PopCat Leaderboard"
+          component={Popcat_Leaderboard}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="My Tasks"
+          component={Todo}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="Clicker"
+          component={Clicker}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="Tic Tac Toe"
+          component={TicTacToe}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="Contact Us"
+          component={Contact}
+          options={{
+            headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="Credits"
+          component={Credits}
+          options={{
+            headerShown: true,
+          }}
+        />
+      </Stack.Navigator>
+      <StatusBar style="light" />
+    </NavigationContainer>
+  );
+}
 
 const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
   const progress = Animated.add(
@@ -198,253 +387,3 @@ const MainTab = () => {
     </Tab.Navigator>
   );
 };
-
-export default function App() {
-  const initStore = useStoreInfo((state) => state.setDeviceInfo);
-  const linking = {
-    prefixes: [prefix],
-  };
-
-  const [loading, setLoading] = useState(true);
-  const [firstTime, setFirstTime] = useState();
-
-  let [fontsLoaded] = useFonts({
-    Now: require("./assets/fonts/NowAlt-Medium.otf"),
-    Momcake: require("./assets/fonts/Momcake.otf"),
-    OpenSans_800ExtraBold,
-    OpenSans_300Light,
-    OpenSans_400Regular,
-    Comfortaa_400Regular,
-    Comfortaa_700Bold,
-  });
-
-  const fetchImages = () => {
-    const images = [
-      require("./assets/nexus-logo.png"),
-      require("./assets/valley.jpg"),
-      require("./assets/click.mp3"),
-      require("./assets/Cat-Open.png"),
-      require("./assets/Cat-Closed.png"),
-    ];
-
-    const cacheImages = images.map((image) => {
-      return Asset.fromModule(image).downloadAsync();
-    });
-
-    return Promise.all(cacheImages);
-  };
-
-  useEffect(() => {
-    Notifications.addNotificationResponseReceivedListener((response) => {
-      handleNewNotification(response.notification.request.content.data);
-    });
-  }, []);
-
-  async function genDeviceID() {
-    const deviceID = await AsyncStorage.getItem("@deviceID");
-    if (deviceID === null) {
-      const generateDeviceID = () => Math.random().toString(20).substr(2, 10);
-      await AsyncStorage.setItem(
-        "@deviceID",
-        JSON.stringify(generateDeviceID())
-      );
-    }
-  }
-  async function checkFirstTime() {
-    const value = await AsyncStorage.getItem("@firstTime");
-    setFirstTime(value === null ? true : false);
-  }
-
-  const preload = async () => {
-    initStore();
-    const imageAssets = fetchImages();
-    const value = await AsyncStorage.getItem("@firstTime");
-    const pushTelemetry = async () => {
-      async function telemetry(pushToken) {
-        const deviceID = JSON.parse(await AsyncStorage.getItem("@deviceID"));
-        const name = JSON.parse(await AsyncStorage.getItem("@name"));
-        const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
-        const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
-        await axios
-          .post("https://nbcis.herokuapp.com/insertUser/", {
-            deviceID: deviceID,
-            name: name,
-            teamColor: teamColor,
-            pushToken: pushToken,
-            gpa: gpa,
-          })
-          .catch((err) => Sentry.Native.captureException(err));
-      }
-      async function notifications() {
-        const status = JSON.parse(await AsyncStorage.getItem("@notifications"));
-        const settings = await Notifications.getPermissionsAsync();
-        if (
-          settings.granted === true ||
-          settings.ios?.status ===
-            Notifications.IosAuthorizationStatus.PROVISIONAL ||
-          settings.ios?.status ===
-            Notifications.IosAuthorizationStatus.AUTHORIZED ||
-          settings.ios?.status ===
-            Notifications.IosAuthorizationStatus.EPHEMERAL
-        ) {
-          var allowedNotifs = true;
-        }
-        if (status === null) {
-          const result = await requestNotificationsPermission();
-          if (result === false) {
-            await AsyncStorage.setItem("@notifications", JSON.stringify(false));
-            telemetry(null);
-          } else {
-            await AsyncStorage.setItem("@notifications", JSON.stringify(true));
-            const token = (await Notifications.getExpoPushTokenAsync()).data;
-            telemetry(token);
-          }
-        } else if (status === true || allowedNotifs === true) {
-          await AsyncStorage.setItem("@notifications", JSON.stringify(true));
-          const token = (await Notifications.getExpoPushTokenAsync()).data;
-          telemetry(token);
-        } else {
-          telemetry(null);
-        }
-      }
-      if (value != null) {
-        try {
-          notifications();
-        } catch (err) {
-          Sentry.Native.captureException(err);
-        }
-      }
-      return Promise.resolve(true);
-    };
-    await Promise.all([
-      imageAssets,
-      genDeviceID(),
-      checkFirstTime(),
-      pushTelemetry(),
-    ]);
-  };
-
-  if (loading || !fontsLoaded) {
-    return (
-      <AppLoading
-        startAsync={preload}
-        onFinish={() => setLoading(false)}
-        onError={(error) => console.log(error)}
-      />
-    );
-  } else {
-    return (
-      <NavigationContainer linking={linking}>
-        <Stack.Navigator
-          initialRouteName={firstTime ? "Screen1" : "MainTab"}
-          detachInactiveScreens={true}
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#121212",
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              color: "white",
-            },
-            cardStyleInterpolator: forSlide,
-          }}
-        >
-          <Stack.Screen
-            name="Screen1"
-            component={Screen1}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Screen2"
-            component={Screen2}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Screen3"
-            component={Screen3}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Screen4"
-            component={Screen4}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="MainTab"
-            component={MainTab}
-            options={{
-              headerShown: false,
-              title: "Home",
-              headerTitle: "Home",
-            }}
-          />
-          <Stack.Screen
-            name="Verse Of The Week"
-            component={Verse}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Grade Calculator"
-            component={GPA4}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="PopCat"
-            component={PopCat}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="PopCat Leaderboard"
-            component={Popcat_Leaderboard}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="My Tasks"
-            component={Todo}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="Clicker"
-            component={Clicker}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="Tic Tac Toe"
-            component={TicTacToe}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="Contact Us"
-            component={Contact}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="Credits"
-            component={Credits}
-            options={{
-              headerShown: true,
-            }}
-          />
-        </Stack.Navigator>
-        <StatusBar style="light" />
-      </NavigationContainer>
-    );
-  }
-}

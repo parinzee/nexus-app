@@ -549,7 +549,7 @@ export default function WidgetsDashboard({ navigation, setLoading, teacher }) {
         <NewsWidget navigation={navigation} />
         <EventsWidget navigation={navigation} />
         <TaskWidget navigation={navigation} />
-        <FootNote />
+        <FootNote showPullToRefresh={true} />
         <ClearFix />
       </AnotherContainer>
     </Container>

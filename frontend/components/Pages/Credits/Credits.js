@@ -83,7 +83,7 @@ export default function Credits() {
       </InfoTextContainer>
       <InfoTextContainer>
         <FrontText>Version</FrontText>
-        <BackText>1.3.2</BackText>
+        <BackText>1.3.3</BackText>
       </InfoTextContainer>
       <Button
         title="Reset Data"

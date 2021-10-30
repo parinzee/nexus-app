@@ -13,6 +13,7 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 import Markdown from "react-native-markdown-display";
+import { telemetry } from "../../utils/telemetry";
 
 export const Item = ({ eventName, eventDesc, mainColor }) => {
   const windowHeight = useWindowDimensions().height;
