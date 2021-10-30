@@ -8,55 +8,55 @@ import RenderHtml from "react-native-render-html";
 import { CheckBox } from "react-native-elements";
 
 const BottomPart = ({ navigation }) => {
-	const [checked, setChecked] = useState(false);
-	const CheckboxContainer = styled.View`
-		justify-content: center;
-		align-content: center;
-	`;
+  const [checked, setChecked] = useState(false);
+  const CheckboxContainer = styled.View`
+    justify-content: center;
+    align-content: center;
+  `;
 
-	const handleCheckbox = () => {
-		setChecked(!checked);
-	};
+  const handleCheckbox = () => {
+    setChecked(!checked);
+  };
 
-	const handlePress = () => {
-		navigation.navigate("Screen3");
-	};
+  const handlePress = () => {
+    navigation.navigate("Screen3");
+  };
 
-	return (
-		<CheckboxContainer>
-			<CheckBox
-				title="By checking this, you agree to the privacy policy above."
-				checked={checked}
-				onPress={handleCheckbox}
-				containerStyle={{
-					backgroundColor: "#292d3e",
-					marginLeft: 30,
-					marginRight: 30,
-					marginTop: 10,
-				}}
-				textStyle={{
-					color: "white",
-				}}
-			/>
-			<TouchableOpacity onPress={handlePress} disabled={!checked}>
-				<FontAwesome5
-					name="arrow-circle-right"
-					size={50}
-					color={!checked ? "grey" : "white"}
-					style={{
-						alignSelf: "center",
-						marginTop: verticalScale(4),
-						marginBottom: verticalScale(30),
-					}}
-				/>
-			</TouchableOpacity>
-		</CheckboxContainer>
-	);
+  return (
+    <CheckboxContainer>
+      <CheckBox
+        title="By checking this, you agree to the privacy policy above."
+        checked={checked}
+        onPress={handleCheckbox}
+        containerStyle={{
+          backgroundColor: "#292d3e",
+          marginLeft: 30,
+          marginRight: 30,
+          marginTop: 10,
+        }}
+        textStyle={{
+          color: "white",
+        }}
+      />
+      <TouchableOpacity onPress={handlePress} disabled={!checked}>
+        <FontAwesome5
+          name="arrow-circle-right"
+          size={50}
+          color={!checked ? "grey" : "white"}
+          style={{
+            alignSelf: "center",
+            marginTop: verticalScale(4),
+            marginBottom: verticalScale(30),
+          }}
+        />
+      </TouchableOpacity>
+    </CheckboxContainer>
+  );
 };
 
 export default function Screen2({ navigation }) {
-	const source = {
-		html: `
+  const source = {
+    html: `
 		<!DOCTYPE html>
     <html>
     <head>
@@ -167,71 +167,71 @@ export default function Screen2({ navigation }) {
     </html>
       
 		`,
-	};
+  };
 
-	const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
-	const Container = styled.View`
-		flex: 1;
-		background-color: #121212;
-		align-content: center;
-		justify-content: center;
-	`;
+  const Container = styled.View`
+    flex: 1;
+    background-color: #121212;
+    align-content: center;
+    justify-content: center;
+  `;
 
-	const PrivacyPolicyContainer = styled.ScrollView`
-		background-color: #292d3e;
-		border-color: white;
-		border-radius: 20px;
-		border-style: solid;
-		border-width: 1px;
-		height: ${verticalScale(350)}px;
-		margin-top: ${verticalScale(20)}px;
-		margin-left: ${moderateScale(20)}px;
-		margin-right: ${moderateScale(20)}px;
-		padding: 10px;
-	`;
+  const PrivacyPolicyContainer = styled.ScrollView`
+    background-color: #292d3e;
+    border-color: white;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    height: ${verticalScale(350)}px;
+    margin-top: ${verticalScale(20)}px;
+    margin-left: ${moderateScale(20)}px;
+    margin-right: ${moderateScale(20)}px;
+    padding: 10px;
+  `;
 
-	const InsideContainer = styled.View`
-		justify-content: center;
-		align-content: center;
-	`;
+  const InsideContainer = styled.View`
+    justify-content: center;
+    align-content: center;
+  `;
 
-	const Description = styled.Text`
-		text-align: center;
-		font-size: ${moderateScale(17)}px;
-		font-family: Now;
-		color: white;
-	`;
+  const Description = styled.Text`
+    text-align: center;
+    font-size: ${moderateScale(17)}px;
+    font-family: Now;
+    color: white;
+  `;
 
-	return (
-		<Container>
-			<InsideContainer>
-				<LottieView
-					source={require("../../assets/Agreement.json")}
-					autoPlay
-					loop={true}
-					speed={0.7}
-					style={{
-						position: "relative",
-						width: moderateScale(200),
-						height: moderateScale(200),
-						alignSelf: "center",
-						marginBottom: -50,
-					}}
-				/>
-				<Description>
-					To allow us to provide you with the best services possible,
-					please read through this privacy policy.
-				</Description>
-				<PrivacyPolicyContainer>
-					<RenderHtml
-						source={source}
-						contentWidth={width}
-						baseStyle={{ color: "white" }}
-					/>
-				</PrivacyPolicyContainer>
-				<BottomPart navigation={navigation} />
-			</InsideContainer>
-		</Container>
-	);
+  return (
+    <Container>
+      <InsideContainer>
+        <LottieView
+          source={require("../../assets/Agreement.json")}
+          autoPlay
+          loop={true}
+          speed={0.7}
+          style={{
+            position: "relative",
+            width: moderateScale(200),
+            height: moderateScale(200),
+            alignSelf: "center",
+            marginBottom: -50,
+          }}
+        />
+        <Description>
+          To allow us to provide you with the best services possible, please
+          read through this privacy policy.
+        </Description>
+        <PrivacyPolicyContainer>
+          <RenderHtml
+            source={source}
+            contentWidth={width}
+            baseStyle={{ color: "white" }}
+          />
+        </PrivacyPolicyContainer>
+        <BottomPart navigation={navigation} />
+      </InsideContainer>
+    </Container>
+  );
 }
