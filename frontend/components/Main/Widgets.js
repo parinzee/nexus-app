@@ -16,18 +16,28 @@ import FootNote from "../Pages/Footnote";
 import { Item } from "../Pages/Content";
 
 const dataSort = (a, b) => {
-  const [monthA, dateA] = a[2].split("--")[1].split("/");
-  const [monthB, dateB] = b[2].split("--")[1].split("/");
-  if (parseInt(monthA) > parseInt(monthB)) {
+  // --!12/11
+  // --11/22
+  let [monthA, dateA] = a[2].split("--")[1].split("/");
+  let [monthB, dateB] = b[2].split("--")[1].split("/");
+  if (monthA.includes("!") && !monthB.includes("!")) {
     return -1;
-  } else if (parseInt(monthA) < parseInt(monthB)) {
-    return 1;
-  } else if (parseInt(dateA) > parseInt(dateB)) {
-    return -1;
-  } else if (parseInt(dateA) < parseInt(dateB)) {
+  } else if (monthB.includes("!") && !monthA.includes("!")) {
     return 1;
   } else {
-    return b[0] - a[0];
+    monthA = monthA.replace("!", " ").trim();
+    monthB = monthB.replace("!", " ").trim();
+    if (parseInt(monthA) > parseInt(monthB)) {
+      return -1;
+    } else if (parseInt(monthA) < parseInt(monthB)) {
+      return 1;
+    } else if (parseInt(dateA) > parseInt(dateB)) {
+      return -1;
+    } else if (parseInt(dateA) < parseInt(dateB)) {
+      return 1;
+    } else {
+      return b[0] - a[0];
+    }
   }
 };
 
