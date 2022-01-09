@@ -43,6 +43,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStoreInfo from "./components/store";
 import * as Sentry from "sentry-expo";
 import { telemetry } from "./utils/telemetry";
+
+var initialRoute = "Screen1";
+
 Sentry.init({
   dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
   enableInExpoDevelopment: true,
@@ -93,7 +96,6 @@ export default function App() {
   };
 
   const [appIsReady, setAppIsReady] = useState(true);
-  const [initialRoute, setInitialRoute] = useState("Screen1");
 
   let [fontsLoaded] = useFonts({
     Now: require("./assets/fonts/NowAlt-Medium.otf"),
@@ -142,7 +144,7 @@ export default function App() {
   async function checkFirstTime() {
     const value = await AsyncStorage.getItem("@firstTime");
     if (value != null) {
-      setInitialRoute("MainTab");
+      initialRoute = "MainTab";
     }
   }
 
