@@ -21,15 +21,17 @@ const pushData = async (pushToken) => {
   const name = JSON.parse(await AsyncStorage.getItem("@name"));
   const gpa = JSON.parse(await AsyncStorage.getItem("@GPA"));
   const teamColor = JSON.parse(await AsyncStorage.getItem("@team"));
-  await axios
-    .post("https://nbcis.herokuapp.com/insertUser/", {
-      deviceID: deviceID,
-      name: name,
-      teamColor: teamColor,
-      pushToken: pushToken,
-      gpa: gpa,
-    })
-    .catch((err) => Sentry.Native.captureException(err));
+  if (name != null) {
+    await axios
+      .post("https://nbcis.herokuapp.com/insertUser/", {
+        deviceID: deviceID,
+        name: name,
+        teamColor: teamColor,
+        pushToken: pushToken,
+        gpa: gpa,
+      })
+      .catch((err) => Sentry.Native.captureException(err));
+  }
 };
 
 export async function telemetry() {
