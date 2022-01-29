@@ -44,7 +44,7 @@ import useStoreInfo from "./components/store";
 import * as Sentry from "sentry-expo";
 import { telemetry } from "./utils/telemetry";
 
-var initialRoute = "Screen1";
+let showFirstScreen = undefined;
 
 Sentry.init({
   dsn: "https://7bddb8945f1a4a2ab0e5ab1550f109f1@o1020761.ingest.sentry.io/5986303",
@@ -144,7 +144,9 @@ export default function App() {
   async function checkFirstTime() {
     const value = await AsyncStorage.getItem("@firstTime");
     if (value != null) {
-      initialRoute = "MainTab";
+      showFirstScreen = false;
+    } else {
+      showFirstScreen = true;
     }
   }
 
@@ -178,7 +180,6 @@ export default function App() {
   return (
     <NavigationContainer linking={linking}>
       <Stack.Navigator
-        initialRouteName={initialRoute}
         detachInactiveScreens={true}
         screenOptions={{
           headerStyle: {
@@ -194,96 +195,173 @@ export default function App() {
           cardStyleInterpolator: forSlide,
         }}
       >
-        <Stack.Screen
-          name="Screen1"
-          component={Screen1}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Screen2"
-          component={Screen2}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Screen3"
-          component={Screen3}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Screen4"
-          component={Screen4}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MainTab"
-          component={MainTab}
-          options={{
-            headerShown: false,
-            title: "Home",
-            headerTitle: "Home",
-          }}
-        />
-        <Stack.Screen
-          name="Verse Of The Week"
-          component={Verse}
-          options={{ headerShown: true }}
-        />
-        <Stack.Screen
-          name="Grade Calculator"
-          component={GPA4}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="PopCat"
-          component={PopCat}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="PopCat Leaderboard"
-          component={Popcat_Leaderboard}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="My Tasks"
-          component={Todo}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="Clicker"
-          component={Clicker}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="Tic Tac Toe"
-          component={TicTacToe}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="Contact Us"
-          component={Contact}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="Credits"
-          component={Credits}
-          options={{
-            headerShown: true,
-          }}
-        />
+        {showFirstScreen ? (
+          <>
+            <Stack.Screen
+              name="Screen1"
+              component={Screen1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Screen2"
+              component={Screen2}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Screen3"
+              component={Screen3}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Screen4"
+              component={Screen4}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="MainTab"
+              component={MainTab}
+              options={{
+                headerShown: false,
+                title: "Home",
+                headerTitle: "Home",
+              }}
+            />
+            <Stack.Screen
+              name="Verse Of The Week"
+              component={Verse}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Grade Calculator"
+              component={GPA4}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="PopCat"
+              component={PopCat}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="PopCat Leaderboard"
+              component={Popcat_Leaderboard}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="My Tasks"
+              component={Todo}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Clicker"
+              component={Clicker}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Tic Tac Toe"
+              component={TicTacToe}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Contact Us"
+              component={Contact}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Credits"
+              component={Credits}
+              options={{
+                headerShown: true,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="MainTab"
+              component={MainTab}
+              options={{
+                headerShown: false,
+                title: "Home",
+                headerTitle: "Home",
+              }}
+            />
+            <Stack.Screen
+              name="Verse Of The Week"
+              component={Verse}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Grade Calculator"
+              component={GPA4}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="PopCat"
+              component={PopCat}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="PopCat Leaderboard"
+              component={Popcat_Leaderboard}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="My Tasks"
+              component={Todo}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Clicker"
+              component={Clicker}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Tic Tac Toe"
+              component={TicTacToe}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Contact Us"
+              component={Contact}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Credits"
+              component={Credits}
+              options={{
+                headerShown: true,
+              }}
+            />
+          </>
+        )}
       </Stack.Navigator>
       <StatusBar style="light" />
     </NavigationContainer>
