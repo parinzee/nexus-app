@@ -79,11 +79,11 @@ export default function Credits() {
       </InfoTextContainer>
       <InfoTextContainer>
         <FrontText>Last Updated</FrontText>
-        <BackText>Jan 10 2022</BackText>
+        <BackText>Jan 31 2022</BackText>
       </InfoTextContainer>
       <InfoTextContainer>
         <FrontText>Version</FrontText>
-        <BackText>1.3.5</BackText>
+        <BackText>1.3.6</BackText>
       </InfoTextContainer>
       <Button
         title="Reset Data"

@@ -1,4 +1,4 @@
-![ShieldsBadge](https://img.shields.io/badge/Version-1.2.8-brightgreen?style=for-the-badge)
+![ShieldsBadge](https://img.shields.io/badge/Version-1.3.6-brightgreen?style=for-the-badge)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green?style=for-the-badge)
 
 # What is this?
