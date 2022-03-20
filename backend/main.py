@@ -97,7 +97,7 @@ def splitArr(arr: list, numToSplit: int):
 
 @app.get("/")
 def get():
-    return {"Status": True, "Version": "1.3.6"}
+    return {"Status": True, "Version": "1.3.6", "sportsday": True}
 
 
 @app.post("/pushNotification/")
